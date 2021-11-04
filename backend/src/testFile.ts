@@ -1,4 +1,4 @@
-import { sequelize } from './server';
+import sequelize from './utils/database';
 
 export async function test() {
   try {
