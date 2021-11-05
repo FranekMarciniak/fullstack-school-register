@@ -17,15 +17,12 @@ export const User = sequelize.define('user', {
   },
   firstName: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   lastName: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   school_group_id: {
     type: DataTypes.INTEGER,
-    allowNull: false,
   },
 });
 (async () => {

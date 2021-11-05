@@ -1,5 +1,6 @@
 import { PassportStatic } from 'passport';
-import { User } from './models/UserModel';
+import { User } from '../models/UserModel';
+const bcrypt = require('bcryptjs');
 const LocalStrategy = require('passport-local').Strategy;
 export default function (passport: PassportStatic) {
   passport.use(
@@ -10,13 +11,11 @@ export default function (passport: PassportStatic) {
     ) {
       try {
         const user = await User.findOne({ where: { username: username } });
-
         if (user == null) {
           return done(null, false, { message: 'Incorrect credentials' });
         }
-
         if (user.get('password') === password) {
-          return done(null, true, { message: 'Logged in' });
+          return done(null, user, { message: 'Logged in' });
         } else {
           return done(null, false, { message: 'Wrong password' });
         }
@@ -27,10 +26,12 @@ export default function (passport: PassportStatic) {
   );
 
   passport.serializeUser(function (user, done) {
+    console.log(user);
     done(null, user);
   });
 
   passport.deserializeUser(function (user: any, done) {
+    console.log(user);
     done(null, user);
   });
 }
