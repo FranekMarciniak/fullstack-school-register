@@ -5,6 +5,7 @@ const sequelize = new Sequelize('testdb', 'postgres', 'example', {
   dialect: 'postgres',
   port: 5431,
   logging: false,
+  omitNull: true,
 });
 
 export default sequelize;

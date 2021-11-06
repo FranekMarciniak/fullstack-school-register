@@ -47,8 +47,29 @@ app.post('/register', async (req, res, next) => {
   const password = req.body.password;
   const email = req.body.email;
   if (username && password && email) {
-    console.log(username, password, email);
-    res.send('looks cool');
+    try {
+      const user = await User.findOne({
+        where: {
+          [Op.or]: [{ username }, { email }],
+        },
+      });
+      if (user) res.send('User exists');
+
+      if (!user) {
+        const userToSave = User.build({
+          username,
+          email,
+          password,
+          firstName: 'franek',
+          lastName: 'Marciniak',
+          school_group_id: 1,
+        });
+        await userToSave.save();
+        res.send('User created!');
+      }
+    } catch (error) {
+      res.send(error);
+    }
   } else {
     res.send('missing credentials');
   }
