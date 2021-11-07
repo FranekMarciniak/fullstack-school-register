@@ -14,7 +14,11 @@ export default function (passport: PassportStatic) {
         if (user == null) {
           return done(null, false, { message: 'Incorrect credentials' });
         }
-        if (user.get('password') === password) {
+        const comparedPassword = await bcrypt.compare(
+          password,
+          user.get('password'),
+        );
+        if (comparedPassword) {
           return done(null, user, { message: 'Logged in' });
         } else {
           return done(null, false, { message: 'Wrong password' });
