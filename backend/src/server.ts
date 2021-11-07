@@ -2,6 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import session from 'express-session';
 import cors from 'cors';
+import bcrypt from 'bcryptjs';
 const { Op } = require('sequelize');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -56,6 +57,7 @@ app.post('/register', async (req, res, next) => {
       if (user) res.send('User exists');
 
       if (!user) {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const userToSave = User.build({
           username,
           email,
