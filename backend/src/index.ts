@@ -1,12 +1,11 @@
 import express from 'express';
 import passport from 'passport';
 import session from 'express-session';
-import cors from 'cors';
+// import cors from 'cors';
 import passportConfig from './utils/passport-config';
 import authRouter from './routes/auth';
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const router = express.Router();
 
 const app = express();
 const PORT = 4000;
@@ -28,6 +27,7 @@ passportConfig(passport);
 export { passport };
 
 app.use('/auth', authRouter);
+
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 
 app.listen(PORT, () => {

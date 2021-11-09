@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "nodemon src/server.ts",
+    "start": "nodemon src/index.ts",
     "build": "tsc"
   },
   "author": "",
@@ -45,6 +45,7 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "prettier": "^2.4.1",
-    "sequelize": "^6.9.0"
+    "sequelize": "^6.9.0",
+    "validator": "^13.7.0"
   }
 }
