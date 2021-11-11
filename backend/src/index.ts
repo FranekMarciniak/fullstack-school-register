@@ -4,12 +4,15 @@ import session from 'express-session';
 // import cors from 'cors';
 import passportConfig from './utils/passport-config';
 import authRouter from './routes/auth';
+import { Group } from './models/GroupModel';
+import { Course } from './models/CourseModel';
+import { User } from './models/UserModel';
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = 4000;
-
+console.log(User, Group, Course);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(

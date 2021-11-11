@@ -9,18 +9,18 @@ import {
   clientError,
   conflict,
   fail,
-  jsonResponse,
   notFound,
   succses,
 } from './BaseController';
 
+//REWRITE THIS MESS
 const createUser = async (req: express.Request, res: express.Response) => {
-  const username = req.body.username;
-  const password = validator.isLength(req.body.password, { min: 8, max: 48 })
-    ? req.body.password
-    : null;
-  const email = validator.isEmail(req.body.email) ? req.body.email : null;
-  if (username && password && email) {
+  const { username, password, email } = req.body;
+  if (
+    username &&
+    validator.isLength(req.body.password, { min: 8, max: 48 }) &&
+    validator.isEmail(req.body.email)
+  ) {
     try {
       const user = await User.findOne({
         where: {
@@ -44,9 +44,9 @@ const createUser = async (req: express.Request, res: express.Response) => {
   } else {
     if (!username && !password && !email) {
       clientError(res, 'Incorrect credentials');
-    } else if (!password) {
+    } else if (!validator.isLength(req.body.password, { min: 8, max: 48 })) {
       clientError(res, 'Password has to be at least 8 characters long');
-    } else if (!email) {
+    } else if (!validator.isEmail(req.body.email)) {
       clientError(res, 'Email is incorrect');
     }
   }
