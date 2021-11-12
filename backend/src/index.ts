@@ -7,12 +7,14 @@ import authRouter from './routes/auth';
 import { Group } from './models/GroupModel';
 import { Course } from './models/CourseModel';
 import { User } from './models/UserModel';
+import { Grade } from './models/GradeModel';
+import { Lesson } from './models/LessonModel';
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = 4000;
-console.log(User, Group, Course);
+console.log(User, Group, Course, Grade, Lesson);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
