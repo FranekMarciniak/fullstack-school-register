@@ -1,8 +1,7 @@
 import * as express from 'express';
 import bcrypt from 'bcryptjs';
-import validator from 'validator';
 import { Op } from 'sequelize';
-
+import { validationResult } from 'express-validator';
 import { passport } from '../index';
 import { User } from '../models/UserModel';
 import {
@@ -13,42 +12,32 @@ import {
   succses,
 } from './BaseController';
 
-//REWRITE THIS MESS
 const createUser = async (req: express.Request, res: express.Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return clientError(res, errors.array()[0].msg);
+  }
+
   const { username, password, email } = req.body;
-  if (
-    username &&
-    validator.isLength(req.body.password, { min: 8, max: 48 }) &&
-    validator.isEmail(req.body.email)
-  ) {
-    try {
-      const user = await User.findOne({
-        where: {
-          [Op.or]: [{ username }, { email }],
-        },
-      });
-      if (user) conflict(res, 'User already exists');
-      if (!user) {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const userToSave = User.build({
-          username,
-          email,
-          password: hashedPassword,
-        });
-        await userToSave.save();
-        succses(res, 201, 'User created!');
-      }
-    } catch (error) {
-      fail(res, error as Error);
+  try {
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [{ username }, { email }],
+      },
+    });
+    if (user) {
+      return conflict(res, 'User already exists');
     }
-  } else {
-    if (!username && !password && !email) {
-      clientError(res, 'Incorrect credentials');
-    } else if (!validator.isLength(req.body.password, { min: 8, max: 48 })) {
-      clientError(res, 'Password has to be at least 8 characters long');
-    } else if (!validator.isEmail(req.body.email)) {
-      clientError(res, 'Email is incorrect');
-    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const userToSave = User.build({
+      username,
+      email,
+      password: hashedPassword,
+    });
+    await userToSave.save();
+    return succses(res, 201, 'User created!');
+  } catch (error) {
+    return fail(res, error as Error);
   }
 };
 
