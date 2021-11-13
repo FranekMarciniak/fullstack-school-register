@@ -1,27 +1,26 @@
 import express from 'express';
-import AuthController from '../controllers/AuthController';
 import { AdminRoute } from '../middlewares/rolesMiddleware';
 import { body } from 'express-validator';
-import GroupController from '../controllers/GroupController';
+import GroupsController from '../controllers/GroupsController';
 
 const router = express.Router();
 
-router.get('/', AdminRoute, GroupController.getGroups);
+router.get('/', AdminRoute, GroupsController.getGroups);
 
 router.post(
   '/',
   AdminRoute,
   body('name').exists().withMessage('Name is required'),
-  GroupController.postGroup,
+  GroupsController.postGroup,
 );
 
-router.delete('/:id', AdminRoute, GroupController.deleteGroup);
+router.delete('/:id', AdminRoute, GroupsController.deleteGroup);
 
 router.put(
   '/:id',
   AdminRoute,
   body('name').exists().withMessage('Name is required'),
-  GroupController.editGroup,
+  GroupsController.editGroup,
 );
 
 export default router;

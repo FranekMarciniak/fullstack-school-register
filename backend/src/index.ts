@@ -5,6 +5,7 @@ import session from 'express-session';
 import passportConfig from './utils/passport-config';
 import authRouter from './routes/auth';
 import groupsRouter from './routes/groups';
+import coursesRouter from './routes/courses';
 import { Group } from './models/GroupModel';
 import { Course } from './models/CourseModel';
 import { User } from './models/UserModel';
@@ -34,7 +35,7 @@ export { passport };
 
 app.use('/auth', authRouter);
 app.use('/groups', groupsRouter);
-
+app.use('/courses', coursesRouter);
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 
 app.listen(PORT, () => {
