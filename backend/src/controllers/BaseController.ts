@@ -36,10 +36,19 @@ export const fail = (res: express.Response, error: Error | string) => {
     message: error.toString(),
   });
 };
-export const succses = (
+export const succsess = (
   res: express.Response,
   code: number,
   message: string,
 ) => {
   return res.status(code).json({ message });
+};
+
+export const succsesJson = (
+  res: express.Response,
+  code: number,
+  message: string,
+  result: object,
+) => {
+  return res.status(code).json({ message, result });
 };

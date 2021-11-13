@@ -9,7 +9,7 @@ import {
   conflict,
   fail,
   notFound,
-  succses,
+  succsess,
 } from './BaseController';
 
 const createUser = async (req: express.Request, res: express.Response) => {
@@ -35,7 +35,7 @@ const createUser = async (req: express.Request, res: express.Response) => {
       password: hashedPassword,
     });
     await userToSave.save();
-    return succses(res, 201, 'User created!');
+    return succsess(res, 201, 'User created!');
   } catch (error) {
     return fail(res, error as Error);
   }
@@ -52,7 +52,7 @@ const loginUser = (
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        succses(res, 200, 'Successfully Authenticated');
+        succsess(res, 200, 'Successfully Authenticated');
       });
     }
   })(req, res, next);
