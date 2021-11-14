@@ -48,7 +48,7 @@ export const succsesJson = (
   res: express.Response,
   code: number,
   message: string,
-  result: object,
+  data: object,
 ) => {
-  return res.status(code).json({ message, result });
+  return res.status(code).json({ message, data });
 };

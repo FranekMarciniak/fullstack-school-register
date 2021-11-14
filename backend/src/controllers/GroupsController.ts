@@ -41,7 +41,9 @@ const deleteGroup = async (req: express.Request, res: express.Response) => {
     }
     await groupToDelete.destroy();
     return succsess(res, 200, 'Group deleted');
-  } catch (error) {}
+  } catch (err) {
+    fail(res, err as Error);
+  }
 };
 
 const editGroup = async (req: express.Request, res: express.Response) => {

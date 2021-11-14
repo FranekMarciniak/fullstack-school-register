@@ -12,4 +12,7 @@ router.post(
   body('name').exists().withMessage('Name is required'),
   CoursesController.postCourse,
 );
+
+router.delete('/:id', CoursesController.deleteCourse);
+
 export default router;

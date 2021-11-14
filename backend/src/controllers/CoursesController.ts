@@ -38,4 +38,17 @@ const postCourse = async (req: express.Request, res: express.Response) => {
   }
 };
 
-export default { getCourses, postCourse };
+const deleteCourse = async (req: express.Request, res: express.Response) => {
+  try {
+    const courseToDelete = await Course.findByPk(req.params.id);
+    if (!courseToDelete) {
+      return notFound(res, 'Course not found');
+    }
+    await courseToDelete.destroy();
+    return succsess(res, 200, 'Course deleted');
+  } catch (err) {
+    return fail(res, err as Error);
+  }
+};
+
+export default { getCourses, postCourse, deleteCourse };
