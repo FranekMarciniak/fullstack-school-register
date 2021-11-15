@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "nodemon src/index.ts",
+    "start": "concurrently \"npm run watch:back\" \"npm run watch:front\"",
+    "watch:back": "nodemon src/index.ts",
+    "watch:front": "cd ../frontend && npm run start",
     "build": "tsc"
   },
   "author": "",

@@ -51,4 +51,21 @@ const deleteCourse = async (req: express.Request, res: express.Response) => {
   }
 };
 
-export default { getCourses, postCourse, deleteCourse };
+const editCourse = async (req: express.Request, res: express.Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return clientError(res, errors.array()[0].msg);
+  }
+  const { name, teacher_id, group_id } = req.body;
+  try {
+    const courseToUpdate = await Course.findByPk(req.params.id);
+    if (!courseToUpdate) {
+      return notFound(res, 'Course not found');
+    }
+    await courseToUpdate.update({ name, teacher_id, group_id });
+    return succsess(res, 200, 'Updated succsessfully');
+  } catch (err) {
+    return fail(res, err as Error);
+  }
+};
+export default { getCourses, postCourse, deleteCourse, editCourse };
