@@ -7,7 +7,7 @@
     "test": "mocha",
     "start": "concurrently \"npm run watch:back\" \"npm run watch:front\"",
     "watch:back": "nodemon src/index.ts",
-    "watch:front": "cd ../frontend && npm run start",
+    "watch:front": "cd ../frontend && npm run dev",
     "build": "tsc"
   },
   "author": "",
