@@ -3,3 +3,7 @@
 @tailwind components;
 
 @tailwind utilities;
+:root {
+  --secondary: #a4a4ad;
+  --white: #ffffff;
+}

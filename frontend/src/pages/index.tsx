@@ -1,14 +1,13 @@
-import { useRouter } from "next/router";
+import React from "react";
 
 import { Meta } from "../layout/Meta";
+import Main from "../templates/Main";
 
 const Index = () => {
-  const router = useRouter();
-
   return (
-    <div>
-      <Meta title="Mars" description="" />
-    </div>
+    <Main meta={<Meta title="Mars" description="" />}>
+      <h1>Hello World</h1>
+    </Main>
   );
 };
 
