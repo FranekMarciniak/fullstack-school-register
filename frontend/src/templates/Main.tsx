@@ -7,15 +7,17 @@ type IMainProps = {
 
 const Main = (props: IMainProps) => {
   const navOptions = [
-    { text: "Open", href: "#" },
-    { text: "Open", href: "#" },
-    { text: "Open", href: "#" },
+    { text: "Home", href: "/" },
+    { text: "Login", href: "/login/" },
+    { text: "Open", href: "/about/" },
   ];
   return (
     <div className="antialiased w-full flex flex-wrap flex-row">
       {props.meta}
       <Navbar navOptions={navOptions} />
-      {props.children}
+      <main className="w-full md:w-9/12 h-full flex justify-center items-center">
+        {props.children}
+      </main>
     </div>
   );
 };

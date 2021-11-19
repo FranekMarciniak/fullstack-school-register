@@ -3,12 +3,13 @@ import Link from "next/link";
 interface INavButton {
   href: string;
   text: string;
-  active: boolean;
+  navState: string;
   setState: () => void;
 }
 
 import { MdPermIdentity } from "react-icons/md";
-const NavButton = ({ href, text, active = false, setState }: INavButton) => {
+const NavButton = ({ href, text, setState, navState }: INavButton) => {
+  const active = href === navState ? true : false;
   return (
     <Link href={href}>
       <a

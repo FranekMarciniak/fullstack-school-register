@@ -3,11 +3,17 @@ import MobileNavbar from "../components/MobileNav";
 import DesktopNavbar from "../components/DesktopNav";
 import NavButton from "../components/NavButton";
 import HamburgerButton from "../components/buttons/HamburgerButton";
+import { useRouter } from "next/router";
 type Props = {
   navOptions: { text: string; href: string }[];
 };
 const Navbar = ({ navOptions }: Props) => {
-  const [navState, setNavState] = useState({ open: true, section: 0 });
+  const router = useRouter();
+  const [navState, setNavState] = useState({
+    open: false,
+    section: router.asPath,
+  });
+  console.log(router.asPath);
   return (
     <>
       <DesktopNavbar>
@@ -15,8 +21,8 @@ const Navbar = ({ navOptions }: Props) => {
           <NavButton
             href={ele.href}
             text={ele.text}
-            active={i === navState.section ? true : false}
-            setState={() => setNavState({ section: i, open: false })}
+            navState={navState.section}
+            setState={() => setNavState({ section: ele.href, open: false })}
             key={i}
           />
         ))}
@@ -26,8 +32,8 @@ const Navbar = ({ navOptions }: Props) => {
           <NavButton
             href={ele.href}
             text={ele.text}
-            active={i === navState.section ? true : false}
-            setState={() => setNavState({ section: i, open: false })}
+            navState={navState.section}
+            setState={() => setNavState({ section: ele.href, open: false })}
             key={i}
           />
         ))}

@@ -40,6 +40,8 @@ app.use('/groups', groupsRouter);
 app.use('/courses', coursesRouter);
 app.use('/hours', hoursRouter);
 app.use('/classrooms', classroomsRouter);
+app.use('/lessons', hoursRouter);
+
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 
 app.listen(PORT, () => {
