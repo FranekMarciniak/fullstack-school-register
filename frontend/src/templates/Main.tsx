@@ -6,20 +6,14 @@ type IMainProps = {
   meta: ReactNode;
   children: ReactNode;
 };
-export const navOptions = [
-  { text: "Home", href: "/" },
-  { text: "Login", href: "/login/" },
-  { text: "Open", href: "/about/" },
-];
+
 const Main = (props: IMainProps) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const start = () => {
-      console.log("start");
       setLoading(true);
     };
     const end = () => {
-      console.log("findished");
       setLoading(false);
     };
     Router.events.on("routeChangeStart", start);
@@ -34,7 +28,7 @@ const Main = (props: IMainProps) => {
   return (
     <div className="antialiased w-full flex flex-wrap flex-row">
       {props.meta}
-      <Navbar navOptions={navOptions} />
+      <Navbar />
       <main className="w-full md:w-9/12 h-full flex justify-center items-center">
         {loading ? <Loading /> : props.children}
       </main>

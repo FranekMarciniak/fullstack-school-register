@@ -15,5 +15,5 @@ router.post(
   body('password').isLength({ min: 8 }).withMessage('Password is too short'),
   AuthController.createUser,
 );
-
+router.delete('/', AuthController.logout);
 export default router;

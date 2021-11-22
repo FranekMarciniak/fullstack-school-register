@@ -31,7 +31,6 @@ export const conflict = (res: express.Response, message?: string) => {
   return jsonResponse(res, 409, message ? message : 'Conflict');
 };
 export const fail = (res: express.Response, error: Error | string) => {
-  console.log(error);
   return res.status(500).json({
     message: error.toString(),
   });

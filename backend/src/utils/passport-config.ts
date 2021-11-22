@@ -30,12 +30,10 @@ export default function (passport: PassportStatic) {
   );
 
   passport.serializeUser(function (user, done) {
-    console.log(user);
     done(null, user);
   });
 
   passport.deserializeUser(function (user: any, done) {
-    console.log(user);
     done(null, user);
   });
 }

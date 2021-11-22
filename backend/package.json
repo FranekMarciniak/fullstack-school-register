@@ -36,6 +36,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "concurrently": "^6.4.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "4.17.1",
@@ -48,6 +49,7 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "prettier": "^2.4.1",
-    "sequelize": "^6.9.0"
+    "sequelize": "^6.9.0",
+    "swr": "^1.0.1"
   }
 }

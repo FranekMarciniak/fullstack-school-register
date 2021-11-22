@@ -1,5 +1,8 @@
 import React from "react";
+
 import Link from "next/link";
+import { MdPermIdentity } from "react-icons/md";
+
 interface INavButton {
   href: string;
   text: string;
@@ -7,9 +10,8 @@ interface INavButton {
   setState: () => void;
 }
 
-import { MdPermIdentity } from "react-icons/md";
 const NavButton = ({ href, text, setState, navState }: INavButton) => {
-  const active = href === navState ? true : false;
+  const active = href === navState || href === `${navState}/` ? true : false;
   return (
     <Link href={href}>
       <a

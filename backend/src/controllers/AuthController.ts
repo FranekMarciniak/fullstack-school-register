@@ -52,7 +52,7 @@ const loginUser = (
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        succsess(res, 200, 'Successfully Authenticated');
+        res.status(200).json(user);
       });
     }
   })(req, res, next);
@@ -66,4 +66,13 @@ const getUser = (req: express.Request, res: express.Response) => {
   }
 };
 
-export default { createUser, loginUser, getUser };
+const logout = (req: express.Request, res: express.Response) => {
+  req.logOut();
+  res.status(200).clearCookie('connect.sid', {
+    path: '/',
+  });
+  req.session.destroy(function (err) {
+    return succsess(res, 200, 'Deleted session');
+  });
+};
+export default { createUser, loginUser, getUser, logout };

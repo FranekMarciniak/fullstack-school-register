@@ -1,4 +1,4 @@
-//Hamburger is taken from this tutorial https://konradstaniszewski.com/blog/tailwind-hamburger full credits
+// Hamburger is taken from this tutorial https://konradstaniszewski.com/blog/tailwind-hamburger full credits
 import React from "react";
 
 interface Props {

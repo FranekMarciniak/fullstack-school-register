@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import session from 'express-session';
-// import cors from 'cors';
+import cors from 'cors';
 import passportConfig from './utils/passport-config';
 import authRouter from './routes/auth';
 import groupsRouter from './routes/groups';
@@ -19,6 +19,12 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 4000;
 console.log(User, Group, Course, Grade, Lesson);
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }),
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
@@ -35,12 +41,12 @@ app.use(passport.session());
 passportConfig(passport);
 export { passport };
 
-app.use('/auth', authRouter);
-app.use('/groups', groupsRouter);
-app.use('/courses', coursesRouter);
-app.use('/hours', hoursRouter);
-app.use('/classrooms', classroomsRouter);
-app.use('/lessons', hoursRouter);
+app.use('/api/sessions', authRouter);
+app.use('/api/groups', groupsRouter);
+app.use('/api/courses', coursesRouter);
+app.use('/api/hours', hoursRouter);
+app.use('/api/classrooms', classroomsRouter);
+app.use('/api/lessons', hoursRouter);
 
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 

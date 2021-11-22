@@ -5,7 +5,7 @@ import GroupsController from '../controllers/GroupsController';
 
 const router = express.Router();
 
-router.get('/', AdminRoute, GroupsController.getGroups);
+router.get('/', GroupsController.getGroups);
 
 router.post(
   '/',
