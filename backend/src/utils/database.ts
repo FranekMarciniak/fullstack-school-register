@@ -25,7 +25,10 @@ if (environment === 'development') {
     },
   );
 } else if (environment === 'production') {
-  sequelize = new Sequelize(process.env.DATABASE_URL || '');
+  sequelize = new Sequelize(process.env.DATABASE_URL || '', {
+    dialect: 'postgres',
+    ssl: true,
+  });
 }
 
 export default sequelize;
