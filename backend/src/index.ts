@@ -14,8 +14,10 @@ import { Course } from './models/CourseModel';
 import { User } from './models/UserModel';
 import { Grade } from './models/GradeModel';
 import { Lesson } from './models/LessonModel';
+import sequelize from './utils/database';
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 dotenv.config();
 const app = express();
@@ -32,7 +34,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.SECRET_KEY || 'secret',
-    resave: true,
+    store: new SequelizeStore({
+      db: sequelize,
+    }),
+    resave: false,
+    proxy: true,
     saveUninitialized: true,
   }),
 );

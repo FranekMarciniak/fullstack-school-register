@@ -40,5 +40,5 @@ User.belongsTo(Group, { foreignKey: 'group_id' });
 
 (async () => {
   // await sequelize.drop({ cascade: true });
-  await sequelize.sync({ force: true });
+  await sequelize.sync();
 })();
