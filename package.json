@@ -1,0 +1,19 @@
+{
+  "name": "mars-school-register",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "heroku-prebuild": "cd backend && npm install && npm run build && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FranekMarciniak/unnamed-school-register.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FranekMarciniak/unnamed-school-register/issues"
+  },
+  "homepage": "https://github.com/FranekMarciniak/unnamed-school-register#readme"
+}
