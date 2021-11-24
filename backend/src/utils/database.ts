@@ -25,9 +25,7 @@ if (environment === 'development') {
     },
   );
 } else if (environment === 'production') {
-  sequelize = new Sequelize(
-    'postgres://xrkaxxrvaeuulj:6befeb32a81f828169ae54137db08852caa94e27cd82992cd16d6b7c768bf5b3@ec2-34-255-134-200.eu-west-1.compute.amazonaws.com:5432/d87to7r7oucno6',
-  );
+  sequelize = new Sequelize(process.env.DATABASE_URL || '');
 }
 
 export default sequelize;
