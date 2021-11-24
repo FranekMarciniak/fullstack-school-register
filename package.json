@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/FranekMarciniak/unnamed-school-register/issues"
   },
-  "homepage": "https://github.com/FranekMarciniak/unnamed-school-register#readme"
+  "homepage": "https://github.com/FranekMarciniak/unnamed-school-register#readme",
+  "engines": {
+    "node": "16.x"
+  }
 }

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "test": "mocha",
     "dev": "concurrently \"npm run watch:back\" \"npm run watch:front\"",
