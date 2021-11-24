@@ -28,6 +28,12 @@ if (environment === 'development') {
   sequelize = new Sequelize(process.env.DATABASE_URL || '', {
     dialect: 'postgres',
     ssl: true,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   });
 }
 
