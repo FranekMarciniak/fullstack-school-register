@@ -28,6 +28,8 @@ if (environment === 'development') {
   sequelize = new Sequelize(process.env.DATABASE_URL || '', {
     dialect: 'postgres',
     ssl: true,
+    omitNull: true,
+    logging: false,
     dialectOptions: {
       ssl: {
         require: true,
