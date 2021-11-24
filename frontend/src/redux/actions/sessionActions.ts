@@ -11,7 +11,7 @@ export const loginAction = (user: ILoginForm) => async (dispatch: Dispatch) => {
         ...user,
       },
       withCredentials: true,
-      url: "http://localhost:4000/api/sessions",
+      url: "/api/sessions",
     });
     dispatch({ type: SET_USER, payload: res.data });
   } catch (err: any) {
@@ -29,7 +29,7 @@ export const checkUserAction = () => async (dispatch: Dispatch) => {
     const res = await axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:4000/api/sessions",
+      url: "/api/sessions",
     });
     dispatch({ type: SET_USER, payload: res.data });
   } catch (err: any) {
@@ -46,7 +46,7 @@ export const logoutAction = () => async (dispatch: Dispatch) => {
   axios({
     method: "DELETE",
     withCredentials: true,
-    url: "http://localhost:4000/api/sessions",
+    url: "/api/sessions",
   })
     .then(() => dispatch({ type: CLEAR_USER }))
     .catch((error: any) =>
