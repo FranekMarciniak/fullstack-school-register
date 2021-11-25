@@ -21,6 +21,8 @@ const Navbar = ({ role }: { role?: string | null }) => {
         return notLoggedInNavOptions;
       case "admin":
         return adminNavOptions;
+      case "student":
+        return adminNavOptions;
       default:
         return notLoggedInNavOptions;
     }
