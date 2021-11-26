@@ -38,6 +38,9 @@ module.exports = {
       colors: {
         font: {
           100: "#A4A4AD",
+          200: "#61616B",
+          300: "#303036",
+          400: "#1D1D20",
         },
         gray: {
           100: "#f7fafc",

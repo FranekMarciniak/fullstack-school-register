@@ -2,6 +2,7 @@ import React from "react";
 
 import { Meta } from "../layout/Meta";
 import Main from "../templates/Main";
+import Routes from "../utils/Routes";
 
 const Index = () => {
   return (
@@ -11,4 +12,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Routes.withoutAuth(Index);

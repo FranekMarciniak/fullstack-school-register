@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import passportConfig from './utils/passport-config';
 import authRouter from './routes/auth';
+import usersRoutes from './routes/users';
 import groupsRouter from './routes/groups';
 import coursesRouter from './routes/courses';
 import hoursRouter from './routes/hours';
@@ -50,12 +51,12 @@ passportConfig(passport);
 export { passport };
 
 app.use('/api/sessions', authRouter);
+app.use('/api/users', usersRoutes);
 app.use('/api/groups', groupsRouter);
 app.use('/api/courses', coursesRouter);
 app.use('/api/hours', hoursRouter);
 app.use('/api/classrooms', classroomsRouter);
 app.use('/api/lessons', hoursRouter);
-
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 
 app.listen(PORT, () => {

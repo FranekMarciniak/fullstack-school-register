@@ -29,9 +29,9 @@ const Main = (props: IMainProps) => {
     <div className="antialiased w-full flex flex-wrap flex-row">
       {props.meta}
       <Navbar />
-      <main className="w-full md:w-9/12 h-full flex justify-center items-center">
+      <div className="w-full md:w-9/12 h-full flex justify-center items-center">
         {loading ? <Loading /> : props.children}
-      </main>
+      </div>
     </div>
   );
 };

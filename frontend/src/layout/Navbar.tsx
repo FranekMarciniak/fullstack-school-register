@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import MobileNavbar from "../components/MobileNav";
 import DesktopNavbar from "../components/DesktopNav";
 import NavButton from "../components/buttons/NavButton";
-import LogoutButton from "../components/buttons/Logout";
+import LogoutButton from "../components/buttons/LogoutButton";
 import HamburgerButton from "../components/buttons/HamburgerButton";
 import { useRouter } from "next/router";
-import { notLoggedInNavOptions, adminNavOptions } from "../utils/navOptions";
+import {
+  notLoggedInNavOptions,
+  adminNavOptions,
+  studentNavOptions,
+} from "../utils/navOptions";
 import { connect } from "react-redux";
 import { IGlobalState } from "../types/global";
 
@@ -22,7 +26,7 @@ const Navbar = ({ role }: { role?: string | null }) => {
       case "admin":
         return adminNavOptions;
       case "student":
-        return adminNavOptions;
+        return studentNavOptions;
       default:
         return notLoggedInNavOptions;
     }

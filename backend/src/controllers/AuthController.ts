@@ -1,45 +1,6 @@
 import * as express from 'express';
-import bcrypt from 'bcryptjs';
-import { Op } from 'sequelize';
-import { validationResult } from 'express-validator';
 import { passport } from '../index';
-import { User } from '../models/UserModel';
-import {
-  clientError,
-  conflict,
-  fail,
-  notFound,
-  succsess,
-} from './BaseController';
-
-const createUser = async (req: express.Request, res: express.Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return clientError(res, errors.array()[0].msg);
-  }
-
-  const { username, password, email } = req.body;
-  try {
-    const user = await User.findOne({
-      where: {
-        [Op.or]: [{ username }, { email }],
-      },
-    });
-    if (user) {
-      return conflict(res, 'User already exists');
-    }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const userToSave = User.build({
-      username,
-      email,
-      password: hashedPassword,
-    });
-    await userToSave.save();
-    return succsess(res, 201, 'User created!');
-  } catch (error) {
-    return fail(res, error as Error);
-  }
-};
+import { notFound, succsess } from './BaseController';
 
 const loginUser = (
   req: express.Request,
@@ -75,4 +36,4 @@ const logout = (req: express.Request, res: express.Response) => {
     return succsess(res, 200, 'Deleted session');
   });
 };
-export default { createUser, loginUser, getUser, logout };
+export default { loginUser, getUser, logout };

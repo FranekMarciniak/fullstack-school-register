@@ -19,7 +19,7 @@ const Logged =
   (props: any) => {
     const { role, ...rest } = props;
     if (role && typeof window !== "undefined") {
-      Router.push("/");
+      Router.push(`/${role}/`);
     }
     return <Component {...rest} />;
   };
