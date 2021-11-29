@@ -23,7 +23,7 @@ const initialState = {
   user: emptyUser,
 };
 
-const globalReducer = (state: IGlobalState, action: any) => {
+const globalReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SET_USER:
       return { ...state, user: action.payload };
@@ -38,7 +38,7 @@ const globalReducer = (state: IGlobalState, action: any) => {
       return { ...state, errors: null };
     }
     default:
-      return initialState;
+      return state;
   }
 };
 export default globalReducer;

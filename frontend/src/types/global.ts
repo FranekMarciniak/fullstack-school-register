@@ -15,6 +15,18 @@ export interface IGlobalState {
   errors: string;
   user: IUser;
 }
+export interface IFetchedUser {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+}
+export interface IAdminState {
+  loading: boolean;
+  errors: string;
+  users: IFetchedUser[] | [];
+}
 export interface ILoginForm {
   username: string;
   password: string;

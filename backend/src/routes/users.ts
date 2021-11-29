@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.get('/', AdminRoute, UsersController.getUsers);
 
+router.get('/teachers', AdminRoute, UsersController.getTeachers);
+
 router.post(
   '/',
   AdminRoute,

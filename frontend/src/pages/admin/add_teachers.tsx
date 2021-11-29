@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+
 import { Meta } from "../../layout/Meta";
+import { getTeachersAction } from "../../redux/actions/adminActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import Input from "../../components/Input";
-const Add_teachers = () => {
+import SubmitButton from "../../components/buttons/SubmitButton";
+
+const Add_teachers = ({ getTeachersAction, admin }: any) => {
+  useEffect(() => getTeachersAction(), []);
+  console.log(admin);
   const [search, setSearch] = useState("");
-  console.log(search);
   const [formState, setFormState] = useState({
     username: "",
     password: "",
@@ -13,14 +19,12 @@ const Add_teachers = () => {
     firstName: "",
     lastName: "",
   });
+
   return (
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
         <main className="w-full h-full flex flex-col lg:flex-row flex-wrap items-center lg:items-baseline ">
-          <h1 className="text-4xl  w-full font-semibold text-font-200 text-center">
-            Manage your teachers
-          </h1>
-          <section className="w-full h-full lg:w-1/2 py-5 px-2 flex flex-col">
+          <section className="w-full max-h-full lg:w-1/2  px-2 flex flex-col ">
             <h2 className="text-2xl text-center font-semibold text-font-200 ">
               Search teacher
             </h2>
@@ -31,37 +35,11 @@ const Add_teachers = () => {
                 onChange={(e) => setSearch(e.target.value)}
               ></Input>
             </form>
-            <div className="h-96 lg:flex-grow flex overflow-y-auto">
+            <div className=" lg:flex-grow flex overflow-y-scroll">
               <ul className="list-none">
-                <li className="list-none">HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
-                <li>HELLO WORLD</li>
+                {admin.teachers.map((teacher) => (
+                  <li>{JSON.stringify(teacher)}</li>
+                ))}
               </ul>
             </div>
           </section>
@@ -71,12 +49,44 @@ const Add_teachers = () => {
                 Create a teacher account
               </h2>
               <Input
-                name="username"
+                name="Username"
                 placeholder="Teachers username"
                 onChange={(e) =>
                   setFormState({ ...formState, username: e.target.value })
                 }
               />
+              <Input
+                name="firstName"
+                label="First name"
+                placeholder="Teachers first name"
+                onChange={(e) =>
+                  setFormState({ ...formState, firstName: e.target.value })
+                }
+              />
+              <Input
+                name="lastName"
+                label="Last name"
+                placeholder="Teachers last name"
+                onChange={(e) =>
+                  setFormState({ ...formState, lastName: e.target.value })
+                }
+              />
+              <Input
+                name="Email"
+                placeholder="Teachers email"
+                onChange={(e) =>
+                  setFormState({ ...formState, email: e.target.value })
+                }
+              />
+              <Input
+                name="Password"
+                placeholder="Teachers password"
+                onChange={(e) =>
+                  setFormState({ ...formState, password: e.target.value })
+                }
+                type="password"
+              />
+              <SubmitButton text="Create teacher" />
             </form>
           </section>
         </main>
@@ -84,4 +94,11 @@ const Add_teachers = () => {
     </Main>
   );
 };
-export default Routes.withRole(Add_teachers, "admin");
+const mapStateToProps = ({ admin }: any) => ({
+  admin: admin,
+});
+
+const ConnectedComponent = connect(mapStateToProps, { getTeachersAction })(
+  Add_teachers
+);
+export default ConnectedComponent;

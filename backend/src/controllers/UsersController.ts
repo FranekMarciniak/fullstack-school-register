@@ -105,4 +105,23 @@ const editUser = async (req: express.Request, res: express.Response) => {
   }
 };
 
-export default { getUsers, getUser, deleteUser, editUser, createUser };
+const getTeachers = async (req: express.Request, res: express.Response) => {
+  try {
+    const allTeachers = await User.findAll({
+      where: { role: 'teacher' },
+      attributes: ['id', 'username', 'email', 'firstName', 'lastName', 'role'],
+    });
+    return res.status(200).json(allTeachers);
+  } catch (err) {
+    fail(res, err as Error);
+  }
+};
+
+export default {
+  getTeachers,
+  getUsers,
+  getUser,
+  deleteUser,
+  editUser,
+  createUser,
+};
