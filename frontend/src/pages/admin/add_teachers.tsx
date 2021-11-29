@@ -7,6 +7,7 @@ import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import Input from "../../components/Input";
 import SubmitButton from "../../components/buttons/SubmitButton";
+import TeachersCard from "../../components/TeachersCard";
 
 const Add_teachers = ({ getTeachersAction, admin }: any) => {
   useEffect(() => getTeachersAction(), []);
@@ -35,11 +36,9 @@ const Add_teachers = ({ getTeachersAction, admin }: any) => {
                 onChange={(e) => setSearch(e.target.value)}
               ></Input>
             </form>
-            <div className=" lg:flex-grow flex overflow-y-scroll">
-              <ul className="list-none">
-                {admin.teachers.map((teacher) => (
-                  <li>{JSON.stringify(teacher)}</li>
-                ))}
+            <div className=" lg:flex-grow flex overflow-y-scroll overflow-x-hidden w-full">
+              <ul className="list-none w-full">
+                <TeachersCard open={false}></TeachersCard>
               </ul>
             </div>
           </section>

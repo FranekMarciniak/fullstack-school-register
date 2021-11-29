@@ -15,7 +15,7 @@ export const getTeachersAction = () => async (dispatch: Dispatch) => {
     const res = await axios({
       method: "GET",
       withCredentials: true,
-      url: "/api/users",
+      url: "/api/users/teachers",
     });
     console.log(res);
     dispatch({ type: RECIVE_TEACHERS, payload: res.data });
