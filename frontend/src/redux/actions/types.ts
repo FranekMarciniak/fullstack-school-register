@@ -1,4 +1,5 @@
 export const SET_USER = "SET_USER";
+export const ADD_TEACHER = "ADD_TEACHER";
 export const CLEAR_USER = "CLEAR_USER";
 export const RECIVE_USERS = "RECIVE_USERS";
 export const CLEAR_USERS = "CLEAR_USERS";

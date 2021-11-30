@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import { Meta } from "../../layout/Meta";
-import { getTeachersAction } from "../../redux/actions/adminActions";
+import {
+  getTeachersAction,
+  createUserAction,
+} from "../../redux/actions/adminActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import Input from "../../components/Input";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import TeachersCard from "../../components/TeachersCard";
 
-const Add_teachers = ({ getTeachersAction, admin }: any) => {
+const Add_teachers = ({ getTeachersAction, createUserAction, admin }: any) => {
   useEffect(() => getTeachersAction(), []);
 
   const [search, setSearch] = useState("");
@@ -20,6 +23,10 @@ const Add_teachers = ({ getTeachersAction, admin }: any) => {
     firstName: "",
     lastName: "",
   });
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    createUserAction(formState, "teacher");
+  };
 
   return (
     <Main meta={<Meta title="Mars" description="" />}>
@@ -43,7 +50,7 @@ const Add_teachers = ({ getTeachersAction, admin }: any) => {
             </div>
           </section>
           <section className="w-full lg:w-1/2 py-5 px-2 ">
-            <form>
+            <form onSubmit={handleSubmit}>
               <h2 className="text-2xl text-center font-semibold text-font-200 ">
                 Create a teacher account
               </h2>
@@ -97,7 +104,8 @@ const mapStateToProps = ({ admin }: any) => ({
   admin: admin,
 });
 
-const ConnectedComponent = connect(mapStateToProps, { getTeachersAction })(
-  Add_teachers
-);
-export default ConnectedComponent;
+const ConnectedComponent = connect(mapStateToProps, {
+  getTeachersAction,
+  createUserAction,
+})(Add_teachers);
+export default Routes.withRole(ConnectedComponent, "admin");
