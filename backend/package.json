@@ -12,7 +12,7 @@
     "create-admin": "ts-node build/scripts/createAdmin.ts",
     "watch:back": "nodemon src/index.ts",
     "watch:front": "cd ../frontend && npm run dev",
-    "push-all": "git push && cd .. && git subtree push  --prefix backend/ heroku master",
+    "push-all": "cd .. && git push && git subtree push  --prefix backend/ heroku master",
     "build": "tsc",
     "start": "node build/index.js"
   },

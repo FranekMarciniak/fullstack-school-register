@@ -7,7 +7,7 @@ interface Props {
 
 function DesktopNavbar({ children }: Props): ReactElement {
   return (
-    <nav className="border-r-2 border-gray-300 top-0 hidden md:flex flex-col items-center w-3/12 h-screen rounded-r-sm  xl:max-w-1/12">
+    <nav className="border-r-2 border-gray-300 top-0 hidden md:flex flex-col items-center w-3/12 h-screen rounded-r-sm  xl:max-w-1/12 3xl:max-w-96">
       {children}
     </nav>
   );

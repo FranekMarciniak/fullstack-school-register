@@ -11,7 +11,7 @@ import TeachersCard from "../../components/TeachersCard";
 
 const Add_teachers = ({ getTeachersAction, admin }: any) => {
   useEffect(() => getTeachersAction(), []);
-  console.log(admin);
+
   const [search, setSearch] = useState("");
   const [formState, setFormState] = useState({
     username: "",
