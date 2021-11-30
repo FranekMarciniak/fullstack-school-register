@@ -28,7 +28,7 @@ const createUser = async (req: express.Request, res: express.Response) => {
     return clientError(res, errors.array()[0].msg);
   }
 
-  const { username, password, email } = req.body;
+  const { username, password, email, firstName, lastName, role } = req.body;
   try {
     const user = await User.findOne({
       where: {
@@ -43,6 +43,9 @@ const createUser = async (req: express.Request, res: express.Response) => {
       username,
       email,
       password: hashedPassword,
+      firstName,
+      lastName,
+      role: role ? role : 'student',
     });
     await userToSave.save();
     return succsess(res, 201, 'User created!');

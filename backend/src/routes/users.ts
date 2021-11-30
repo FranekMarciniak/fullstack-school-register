@@ -14,6 +14,8 @@ router.post(
   AdminRoute,
   body('email').isEmail().withMessage('Email is incorrect'),
   body('username').exists().withMessage('Username is required'),
+  body('firstName').exists().withMessage('First name is required'),
+  body('lastName').exists().withMessage('Last name is required'),
   body('password').isLength({ min: 8 }).withMessage('Password is too short'),
   UsersController.createUser,
 );
