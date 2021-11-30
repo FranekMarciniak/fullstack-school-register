@@ -41,6 +41,7 @@ const LoginPage = ({
               onChange={(e) =>
                 setLoginState({ ...loginState, username: e.target.value })
               }
+              value={loginState.username}
             />
             <Input
               name="password"
@@ -49,6 +50,7 @@ const LoginPage = ({
               onChange={(e) =>
                 setLoginState({ ...loginState, password: e.target.value })
               }
+              value={loginState.password}
             />
             <Submit text="Login" />
           </fieldset>

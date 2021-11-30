@@ -11,7 +11,6 @@ export interface IUser {
   group_id: number;
 }
 export interface IGlobalState {
-  loading: boolean;
   errors: string;
   user: IUser;
 }
@@ -23,8 +22,8 @@ export interface IFetchedUser {
   role: string;
 }
 export interface IAdminState {
-  loading: boolean;
-  errors: string;
+  errors?: string;
+  message?: string;
   users: IFetchedUser[] | [];
 }
 export interface ILoginForm {

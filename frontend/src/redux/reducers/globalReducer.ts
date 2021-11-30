@@ -1,4 +1,3 @@
-import { IGlobalState } from "../../types/global";
 import {
   SET_USER,
   ADD_ERROR,
@@ -18,7 +17,6 @@ const emptyUser = {
   group_id: null,
 };
 const initialState = {
-  loading: false,
   errors: null,
   user: emptyUser,
 };

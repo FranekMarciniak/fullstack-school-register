@@ -5,6 +5,7 @@ interface Props {
   type?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
+  value: string;
 }
 function Input({
   name,
@@ -12,6 +13,7 @@ function Input({
   type = "text",
   onChange,
   label,
+  value,
 }: Props): ReactElement {
   const labelStyles = "block text-gray-700 text-sm font-bold mb-2 w-full";
   const inputStyles =
@@ -22,6 +24,7 @@ function Input({
       <input
         type={type}
         name={name}
+        value={value}
         placeholder={placeholder}
         className={inputStyles}
         onChange={onChange}

@@ -5,16 +5,30 @@ import { Meta } from "../../layout/Meta";
 import {
   getTeachersAction,
   createUserAction,
+  addErrorAction,
 } from "../../redux/actions/adminActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import Input from "../../components/Input";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import TeachersCard from "../../components/TeachersCard";
+import Alert from "../../components/Alert";
+import { IAdminState, IFetchedUser } from "../../types/global";
 
-const Add_teachers = ({ getTeachersAction, createUserAction, admin }: any) => {
+interface Props {
+  getTeachersAction: () => void;
+  createUserAction: () => void;
+  addErrorAction: () => void;
+  admin: IAdminState;
+}
+
+const Add_teachers = ({
+  getTeachersAction,
+  createUserAction,
+  admin,
+  addErrorAction,
+}: Props) => {
   useEffect(() => getTeachersAction(), []);
-
   const [search, setSearch] = useState("");
   const [formState, setFormState] = useState({
     username: "",
@@ -23,11 +37,22 @@ const Add_teachers = ({ getTeachersAction, createUserAction, admin }: any) => {
     firstName: "",
     lastName: "",
   });
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createUserAction(formState, "teacher");
+    if (
+      formState.username &&
+      formState.password &&
+      formState.email &&
+      formState.firstName &&
+      formState.lastName
+    ) {
+      createUserAction(formState, "teacher");
+    } else {
+      // console.log("d");
+      //rest of the validation is done by the api
+      addErrorAction("Please fill the form");
+    }
   };
-
   return (
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
@@ -41,11 +66,14 @@ const Add_teachers = ({ getTeachersAction, createUserAction, admin }: any) => {
                 name="teachers"
                 placeholder="Search for the teacher"
                 onChange={(e) => setSearch(e.target.value)}
+                value={search}
               ></Input>
             </form>
             <div className=" lg:flex-grow flex overflow-y-scroll overflow-x-hidden w-full">
               <ul className="list-none w-full">
-                <TeachersCard open={false}></TeachersCard>
+                {admin.teachers.map((teacher: IFetchedUser) => (
+                  <TeachersCard user={teacher} open={false} />
+                ))}
               </ul>
             </div>
           </section>
@@ -54,12 +82,14 @@ const Add_teachers = ({ getTeachersAction, createUserAction, admin }: any) => {
               <h2 className="text-2xl text-center font-semibold text-font-200 ">
                 Create a teacher account
               </h2>
+              {admin.errors && <Alert text={admin.errors} color="danger" />}
               <Input
                 name="Username"
                 placeholder="Teachers username"
                 onChange={(e) =>
                   setFormState({ ...formState, username: e.target.value })
                 }
+                value={formState.username}
               />
               <Input
                 name="firstName"
@@ -68,6 +98,7 @@ const Add_teachers = ({ getTeachersAction, createUserAction, admin }: any) => {
                 onChange={(e) =>
                   setFormState({ ...formState, firstName: e.target.value })
                 }
+                value={formState.firstName}
               />
               <Input
                 name="lastName"
@@ -76,6 +107,7 @@ const Add_teachers = ({ getTeachersAction, createUserAction, admin }: any) => {
                 onChange={(e) =>
                   setFormState({ ...formState, lastName: e.target.value })
                 }
+                value={formState.lastName}
               />
               <Input
                 name="Email"
@@ -83,6 +115,7 @@ const Add_teachers = ({ getTeachersAction, createUserAction, admin }: any) => {
                 onChange={(e) =>
                   setFormState({ ...formState, email: e.target.value })
                 }
+                value={formState.email}
               />
               <Input
                 name="Password"
@@ -91,6 +124,7 @@ const Add_teachers = ({ getTeachersAction, createUserAction, admin }: any) => {
                   setFormState({ ...formState, password: e.target.value })
                 }
                 type="password"
+                value={formState.password}
               />
               <SubmitButton text="Create teacher" />
             </form>
@@ -100,12 +134,13 @@ const Add_teachers = ({ getTeachersAction, createUserAction, admin }: any) => {
     </Main>
   );
 };
-const mapStateToProps = ({ admin }: any) => ({
-  admin: admin,
+const mapStateToProps = ({ admin }: { admin: IAdminState }) => ({
+  admin,
 });
 
 const ConnectedComponent = connect(mapStateToProps, {
   getTeachersAction,
   createUserAction,
+  addErrorAction,
 })(Add_teachers);
 export default Routes.withRole(ConnectedComponent, "admin");

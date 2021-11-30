@@ -1,7 +1,14 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ILoginForm } from "../../types/global";
-import { ADD_ERROR, ADD_TEACHER, CLEAR_ERRORS, RECIVE_TEACHERS } from "./types";
+import {
+  ADD_ERROR,
+  ADD_MESSAGE,
+  ADD_TEACHER,
+  CLEAR_ERRORS,
+  CLEAR_MESSAGE,
+  RECIVE_TEACHERS,
+} from "./types";
 
 interface IUserToCreate {
   username: string;
@@ -18,7 +25,6 @@ export const getTeachersAction = () => async (dispatch: Dispatch) => {
       withCredentials: true,
       url: "/api/users/teachers",
     });
-    console.log(res);
     dispatch({ type: RECIVE_TEACHERS, payload: res.data });
   } catch (err: any) {
     if (err.response) {
@@ -34,7 +40,7 @@ export const getTeachersAction = () => async (dispatch: Dispatch) => {
 export const createUserAction =
   (user: IUserToCreate, role: string) => async (dispatch: Dispatch) => {
     try {
-      const res = await axios({
+      const resPostTeacher = await axios({
         method: "POST",
         data: {
           ...user,
@@ -43,16 +49,30 @@ export const createUserAction =
         withCredentials: true,
         url: "/api/users",
       });
-      dispatch({ type: ADD_TEACHER, payload: res.data });
+
+      dispatch({ type: ADD_MESSAGE, payload: resPostTeacher.data.message });
+      setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+
+      const resUsers = await axios({
+        method: "GET",
+        withCredentials: true,
+        url: "/api/users/teachers",
+      });
+      dispatch({ type: RECIVE_TEACHERS, payload: resUsers.data });
     } catch (err: any) {
       if (err.response) {
-        const error = err.response.data.message.message;
+        const error = err.response.data.message;
         dispatch({ type: ADD_ERROR, payload: error });
         setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
       } else {
         console.log(err);
       }
     }
+  };
+export const addErrorAction =
+  (message: string) => async (dispatch: Dispatch) => {
+    dispatch({ type: ADD_ERROR, payload: message });
+    setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
   };
 // export const checkUserAction = () => async (dispatch: Dispatch) => {
 //   try {

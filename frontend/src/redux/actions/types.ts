@@ -6,3 +6,5 @@ export const CLEAR_USERS = "CLEAR_USERS";
 export const ADD_ERROR = "ADD_ERROR";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const RECIVE_TEACHERS = "RECIVE_TEACHERS";
+export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+export const ADD_MESSAGE = "ADD_MESSAGE";
