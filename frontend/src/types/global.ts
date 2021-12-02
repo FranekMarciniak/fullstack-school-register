@@ -24,7 +24,7 @@ export interface IFetchedUser {
 export interface IAdminState {
   errors?: string;
   message?: string;
-  users: IFetchedUser[] | [];
+  teachers: IFetchedUser[] | [];
 }
 export interface ILoginForm {
   username: string;

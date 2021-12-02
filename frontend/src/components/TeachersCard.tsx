@@ -5,25 +5,34 @@ import { IFetchedUser } from "../types/global";
 interface Props {
   open: boolean;
   user: IFetchedUser;
+  setOpen: () => void;
 }
 
-const TeachersCard = ({ open, user }: Props) => {
+const TeachersCard = ({ open, user, setOpen }: Props) => {
   return (
-    <div className="shadow bg-gray-300  w-full flex flex-wrap justify-around items-center py-2 my-2 relative">
+    <div
+      className={`shadow bg-gray-300  w-full flex flex-wrap justify-around items-center py-2 my-2 relative transition-all duration-200 ${
+        open ? "py-7" : ""
+      }`}
+    >
       <p className="mx-2">{user.firstName || user.email}</p>
       {/* {I use ternary operator here so email is justify if there is no first and last name} */}
       {user.lastName ? <p className="mx-2">{user.lastName}</p> : null}
 
       {open ? (
-        <MdKeyboardArrowUp
+        <button
           className="cursor-pointer mx-2 absolute right-0"
-          size="1.4em"
-        />
+          onClick={setOpen}
+        >
+          <MdKeyboardArrowUp size="1.4em" />
+        </button>
       ) : (
-        <MdKeyboardArrowDown
+        <button
           className="cursor-pointer mx-2 absolute right-0"
-          size="1.4em"
-        />
+          onClick={setOpen}
+        >
+          <MdKeyboardArrowDown size="1.4em" />
+        </button>
       )}
     </div>
   );

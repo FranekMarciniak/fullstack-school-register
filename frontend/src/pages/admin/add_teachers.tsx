@@ -17,8 +17,8 @@ import { IAdminState, IFetchedUser } from "../../types/global";
 
 interface Props {
   getTeachersAction: () => void;
-  createUserAction: () => void;
-  addErrorAction: () => void;
+  createUserAction: (user: Omit<IFetchedUser, "role">, role: string) => void;
+  addErrorAction: (message: string) => void;
   admin: IAdminState;
 }
 
@@ -30,6 +30,7 @@ const Add_teachers = ({
 }: Props) => {
   useEffect(() => getTeachersAction(), []);
   const [search, setSearch] = useState("");
+  const [activeCard, setActiveCard] = useState(0);
   const [formState, setFormState] = useState({
     username: "",
     password: "",
@@ -53,6 +54,7 @@ const Add_teachers = ({
       addErrorAction("Please fill the form");
     }
   };
+  console.log(activeCard);
   return (
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
@@ -71,8 +73,15 @@ const Add_teachers = ({
             </form>
             <div className=" lg:flex-grow flex overflow-y-scroll overflow-x-hidden w-full">
               <ul className="list-none w-full">
-                {admin.teachers.map((teacher: IFetchedUser) => (
-                  <TeachersCard user={teacher} open={false} />
+                {admin.teachers.map((teacher: IFetchedUser, i: number) => (
+                  <TeachersCard
+                    user={teacher}
+                    open={i + 1 === activeCard ? true : false}
+                    setOpen={() =>
+                      setActiveCard(activeCard === i + 1 ? 0 : i + 1)
+                    }
+                    key={i + 1}
+                  />
                 ))}
               </ul>
             </div>
@@ -142,5 +151,5 @@ const ConnectedComponent = connect(mapStateToProps, {
   getTeachersAction,
   createUserAction,
   addErrorAction,
-})(Add_teachers);
+})(Add_teachers as React.FC);
 export default Routes.withRole(ConnectedComponent, "admin");
