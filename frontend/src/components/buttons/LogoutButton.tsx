@@ -14,7 +14,7 @@ function Logout({
 }): ReactElement {
   return (
     <button
-      className={`w-full py-3 mt-32 rounded-lg flex items-center hover:bg-indigo-600 md:hover:bg-indigo-600 transition-all duration-500 my-2  bg-indigo-400
+      className={`w-11/12 py-3 mt-32 rounded-lg flex items-center hover:bg-indigo-600 md:hover:bg-indigo-600 transition-all duration-500 my-2  bg-indigo-400
    `}
       onClick={() => logoutAction()}
     >

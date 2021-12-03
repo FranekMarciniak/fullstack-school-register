@@ -11,6 +11,7 @@ import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import Input from "../../components/Input";
 import SubmitButton from "../../components/buttons/SubmitButton";
+import Button from "../../components/buttons/Button";
 import TeachersCard from "../../components/TeachersCard";
 import Alert from "../../components/Alert";
 import { IAdminState, IFetchedUser } from "../../types/global";
@@ -28,7 +29,11 @@ const Add_teachers = ({
   admin,
   addErrorAction,
 }: Props) => {
-  useEffect(() => getTeachersAction(), []);
+  const [teachers, setTeachers] = useState([] as any);
+  useEffect(() => {
+    getTeachersAction();
+    setTeachers(admin.teachers);
+  }, []);
   const [search, setSearch] = useState("");
   const [activeCard, setActiveCard] = useState(0);
   const [formState, setFormState] = useState({
@@ -38,6 +43,18 @@ const Add_teachers = ({
     firstName: "",
     lastName: "",
   });
+  useEffect(() => setTeachers(admin.teachers), [search]);
+
+  const clearState = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setFormState({
+      username: "",
+      password: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+    });
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -49,12 +66,11 @@ const Add_teachers = ({
     ) {
       createUserAction(formState, "teacher");
     } else {
-      // console.log("d");
       //rest of the validation is done by the api
       addErrorAction("Please fill the form");
     }
   };
-  console.log(activeCard);
+
   return (
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
@@ -71,9 +87,9 @@ const Add_teachers = ({
                 value={search}
               ></Input>
             </form>
-            <div className=" lg:flex-grow flex overflow-y-scroll overflow-x-hidden w-full">
+            <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
               <ul className="list-none w-full">
-                {admin.teachers.map((teacher: IFetchedUser, i: number) => (
+                {teachers.map((teacher: IFetchedUser, i: number) => (
                   <TeachersCard
                     user={teacher}
                     open={i + 1 === activeCard ? true : false}
@@ -136,6 +152,11 @@ const Add_teachers = ({
                 value={formState.password}
               />
               <SubmitButton text="Create teacher" />
+              <Button
+                onClick={clearState}
+                text="Clear form"
+                className="ml-3 opacity-70"
+              />
             </form>
           </section>
         </main>
