@@ -1,10 +1,9 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ILoginForm } from "../../types/global";
+// import { ILoginForm } from "../../types/global";
 import {
   ADD_ERROR,
   ADD_MESSAGE,
-  ADD_TEACHER,
   CLEAR_ERRORS,
   CLEAR_MESSAGE,
   RECIVE_TEACHERS,

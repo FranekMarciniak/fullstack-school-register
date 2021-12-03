@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import { Meta } from "../../layout/Meta";
-import {
-  addErrorAction,
-} from "../../redux/actions/adminActions";
+import { addErrorAction } from "../../redux/actions/adminActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
-import Input from "../../components/Input";
-import SubmitButton from "../../components/buttons/SubmitButton";
-import TeachersCard from "../../components/TeachersCard";
-import Alert from "../../components/Alert";
-import { IAdminState, IFetchedUser } from "../../types/global";
+// import Input from "../../components/Input";
+// import SubmitButton from "../../components/buttons/SubmitButton";
+// import TeachersCard from "../../components/TeachersCard";
+// import Alert from "../../components/Alert";
+import { IAdminState } from "../../types/global";
 
 interface Props {
   admin: IAdminState;
 }
 
-const CoursesPage = ({
-  admin,
-}: Props) => {
+const CoursesPage = ({ admin }: Props) => {
+  console.log(admin);
   return (
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">

@@ -2,7 +2,7 @@ import {
   ADD_ERROR,
   RECIVE_TEACHERS,
   CLEAR_ERRORS,
-  ADD_TEACHER,
+  // ADD_TEACHER,
   ADD_MESSAGE,
   CLEAR_MESSAGE,
 } from "../actions/types";
