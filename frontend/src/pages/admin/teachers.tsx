@@ -29,12 +29,12 @@ const Add_teachers = ({
   admin,
   addErrorAction,
 }: Props) => {
+  const [search, setSearch] = useState("");
   const [teachers, setTeachers] = useState([] as any);
   useEffect(() => {
     getTeachersAction();
     setTeachers(admin.teachers);
   }, []);
-  const [search, setSearch] = useState("");
   const [activeCard, setActiveCard] = useState(0);
   const [formState, setFormState] = useState({
     username: "",
@@ -43,8 +43,6 @@ const Add_teachers = ({
     firstName: "",
     lastName: "",
   });
-  useEffect(() => setTeachers(admin.teachers), [search]);
-
   const clearState = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setFormState({
@@ -70,7 +68,22 @@ const Add_teachers = ({
       addErrorAction("Please fill the form");
     }
   };
-
+  const handleSearch = (text: string) => {
+    if (text === "") {
+      setTeachers(admin.teachers);
+    } else {
+      setTeachers(
+        teachers.filter((teacher: IFetchedUser) => {
+          return (
+            teacher.firstName.indexOf(text) > -1 ||
+            teacher.lastName.indexOf(text) > -1 ||
+            teacher.email.indexOf(text) > -1 ||
+            teacher.username.indexOf(text) > -1
+          );
+        })
+      );
+    }
+  };
   return (
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
@@ -83,22 +96,36 @@ const Add_teachers = ({
               <Input
                 name="teachers"
                 placeholder="Search for the teacher"
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  handleSearch(e.target.value);
+                }}
                 value={search}
               ></Input>
             </form>
             <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
               <ul className="list-none w-full">
-                {teachers.map((teacher: IFetchedUser, i: number) => (
-                  <TeachersCard
-                    user={teacher}
-                    open={i + 1 === activeCard ? true : false}
-                    setOpen={() =>
-                      setActiveCard(activeCard === i + 1 ? 0 : i + 1)
-                    }
-                    key={i + 1}
-                  />
-                ))}
+                {search
+                  ? teachers.map((teacher: IFetchedUser, i: number) => (
+                      <TeachersCard
+                        user={teacher}
+                        open={i + 1 === activeCard ? true : false}
+                        setOpen={() =>
+                          setActiveCard(activeCard === i + 1 ? 0 : i + 1)
+                        }
+                        key={i + 1}
+                      />
+                    ))
+                  : admin.teachers.map((teacher: IFetchedUser, i: number) => (
+                      <TeachersCard
+                        user={teacher}
+                        open={i + 1 === activeCard ? true : false}
+                        setOpen={() =>
+                          setActiveCard(activeCard === i + 1 ? 0 : i + 1)
+                        }
+                        key={i + 1}
+                      />
+                    ))}
               </ul>
             </div>
           </section>

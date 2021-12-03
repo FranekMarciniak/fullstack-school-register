@@ -21,8 +21,11 @@ const CoursesPage = ({ admin }: Props) => {
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
         <main className="w-full h-full flex flex-col lg:flex-row flex-wrap items-center lg:items-baseline ">
-          <section className="w-full max-h-full lg:w-1/2  px-2 flex flex-col "></section>
-          <section className="w-full lg:w-1/2 py-5 px-2 "></section>
+          <section className="w-full  lg:w-1/2  px-2 flex flex-col ">
+            <h2>Add groups</h2>
+            {/* Display all the groups  */}
+          </section>
+          <section className="w-full lg:w-1/2  px-2 "></section>
         </main>
       </div>
     </Main>
