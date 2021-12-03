@@ -71,7 +71,7 @@ const Add_teachers = ({
                 value={search}
               ></Input>
             </form>
-            <div className=" lg:flex-grow flex overflow-y-scroll overflow-x-hidden w-full">
+            <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
               <ul className="list-none w-full">
                 {admin.teachers.map((teacher: IFetchedUser, i: number) => (
                   <TeachersCard

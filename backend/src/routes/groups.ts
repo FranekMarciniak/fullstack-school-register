@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.get('/', GroupsController.getGroups);
 
+router.get("/:teacher_id", GroupsController.deleteGroup)
+
 router.post(
   '/',
   AdminRoute,
