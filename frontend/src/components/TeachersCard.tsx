@@ -17,7 +17,7 @@ const TeachersCard = ({ open, user, setOpen }: Props) => {
         {open ? (
           <>
             <p className="mx-2 my-1">{user.firstName ? user.email : null}</p>
-            <p className="mx-2 my-1">{user.role}</p>
+            <p className="mx-2 my-1">{user.username}</p>
           </>
         ) : null}
       </>

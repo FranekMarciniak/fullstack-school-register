@@ -27,9 +27,6 @@ function Accordion({ children, open, setOpen }: Props): ReactElement {
       </div>
 
       <div className="flex justify-center w-1/12 pr-4">
-        <button className="cursor-pointer">
-          <MdModeEdit size="1.1em" className="mr-1" />
-        </button>
         {open ? (
           <button className="cursor-pointer " onClick={setOpen}>
             <MdKeyboardArrowUp size="1.4em" />

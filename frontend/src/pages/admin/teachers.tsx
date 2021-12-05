@@ -74,11 +74,13 @@ const Add_teachers = ({
     } else {
       setTeachers(
         teachers.filter((teacher: IFetchedUser) => {
+          const {firstName, lastName, email, username} = teacher;
+          const isFirstName = firstName ?  firstName.indexOf(text) > -1 : false;
+          const isLastName= lastName ?  lastName.indexOf(text) > -1 : false;
+          const isEmail = email ?  email.indexOf(text) > -1 : false;
+          const isUsername = username ?  username.indexOf(text) > -1 : false;
           return (
-            teacher.firstName.indexOf(text) > -1 ||
-            teacher.lastName.indexOf(text) > -1 ||
-            teacher.email.indexOf(text) > -1 ||
-            teacher.username.indexOf(text) > -1
+              isFirstName || isLastName || isEmail || isUsername
           );
         })
       );
