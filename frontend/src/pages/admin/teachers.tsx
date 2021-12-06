@@ -137,6 +137,7 @@ const Add_teachers = ({
                 Create a teacher account
               </h2>
               {admin.errors && <Alert text={admin.errors} color="danger" />}
+              {admin.message && <Alert text={admin.message}  />}
               <Input
                 name="Username"
                 placeholder="Teachers username"

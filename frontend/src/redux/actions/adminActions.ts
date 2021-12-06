@@ -84,8 +84,9 @@ export const addGroupAction = (name: string) => async (dispatch: Dispatch) => {
         withCredentials: true,
         url: "/api/groups/",
       });
-
       dispatch({ type: ADD_GROUPS, payload: {name: res.data.data.name, id: res.data.data.id} });
+      dispatch({type: ADD_MESSAGE, payload: "Group created!"})
+      setTimeout(() => dispatch({type: CLEAR_MESSAGE}), 3000)
     } catch (err: any) {
       if (err.response) {
         const error = err.response.data.message;
