@@ -13,7 +13,6 @@ import Input from "../../components/Input";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import Button from "../../components/buttons/Button";
 import TeachersCard from "../../components/TeachersCard";
-import Alert from "../../components/Alert";
 import { IAdminState, IFetchedUser } from "../../types/global";
 
 interface Props {
@@ -74,14 +73,12 @@ const Add_teachers = ({
     } else {
       setTeachers(
         teachers.filter((teacher: IFetchedUser) => {
-          const {firstName, lastName, email, username} = teacher;
-          const isFirstName = firstName ?  firstName.indexOf(text) > -1 : false;
-          const isLastName= lastName ?  lastName.indexOf(text) > -1 : false;
-          const isEmail = email ?  email.indexOf(text) > -1 : false;
-          const isUsername = username ?  username.indexOf(text) > -1 : false;
-          return (
-              isFirstName || isLastName || isEmail || isUsername
-          );
+          const { firstName, lastName, email, username } = teacher;
+          const isFirstName = firstName ? firstName.indexOf(text) > -1 : false;
+          const isLastName = lastName ? lastName.indexOf(text) > -1 : false;
+          const isEmail = email ? email.indexOf(text) > -1 : false;
+          const isUsername = username ? username.indexOf(text) > -1 : false;
+          return isFirstName || isLastName || isEmail || isUsername;
         })
       );
     }
@@ -136,8 +133,6 @@ const Add_teachers = ({
               <h2 className="text-2xl text-center font-semibold text-font-200 ">
                 Create a teacher account
               </h2>
-              {admin.errors && <Alert text={admin.errors} color="danger" />}
-              {admin.message && <Alert text={admin.message}  />}
               <Input
                 name="Username"
                 placeholder="Teachers username"

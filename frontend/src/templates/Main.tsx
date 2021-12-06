@@ -2,9 +2,14 @@ import React, { ReactNode, useEffect, useState } from "react";
 import Navbar from "../layout/Navbar";
 import Router from "next/router";
 import { Loading } from "../utils/Loading";
+import { IAdminState, IGlobalState } from "../types/global";
+import { connect } from "react-redux";
+import Alert from "../components/Alert";
 type IMainProps = {
   meta: ReactNode;
   children: ReactNode;
+  admin: IAdminState;
+  global: IGlobalState;
 };
 
 const Main = (props: IMainProps) => {
@@ -29,11 +34,22 @@ const Main = (props: IMainProps) => {
     <div className="antialiased w-full flex flex-wrap flex-row">
       {props.meta}
       <Navbar />
-      <div className="w-full md:w-9/12 h-full flex justify-center items-center">
+      <div className="w-full md:w-9/12 h-full flex justify-center flex-wrap flex-col items-center">
+        {props.admin.message && <Alert text={props.admin.message} />}
+        {props.admin.errors && (
+          <Alert text={props.admin.errors} color="danger" />
+        )}
         {loading ? <Loading /> : props.children}
       </div>
     </div>
   );
 };
+const mapStateToProps = ({
+  admin,
+  global,
+}: {
+  admin: IAdminState;
+  global: IGlobalState;
+}) => ({ admin, global });
 
-export default Main;
+export default connect(mapStateToProps)(Main);

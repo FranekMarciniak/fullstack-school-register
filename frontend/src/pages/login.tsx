@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import { connect } from "react-redux";
 
-import Alert from "../components/Alert";
 import Input from "../components/Input";
 import Submit from "../components/buttons/SubmitButton";
 import { Meta } from "../layout/Meta";
@@ -22,7 +21,7 @@ const LoginPage = ({
 
   return (
     <Main meta={<Meta title="Mars" description="" />}>
-      <div className="flex-column items-center content-center justify-center">
+      <div className=" flex-column items-center content-center justify-center">
         <form
           method="POST"
           className="mt-12"
@@ -55,7 +54,6 @@ const LoginPage = ({
             <Submit text="Login" />
           </fieldset>
         </form>
-        {global.errors && <Alert text={global.errors} color="danger" />}
       </div>
     </Main>
   );

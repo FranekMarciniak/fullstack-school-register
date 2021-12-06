@@ -15,7 +15,9 @@ const Alert = (props: Props) => {
       }px-4 py-3 rounded relative w-11/12 max-w-2xl mx-auto my-4`}
       role="alert"
     >
-      <strong className="font-bold">{props.color === "danger" ? "Error!" : "Succsess!"}</strong>
+      <strong className="font-bold">
+        {props.color === "danger" ? "Error!" : "Succsess!"}
+      </strong>
       <span className="block sm:inline ml-4">{props.text}</span>
     </div>
   );
