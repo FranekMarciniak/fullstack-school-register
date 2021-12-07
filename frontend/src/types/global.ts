@@ -22,6 +22,7 @@ export interface IFetchedUser {
   role: string;
 }
 export interface IAdminState {
+  groups: {name: string; id: number}[];
   errors?: string;
   message?: string;
   teachers: IFetchedUser[] | [];

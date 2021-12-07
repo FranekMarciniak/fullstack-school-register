@@ -6,6 +6,7 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   value: string;
+  className?: string;
 }
 function Input({
   name,
@@ -14,8 +15,9 @@ function Input({
   onChange,
   label,
   value,
+  className
 }: Props): ReactElement {
-  const labelStyles = "block text-gray-700 text-sm font-bold mb-2 w-full";
+  const labelStyles = `block text-gray-700 text-sm font-bold mb-2 w-full ${className && className}`;
   const inputStyles =
     "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
   return (
