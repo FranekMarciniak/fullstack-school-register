@@ -23,6 +23,7 @@ const CoursesPage = ({ admin, addGroupAction, getGroupsAction }: Props) => {
   useEffect(() => {
     getGroupsAction();
   }, []);
+  console.log(admin)
   const [groupsForm, setGroupsForm] = useState("");
   const handleSubmitGroups = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
