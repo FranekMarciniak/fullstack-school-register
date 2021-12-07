@@ -12,6 +12,11 @@ import Routes from "../../utils/Routes";
 import { IAdminState } from "../../types/global";
 import Input from "../../components/Input";
 import SubmitButton from "../../components/buttons/SubmitButton";
+<<<<<<< HEAD
+import Alert from "../../components/Alert";
+import SelectSearch from "../../components/SelectSearch"
+=======
+>>>>>>> 3c222bf5cae7c7278bdbb551b6583c02b878631f
 
 interface Props {
   admin: IAdminState;
@@ -28,13 +33,25 @@ const CoursesPage = ({ admin, addGroupAction, getGroupsAction }: Props) => {
   const handleSubmitGroups = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (groupsForm !== "") addGroupAction(groupsForm);
+<<<<<<< HEAD
+  }
+=======
   };
+>>>>>>> 3c222bf5cae7c7278bdbb551b6583c02b878631f
   return (
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
         <main className="w-full h-full flex flex-col lg:flex-row flex-wrap items-center lg:items-baseline ">
           <section className="w-full  lg:w-1/2  px-2 flex flex-col ">
             {/* Display all the groups  */}
+<<<<<<< HEAD
+            <h2 className="text-2xl text-center font-semibold text-font-200 ">Add groups</h2>
+            {admin.message && <Alert text={admin.message} />}
+            {admin.errors && <Alert text={admin.errors} color="danger" />}
+            <form onSubmit={handleSubmitGroups} className="mt-">
+              <fieldset>
+                <Input name="addGroups" placeholder="Group name" label="Group name" value={groupsForm} onChange={e => setGroupsForm(e.target.value)} />
+=======
             <h2 className="text-2xl text-center font-semibold text-font-200 ">
               Add groups
             </h2>
@@ -47,9 +64,11 @@ const CoursesPage = ({ admin, addGroupAction, getGroupsAction }: Props) => {
                   value={groupsForm}
                   onChange={(e) => setGroupsForm(e.target.value)}
                 />
+>>>>>>> 3c222bf5cae7c7278bdbb551b6583c02b878631f
                 <SubmitButton text="create group" />
               </fieldset>
             </form>
+            <SelectSearch options={admin.groups} />
           </section>
           <section className="w-full lg:w-1/2  px-2 "></section>
         </main>
