@@ -28,12 +28,13 @@ const Add_teachers = ({
   admin,
   addErrorAction,
 }: Props) => {
-  const [search, setSearch] = useState("");
-  const [teachers, setTeachers] = useState([] as any);
   useEffect(() => {
     getTeachersAction();
     setTeachers(admin.teachers);
   }, []);
+
+  const [search, setSearch] = useState("");
+  const [teachers, setTeachers] = useState([] as any);
   const [activeCard, setActiveCard] = useState(0);
   const [formState, setFormState] = useState({
     username: "",
@@ -42,6 +43,7 @@ const Add_teachers = ({
     firstName: "",
     lastName: "",
   });
+
   const clearState = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setFormState({
@@ -52,6 +54,7 @@ const Add_teachers = ({
       lastName: "",
     });
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -67,6 +70,7 @@ const Add_teachers = ({
       addErrorAction("Please fill the form");
     }
   };
+
   const handleSearch = (text: string) => {
     if (text === "") {
       setTeachers(admin.teachers);
