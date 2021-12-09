@@ -12,8 +12,8 @@ import Routes from "../utils/Routes";
 
 const LoginPage = ({
   loginAction,
-  global,
-}: {
+}: // global,
+{
   loginAction: (navState: ILoginForm) => void;
   global: IGlobalState;
 }) => {

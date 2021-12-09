@@ -10,14 +10,22 @@ interface Props {
   options: IOption[];
   value: IOption;
   setValue: any;
+  label: string;
   placeholder: string;
 }
 
-const SelectSearch = ({ options, value, setValue, placeholder }: Props) => {
+const SelectSearch = ({
+  options,
+  value,
+  setValue,
+  placeholder,
+  label,
+}: Props) => {
   const [filteredOptions, setFilteredOptions] = useState([] as IOption[]);
   const [search, setSearch] = useState("");
   const [active, setActive] = useState(false);
-  useEffect(() => setFilteredOptions(options), []);
+
+  useEffect(() => setFilteredOptions(options), [options]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -34,7 +42,7 @@ const SelectSearch = ({ options, value, setValue, placeholder }: Props) => {
   };
   return (
     <div className="flex flex-col w-max mt-6">
-      <label className={labelStyles}>Choose a group</label>
+      <label className={labelStyles}>{label}</label>
       <input
         className={inputStyles}
         onChange={handleChange}
@@ -44,7 +52,7 @@ const SelectSearch = ({ options, value, setValue, placeholder }: Props) => {
         onFocus={() => setActive(true)}
       />
       <div
-        className={`flex-col items-center flex max-h-56 overflow-y-auto mt-2`}
+        className={`flex-col items-center flex max-h-44 overflow-y-auto mt-2`}
       >
         {filteredOptions.map((option) => (
           <button

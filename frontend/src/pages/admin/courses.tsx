@@ -1,4 +1,4 @@
-import React, { Children, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import { Meta } from "../../layout/Meta";
@@ -12,7 +12,6 @@ import Routes from "../../utils/Routes";
 import { IAdminState } from "../../types/global";
 import Input from "../../components/Input";
 import SubmitButton from "../../components/buttons/SubmitButton";
-import Alert from "../../components/Alert";
 import SelectSearch from "../../components/SelectSearch";
 
 interface Props {
@@ -32,7 +31,6 @@ const CoursesPage = ({ admin, addGroupAction, getGroupsAction }: Props) => {
     e.preventDefault();
     if (groupsForm !== "") addGroupAction(groupsForm);
   };
-  console.log(groupSelect);
   return (
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
@@ -42,8 +40,6 @@ const CoursesPage = ({ admin, addGroupAction, getGroupsAction }: Props) => {
             <h2 className="text-2xl text-center font-semibold text-font-200 ">
               Add groups
             </h2>
-            {admin.message && <Alert text={admin.message} />}
-            {admin.errors && <Alert text={admin.errors} color="danger" />}
             <form onSubmit={handleSubmitGroups} className="mt-">
               <fieldset>
                 <Input
@@ -60,7 +56,8 @@ const CoursesPage = ({ admin, addGroupAction, getGroupsAction }: Props) => {
               options={admin.groups}
               setValue={setGroupSelect}
               value={groupSelect}
-              placeholder="Select Group"
+              placeholder="Group name"
+              label="Choose a group"
             />
           </section>
           <section className="w-full lg:w-1/2  px-2 "></section>
