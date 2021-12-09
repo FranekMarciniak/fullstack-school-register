@@ -8,6 +8,9 @@ interface Props {
   value: string;
   className?: string;
 }
+export const labelStyles = `block text-gray-700 text-sm font-bold mb-2 w-full`;
+export const inputStyles =
+  "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 function Input({
   name,
   placeholder,
@@ -15,11 +18,8 @@ function Input({
   onChange,
   label,
   value,
-  className
+  className = "",
 }: Props): ReactElement {
-  const labelStyles = `block text-gray-700 text-sm font-bold mb-2 w-full ${className && className}`;
-  const inputStyles =
-    "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
   return (
     <label htmlFor={name} className={labelStyles}>
       {label ? label : name}
@@ -28,7 +28,7 @@ function Input({
         name={name}
         value={value}
         placeholder={placeholder}
-        className={inputStyles}
+        className={inputStyles + className}
         onChange={onChange}
       />
     </label>

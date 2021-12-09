@@ -1,49 +1,69 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
+import { inputStyles, labelStyles } from "./Input";
 
-interface IOption { name: string; id: string | number }
+interface IOption {
+  name: string;
+  id: string | number;
+}
 
 interface Props {
   options: IOption[];
-  value: string | number;
-  setValue: (value: string | number) => void;
+  value: IOption;
+  setValue: any;
+  placeholder: string;
 }
 
-const SelectSearch = ({ options, value, setValue }: Props) => {
-  const [filteredOptions, setFilteredOptions] = useState([] as IOption[])
-  const [search, setSearch] = useState("")
-  const [open, setOpen] = useState(false)
+const SelectSearch = ({ options, value, setValue, placeholder }: Props) => {
+  const [filteredOptions, setFilteredOptions] = useState([] as IOption[]);
+  const [search, setSearch] = useState("");
+  const [active, setActive] = useState(false);
+  useEffect(() => setFilteredOptions(options), []);
 
-  useEffect(() => setFilteredOptions(options), [])
-  const handleFocus = () => {
-    setOpen(true)
-  }
-  const handleBlur = () => {
-    setOpen(false)
-  }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value)
-    console.log(e.target.id)
-    if (search === "") {
-      setFilteredOptions(options)
+    setSearch(e.target.value);
+    if (e.target.value === "") {
+      setFilteredOptions(options);
     } else {
-      setFilteredOptions(options.filter(option => option.name.toLowerCase().indexOf(search.toLowerCase()) > -1))
+      setFilteredOptions(
+        options.filter(
+          (option) =>
+            option.name.toLowerCase().indexOf(e.target.value.toLowerCase()) > -1
+        )
+      );
     }
-  }
-  console.log(value)
+  };
   return (
-    <div className="flex flex-col ">
-      <label>
-        Choose a group
-      </label>
-      <input className="border-2 border-gray-400" onFocus={handleFocus}
-        onBlur={handleBlur} onChange={handleChange} />
-      <div className={` flex-col items-center flex ${open ? "visible" : "invisible"}`}>
-        {filteredOptions.map(option => <button id={option.id.toString()} onClick={(e: any) => {
-          setValue(e.target.id)
-        }}>{option.name}</button>)}
+    <div className="flex flex-col w-max mt-6">
+      <label className={labelStyles}>Choose a group</label>
+      <input
+        className={inputStyles}
+        onChange={handleChange}
+        value={value.id === 0 || active === true ? search : value.name}
+        placeholder={placeholder}
+        onBlur={() => setActive(false)}
+        onFocus={() => setActive(true)}
+      />
+      <div
+        className={`flex-col items-center flex max-h-56 overflow-y-auto mt-2`}
+      >
+        {filteredOptions.map((option) => (
+          <button
+            className={`w-full py-2 hover:bg-gray-200 transition-all duration-500 font-medium ${
+              option.id === value.id ? "bg-gray-400 hover:bg-gray-500 " : ""
+            }`}
+            onClick={() => {
+              setValue(option);
+              setFilteredOptions(options);
+              setActive(false);
+              setSearch("");
+            }}
+          >
+            {option.name}
+          </button>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SelectSearch
+export default SelectSearch;
