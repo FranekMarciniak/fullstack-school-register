@@ -1,14 +1,15 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-// import { ILoginForm } from "../../types/global";
 import {
   ADD_ERROR,
   ADD_GROUPS,
   ADD_MESSAGE,
   CLEAR_ERRORS,
   CLEAR_MESSAGE,
+  RECIVE_COURSES,
   RECIVE_GROUPS,
   RECIVE_TEACHERS,
+  ADD_COURSE,
 } from "./types";
 
 interface IUserToCreate {
@@ -77,26 +78,29 @@ export const addErrorAction =
   };
 
 export const addGroupAction = (name: string) => async (dispatch: Dispatch) => {
-    try {
-      const res = await axios({
-        method: "POST",
-        data: {name},
-        withCredentials: true,
-        url: "/api/groups/",
-      });
-      dispatch({ type: ADD_GROUPS, payload: {name: res.data.data.name, id: res.data.data.id} });
-      dispatch({type: ADD_MESSAGE, payload: "Group created!"})
-      setTimeout(() => dispatch({type: CLEAR_MESSAGE}), 3000)
-    } catch (err: any) {
-      if (err.response) {
-        const error = err.response.data.message;
-        dispatch({ type: ADD_ERROR, payload: error });
-        setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
-      } else {
-        console.log(err);
-      }
+  try {
+    const res = await axios({
+      method: "POST",
+      data: { name },
+      withCredentials: true,
+      url: "/api/groups/",
+    });
+    dispatch({
+      type: ADD_GROUPS,
+      payload: { name: res.data.data.name, id: res.data.data.id },
+    });
+    dispatch({ type: ADD_MESSAGE, payload: "Group created!" });
+    setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+  } catch (err: any) {
+    if (err.response) {
+      const error = err.response.data.message;
+      dispatch({ type: ADD_ERROR, payload: error });
+      setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+    } else {
+      console.log(err);
     }
-}
+  }
+};
 
 export const getGroupsAction = () => async (dispatch: Dispatch) => {
   try {
@@ -115,7 +119,54 @@ export const getGroupsAction = () => async (dispatch: Dispatch) => {
       console.log(err);
     }
   }
-} 
+};
+
+export const getCoursesAction = () => async (dispatch: Dispatch) => {
+  try {
+    const res = await axios({
+      method: "GET",
+      withCredentials: true,
+      url: "/api/courses/",
+    });
+    dispatch({ type: RECIVE_COURSES, payload: res.data });
+  } catch (err: any) {
+    if (err.response) {
+      const error = err.response.data.message.message;
+      dispatch({ type: ADD_ERROR, payload: error });
+      setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+    } else {
+      console.log(err);
+    }
+  }
+};
+
+export const addCourseAction =
+  ({ name, group, course }: { name: string; group: number; course: number }) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const res = await axios({
+        method: "POST",
+        data: { name, group, course },
+        withCredentials: true,
+        url: "/api/courses/",
+      });
+      dispatch({
+        type: ADD_COURSE,
+        payload: { name, group, course },
+      });
+      dispatch({ type: ADD_MESSAGE, payload: "Course created!" });
+      setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+    } catch (err: any) {
+      if (err.response) {
+        const error = err.response.data.message;
+        dispatch({ type: ADD_ERROR, payload: error });
+        setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+      } else {
+        console.log(err);
+      }
+    }
+  };
+
 // export const checkUserAction = () => async (dispatch: Dispatch) => {
 //   try {
 //     const res = await axios({

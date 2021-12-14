@@ -1,4 +1,4 @@
-import { ADD_GROUPS, RECIVE_GROUPS } from './../actions/types';
+import { ADD_GROUPS, RECIVE_COURSES, RECIVE_GROUPS } from "./../actions/types";
 import {
   ADD_ERROR,
   RECIVE_TEACHERS,
@@ -6,12 +6,14 @@ import {
   // ADD_TEACHER,
   ADD_MESSAGE,
   CLEAR_MESSAGE,
+  ADD_COURSE,
 } from "../actions/types";
 
 const initialState = {
   errors: null,
   teachers: [],
   groups: [],
+  courses: [],
   message: null,
   // createdUser:},
 };
@@ -20,10 +22,12 @@ const adminReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case RECIVE_TEACHERS:
       return { ...state, teachers: action.payload };
-    case ADD_GROUPS: 
-      return {...state, groups: [...state.groups, action.payload]}
-    case RECIVE_GROUPS: 
-      return {...state, groups: action.payload}
+    case ADD_GROUPS:
+      return { ...state, groups: [...state.groups, action.payload] };
+    case RECIVE_GROUPS:
+      return { ...state, groups: action.payload };
+    case RECIVE_COURSES:
+      return { ...state, courses: action.payload };
     case ADD_MESSAGE:
       return { ...state, message: action.payload };
     case CLEAR_MESSAGE:

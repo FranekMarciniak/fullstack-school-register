@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { inputStyles, labelStyles } from "./Input";
 
-interface IOption {
-  name: string;
-  id: string | number;
-}
+// interface IOption {
+//   name: string;
+//   id: string | number;
+// }
 
 interface Props {
-  options: IOption[];
-  value: IOption;
+  options: any[];
+  value: any;
   setValue: any;
   label: string;
   placeholder: string;
+  className?: string;
+  keysToDisplay: string[];
 }
 
 const SelectSearch = ({
@@ -20,12 +22,16 @@ const SelectSearch = ({
   setValue,
   placeholder,
   label,
+  className = "",
+  keysToDisplay,
 }: Props) => {
-  const [filteredOptions, setFilteredOptions] = useState([] as IOption[]);
+  const [filteredOptions, setFilteredOptions] = useState([] as any[]);
   const [search, setSearch] = useState("");
   const [active, setActive] = useState(false);
 
-  useEffect(() => setFilteredOptions(options), [options]);
+  useEffect(() => {
+    setFilteredOptions(options);
+  }, [options]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -35,38 +41,56 @@ const SelectSearch = ({
       setFilteredOptions(
         options.filter(
           (option) =>
-            option.name.toLowerCase().indexOf(e.target.value.toLowerCase()) > -1
+            keysToDisplay
+              .reduce((prev, curr) => `${prev} ${option[curr as string]}`, "")
+              .toLowerCase()
+              .indexOf(e.target.value.toLowerCase()) > -1
         )
       );
     }
   };
   return (
-    <div className="flex flex-col w-max mt-6">
+    <div className={"flex flex-col mt-6" + className}>
       <label className={labelStyles}>{label}</label>
       <input
         className={inputStyles}
         onChange={handleChange}
-        value={value.id === 0 || active === true ? search : value.name}
+        value={
+          value === 0 || active === true
+            ? search
+            : keysToDisplay.reduce(
+                (prev, curr) =>
+                  `${prev} ${
+                    options.find((option) => option.id === value)[
+                      curr as string
+                    ]
+                  }`,
+                ""
+              )
+        }
         placeholder={placeholder}
         onBlur={() => setActive(false)}
         onFocus={() => setActive(true)}
       />
       <div
-        className={`flex-col items-center flex max-h-44 overflow-y-auto mt-2`}
+        className={`flex-col items-center flex max-h-44 overflow-y-auto mt-2 border-2 border-gray-400`}
       >
         {filteredOptions.map((option) => (
           <button
             className={`w-full py-2 hover:bg-gray-200 transition-all duration-500 font-medium ${
-              option.id === value.id ? "bg-gray-400 hover:bg-gray-500 " : ""
+              option.id === value ? "bg-gray-400 hover:bg-gray-500 " : ""
             }`}
             onClick={() => {
-              setValue(option);
+              setValue(option.id);
               setFilteredOptions(options);
               setActive(false);
               setSearch("");
             }}
           >
-            {option.name}
+            {keysToDisplay.reduce(
+              (prev, curr) => `${prev} ${option[curr as string]}`,
+              ""
+            )}
           </button>
         ))}
       </div>

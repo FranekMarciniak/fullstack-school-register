@@ -9,4 +9,6 @@ export const RECIVE_TEACHERS = "RECIVE_TEACHERS";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const ADD_MESSAGE = "ADD_MESSAGE";
 export const ADD_GROUPS = "ADD_GROUPS";
-export const RECIVE_GROUPS = "RECIVE_GROUPS"
+export const RECIVE_GROUPS = "RECIVE_GROUPS";
+export const RECIVE_COURSES = "RECIVE_COURSES";
+export const ADD_COURSE = "ADD_COURSE";

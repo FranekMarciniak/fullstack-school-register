@@ -1,6 +1,8 @@
 import * as express from 'express';
 import { Course } from '../models/CourseModel';
 import { validationResult } from 'express-validator';
+import { User } from '../models/UserModel';
+import { Group } from '../models/GroupModel';
 import {
   clientError,
   fail,
@@ -11,7 +13,7 @@ import {
 
 const getCourses = async (req: express.Request, res: express.Response) => {
   try {
-    const allCourses = await Course.findAll();
+    const allCourses = await Course.findAll({ include: [{ model: User }] });
     return res.status(200).json(allCourses);
   } catch (err) {
     fail(res, err as Error);

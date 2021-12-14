@@ -6,6 +6,8 @@ import {
   addErrorAction,
   addGroupAction,
   getGroupsAction,
+  getTeachersAction,
+  getCoursesAction,
 } from "../../redux/actions/adminActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
@@ -18,15 +20,31 @@ interface Props {
   admin: IAdminState;
   addGroupAction: (name: string) => void;
   getGroupsAction: () => void;
+  getTeachersAction: () => void;
+  getCoursesAction: () => void;
 }
 
-const CoursesPage = ({ admin, addGroupAction, getGroupsAction }: Props) => {
+const CoursesPage = ({
+  admin,
+  addGroupAction,
+  getGroupsAction,
+  getCoursesAction,
+  getTeachersAction,
+}: Props) => {
   useEffect(() => {
     getGroupsAction();
+    getTeachersAction();
+    getCoursesAction();
   }, []);
 
   const [groupsForm, setGroupsForm] = useState("");
-  const [groupSelect, setGroupSelect] = useState({ name: "", id: 0 });
+
+  const [courseForm, setCourseForm] = useState({
+    name: "",
+    group_id: 0,
+    teacher_id: 0,
+  });
+
   const handleSubmitGroups = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (groupsForm !== "") addGroupAction(groupsForm);
@@ -52,15 +70,45 @@ const CoursesPage = ({ admin, addGroupAction, getGroupsAction }: Props) => {
                 <SubmitButton text="create group" />
               </fieldset>
             </form>
-            <SelectSearch
-              options={admin.groups}
-              setValue={setGroupSelect}
-              value={groupSelect}
-              placeholder="Group name"
-              label="Choose a group"
-            />
           </section>
-          <section className="w-full lg:w-1/2  px-2 "></section>
+          <section className="w-full lg:w-1/2  px-2 ">
+            <h2 className="text-2xl text-center font-semibold text-font-200 ">
+              Add course
+            </h2>
+            <form onSubmit={handleSubmitGroups} className="mt-">
+              <fieldset>
+                <Input
+                  name="courseName"
+                  placeholder="Course Name"
+                  label="Enter course name"
+                  value={courseForm.name}
+                  onChange={(e) =>
+                    setCourseForm({ ...courseForm, name: e.target.value })
+                  }
+                />
+                <SelectSearch
+                  options={admin.groups}
+                  setValue={(value: number) =>
+                    setCourseForm({ ...courseForm, group_id: value })
+                  }
+                  value={courseForm.group_id}
+                  placeholder="Group name"
+                  label="Choose a group"
+                  keysToDisplay={["name"]}
+                />
+                <SelectSearch
+                  options={admin.teachers}
+                  setValue={(value: number) =>
+                    setCourseForm({ ...courseForm, teacher_id: value })
+                  }
+                  value={courseForm.teacher_id}
+                  placeholder="Teachers name"
+                  label="Choose a teacher"
+                  keysToDisplay={["firstName", "lastName"]}
+                />
+              </fieldset>
+            </form>
+          </section>
         </main>
       </div>
     </Main>
@@ -73,6 +121,8 @@ const mapStateToProps = ({ admin }: { admin: IAdminState }) => ({
 const ConnectedComponent = connect(mapStateToProps, {
   addGroupAction,
   getGroupsAction,
+  getTeachersAction,
   addErrorAction,
+  getCoursesAction,
 })(CoursesPage as React.FC);
 export default Routes.withRole(ConnectedComponent, "admin");
