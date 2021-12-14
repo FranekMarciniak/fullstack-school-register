@@ -6,7 +6,6 @@ import {
   // ADD_TEACHER,
   ADD_MESSAGE,
   CLEAR_MESSAGE,
-  ADD_COURSE,
 } from "../actions/types";
 
 const initialState = {

@@ -150,6 +150,7 @@ export const addCourseAction =
         withCredentials: true,
         url: "/api/courses/",
       });
+      console.log(res);
       dispatch({
         type: ADD_COURSE,
         payload: { name, group, course },
