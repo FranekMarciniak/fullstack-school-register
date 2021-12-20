@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { inputStyles, labelStyles } from "./Input";
 
 // interface IOption {
@@ -59,13 +59,14 @@ const SelectSearch = ({
           value === 0 || active === true
             ? search
             : keysToDisplay.reduce(
-              (prev, curr) =>
-                `${prev} ${options.find((option) => option.id === value)[
-                curr as string
-                ]
-                }`,
-              ""
-            )
+                (prev, curr) =>
+                  `${prev} ${
+                    options.find((option) => option.id === value)[
+                      curr as string
+                    ]
+                  }`,
+                ""
+              )
         }
         placeholder={placeholder}
         onBlur={() => setActive(false)}
@@ -76,10 +77,11 @@ const SelectSearch = ({
       >
         {filteredOptions.map((option) => (
           <button
-            className={`w-full py-2 hover:bg-gray-200 transition-all duration-500 font-medium ${option.id === value ? "bg-gray-400 hover:bg-gray-500 " : ""
-              }`}
+            className={`w-full py-2 hover:bg-gray-200 transition-all duration-500 font-medium ${
+              option.id === value ? "bg-gray-400 hover:bg-gray-500 " : ""
+            }`}
             onClick={(e: any) => {
-              e.preventDefault()
+              e.preventDefault();
               setValue(option.id);
               setFilteredOptions(options);
               setActive(false);
