@@ -6,6 +6,7 @@ import {
   ADD_MESSAGE,
   DELETE_USER,
   CLEAR_MESSAGE,
+  DELETE_COURSE,
 } from "../actions/types";
 
 const initialState = {
@@ -26,6 +27,13 @@ const adminReducer = (state = initialState, action: any) => {
         ...state,
         teachers: state.teachers.filter(
           (teacher: any) => teacher.id !== action.payload
+        ),
+      };
+    case DELETE_COURSE:
+      return {
+        ...state,
+        courses: state.courses.filter(
+          (course: any) => course.id !== action.payload
         ),
       };
     case ADD_GROUPS:

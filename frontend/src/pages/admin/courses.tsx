@@ -9,6 +9,7 @@ import {
   getTeachersAction,
   getCoursesAction,
   addCourseAction,
+  deleteCourseAction,
 } from "../../redux/actions/adminActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
@@ -17,6 +18,7 @@ import Input from "../../components/Input";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import SelectSearch from "../../components/SelectSearch";
 import Button from "../../components/buttons/Button";
+import CourseCard from "../../components/CourseCard";
 
 interface Props {
   admin: IAdminState;
@@ -25,6 +27,7 @@ interface Props {
   getGroupsAction: () => void;
   getTeachersAction: () => void;
   getCoursesAction: () => void;
+  deleteCourseAction: (id: number) => void;
 }
 
 const CoursesPage = ({
@@ -34,15 +37,19 @@ const CoursesPage = ({
   getCoursesAction,
   getTeachersAction,
   addCourseAction,
+  deleteCourseAction,
 }: Props) => {
   useEffect(() => {
     getGroupsAction();
     getTeachersAction();
     getCoursesAction();
+    setCourses(admin.courses);
   }, []);
 
   const [groupsForm, setGroupsForm] = useState("");
-
+  const [search, setSearch] = useState("");
+  const [courses, setCourses] = useState([] as any);
+  const [activeCard, setActiveCard] = useState(0);
   const [courseForm, setCourseForm] = useState({
     name: "",
     group_id: 0,
@@ -56,6 +63,18 @@ const CoursesPage = ({
   const handleSubmitGroups = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (groupsForm !== "") addGroupAction(groupsForm);
+  };
+  const handleSearch = (text: string) => {
+    if (text === "") {
+      setCourses(admin.courses);
+    } else {
+      setCourses(
+        courses.filter(
+          (course: any) =>
+            course.name.toLowerCase().indexOf(text.toLowerCase()) > -1
+        )
+      );
+    }
   };
   return (
     <Main meta={<Meta title="Mars" description="" />}>
@@ -77,7 +96,45 @@ const CoursesPage = ({
                 />
                 <SubmitButton text="create group" />
               </fieldset>
+            </form>{" "}
+            <form className="mt-5">
+              <Input
+                name="teachers"
+                placeholder="Search for the teacher"
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  handleSearch(e.target.value);
+                }}
+                value={search}
+              ></Input>
             </form>
+            <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
+              <ul className="list-none w-full">
+                {search
+                  ? courses.map((teacher: any, i: number) => (
+                      <CourseCard
+                        course={teacher}
+                        open={i + 1 === activeCard ? true : false}
+                        setOpen={() =>
+                          setActiveCard(activeCard === i + 1 ? 0 : i + 1)
+                        }
+                        key={i + 1}
+                        deleteTeacher={deleteCourseAction}
+                      />
+                    ))
+                  : admin.courses.map((teacher: any, i: number) => (
+                      <CourseCard
+                        course={teacher}
+                        open={i + 1 === activeCard ? true : false}
+                        setOpen={() =>
+                          setActiveCard(activeCard === i + 1 ? 0 : i + 1)
+                        }
+                        key={i + 1}
+                        deleteTeacher={deleteCourseAction}
+                      />
+                    ))}
+              </ul>
+            </div>
           </section>
           <section className="w-full lg:w-1/2  px-2 ">
             <h2 className="text-2xl text-center font-semibold text-font-200 ">
@@ -146,5 +203,6 @@ const ConnectedComponent = connect(mapStateToProps, {
   addErrorAction,
   getCoursesAction,
   addCourseAction,
+  deleteCourseAction,
 })(CoursesPage as React.FC);
 export default Routes.withRole(ConnectedComponent, "admin");

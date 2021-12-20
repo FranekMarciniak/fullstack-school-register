@@ -24,6 +24,7 @@ export interface IFetchedUser {
 }
 export interface IAdminState {
   groups: { name: string; id: number }[];
+  courses: any[];
   errors?: string;
   message?: string;
   teachers: IFetchedUser[] | [];
