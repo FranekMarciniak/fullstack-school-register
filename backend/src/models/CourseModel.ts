@@ -17,7 +17,7 @@ export const Course = sequelize.define('courses', {
   },
 });
 User.hasMany(Course, { foreignKey: 'teacher_id' });
-Course.belongsTo(User, { foreignKey: 'teacher_id' });
+Course.belongsTo(User, { foreignKey: 'teacher_id', as: 'teacher' });
 
 Group.hasMany(Course, { foreignKey: 'group_id' });
-Course.belongsTo(Group, { foreignKey: 'group_id' });
+Course.belongsTo(Group, { foreignKey: 'group_id', as: 'group' });

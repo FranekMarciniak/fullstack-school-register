@@ -12,3 +12,4 @@ export const ADD_GROUPS = "ADD_GROUPS";
 export const RECIVE_GROUPS = "RECIVE_GROUPS";
 export const RECIVE_COURSES = "RECIVE_COURSES";
 export const ADD_COURSE = "ADD_COURSE";
+export const DELETE_USER = "DELETE_USER";

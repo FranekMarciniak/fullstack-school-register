@@ -8,6 +8,7 @@ import {
   getGroupsAction,
   getTeachersAction,
   getCoursesAction,
+  addCourseAction,
 } from "../../redux/actions/adminActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
@@ -15,10 +16,12 @@ import { IAdminState } from "../../types/global";
 import Input from "../../components/Input";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import SelectSearch from "../../components/SelectSearch";
+import Button from "../../components/buttons/Button";
 
 interface Props {
   admin: IAdminState;
   addGroupAction: (name: string) => void;
+  addCourseAction: ({ name, group_id, teacher_id }: any) => void;
   getGroupsAction: () => void;
   getTeachersAction: () => void;
   getCoursesAction: () => void;
@@ -30,6 +33,7 @@ const CoursesPage = ({
   getGroupsAction,
   getCoursesAction,
   getTeachersAction,
+  addCourseAction,
 }: Props) => {
   useEffect(() => {
     getGroupsAction();
@@ -45,6 +49,10 @@ const CoursesPage = ({
     teacher_id: 0,
   });
 
+  const handleSubmitCourses = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    addCourseAction(courseForm);
+  };
   const handleSubmitGroups = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (groupsForm !== "") addGroupAction(groupsForm);
@@ -53,7 +61,7 @@ const CoursesPage = ({
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
         <main className="w-full h-full flex flex-col lg:flex-row flex-wrap items-center lg:items-baseline ">
-          <section className="w-full  lg:w-1/2  px-2 flex flex-col ">
+          <section className="w-full  lg:w-1/2 mb-10 px-2 flex flex-col ">
             {/* Display all the groups  */}
             <h2 className="text-2xl text-center font-semibold text-font-200 ">
               Add groups
@@ -75,7 +83,7 @@ const CoursesPage = ({
             <h2 className="text-2xl text-center font-semibold text-font-200 ">
               Add course
             </h2>
-            <form onSubmit={handleSubmitGroups} className="mt-">
+            <form onSubmit={handleSubmitCourses} className="mt-">
               <fieldset>
                 <Input
                   name="courseName"
@@ -107,6 +115,19 @@ const CoursesPage = ({
                   keysToDisplay={["firstName", "lastName"]}
                 />
               </fieldset>
+              <SubmitButton text="create course" />
+              <Button
+                onClick={(e: any) => {
+                  e.preventDefault();
+                  setCourseForm({
+                    name: "",
+                    group_id: 0,
+                    teacher_id: 0,
+                  });
+                }}
+                text="Clear form"
+                className="ml-3 opacity-70"
+              />
             </form>
           </section>
         </main>
@@ -124,5 +145,6 @@ const ConnectedComponent = connect(mapStateToProps, {
   getTeachersAction,
   addErrorAction,
   getCoursesAction,
+  addCourseAction,
 })(CoursesPage as React.FC);
 export default Routes.withRole(ConnectedComponent, "admin");

@@ -6,6 +6,7 @@ import {
   getTeachersAction,
   createUserAction,
   addErrorAction,
+  deleteUserAction,
 } from "../../redux/actions/adminActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
@@ -17,6 +18,7 @@ import { IAdminState, IFetchedUser } from "../../types/global";
 
 interface Props {
   getTeachersAction: () => void;
+  deleteUserAction: (id: any) => void;
   createUserAction: (user: Omit<IFetchedUser, "role">, role: string) => void;
   addErrorAction: (message: string) => void;
   admin: IAdminState;
@@ -27,6 +29,7 @@ const Add_teachers = ({
   createUserAction,
   admin,
   addErrorAction,
+  deleteUserAction,
 }: Props) => {
   useEffect(() => {
     getTeachersAction();
@@ -110,25 +113,27 @@ const Add_teachers = ({
               <ul className="list-none w-full">
                 {search
                   ? teachers.map((teacher: IFetchedUser, i: number) => (
-                    <TeachersCard
-                      user={teacher}
-                      open={i + 1 === activeCard ? true : false}
-                      setOpen={() =>
-                        setActiveCard(activeCard === i + 1 ? 0 : i + 1)
-                      }
-                      key={i + 1}
-                    />
-                  ))
+                      <TeachersCard
+                        user={teacher}
+                        open={i + 1 === activeCard ? true : false}
+                        setOpen={() =>
+                          setActiveCard(activeCard === i + 1 ? 0 : i + 1)
+                        }
+                        key={i + 1}
+                        deleteTeacher={deleteUserAction}
+                      />
+                    ))
                   : admin.teachers.map((teacher: IFetchedUser, i: number) => (
-                    <TeachersCard
-                      user={teacher}
-                      open={i + 1 === activeCard ? true : false}
-                      setOpen={() =>
-                        setActiveCard(activeCard === i + 1 ? 0 : i + 1)
-                      }
-                      key={i + 1}
-                    />
-                  ))}
+                      <TeachersCard
+                        user={teacher}
+                        open={i + 1 === activeCard ? true : false}
+                        setOpen={() =>
+                          setActiveCard(activeCard === i + 1 ? 0 : i + 1)
+                        }
+                        key={i + 1}
+                        deleteTeacher={deleteUserAction}
+                      />
+                    ))}
               </ul>
             </div>
           </section>
@@ -201,5 +206,6 @@ const ConnectedComponent = connect(mapStateToProps, {
   getTeachersAction,
   createUserAction,
   addErrorAction,
+  deleteUserAction,
 })(Add_teachers as React.FC);
 export default Routes.withRole(ConnectedComponent, "admin");

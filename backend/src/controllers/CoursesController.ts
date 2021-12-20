@@ -13,7 +13,12 @@ import {
 
 const getCourses = async (req: express.Request, res: express.Response) => {
   try {
-    const allCourses = await Course.findAll({ include: [{ model: User }] });
+    const allCourses = await Course.findAll({
+      include: [
+        { model: User, as: 'teacher' },
+        { model: Group, as: 'group' },
+      ],
+    });
     return res.status(200).json(allCourses);
   } catch (err) {
     fail(res, err as Error);
@@ -26,7 +31,6 @@ const postCourse = async (req: express.Request, res: express.Response) => {
     return clientError(res, errors.array()[0].msg);
   }
   const { name, teacher_id, group_id } = req.body;
-
   try {
     const courseToSave = Course.build({
       name,

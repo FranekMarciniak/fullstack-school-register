@@ -9,7 +9,7 @@ import {
   RECIVE_COURSES,
   RECIVE_GROUPS,
   RECIVE_TEACHERS,
-  ADD_COURSE,
+  DELETE_USER,
 } from "./types";
 
 interface IUserToCreate {
@@ -71,6 +71,28 @@ export const createUserAction =
       }
     }
   };
+
+export const deleteUserAction = (id: number) => async (dispatch: Dispatch) => {
+  try {
+    const res = await axios({
+      method: "DELETE",
+      withCredentials: true,
+      url: `/api/users/${id}`,
+    });
+    dispatch({ type: ADD_MESSAGE, payload: res.data.message });
+    setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+    dispatch({ type: DELETE_USER, payload: id });
+  } catch (err: any) {
+    if (err.response) {
+      const error = err.response.data.message;
+      dispatch({ type: ADD_ERROR, payload: error });
+      setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+    } else {
+      console.log(err);
+    }
+  }
+};
+
 export const addErrorAction =
   (message: string) => async (dispatch: Dispatch) => {
     dispatch({ type: ADD_ERROR, payload: message });
@@ -141,22 +163,32 @@ export const getCoursesAction = () => async (dispatch: Dispatch) => {
 };
 
 export const addCourseAction =
-  ({ name, group, course }: { name: string; group: number; course: number }) =>
+  ({
+    name,
+    group_id,
+    teacher_id,
+  }: {
+    name: string;
+    group_id: number;
+    teacher_id: number;
+  }) =>
   async (dispatch: Dispatch) => {
     try {
-      const res = await axios({
+      await axios({
         method: "POST",
-        data: { name, group, course },
+        data: { name, group_id, teacher_id },
         withCredentials: true,
         url: "/api/courses/",
       });
-      console.log(res);
-      dispatch({
-        type: ADD_COURSE,
-        payload: { name, group, course },
-      });
       dispatch({ type: ADD_MESSAGE, payload: "Course created!" });
       setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+
+      const res = await axios({
+        method: "GET",
+        withCredentials: true,
+        url: "/api/courses/",
+      });
+      dispatch({ type: RECIVE_COURSES, payload: res.data });
     } catch (err: any) {
       if (err.response) {
         const error = err.response.data.message;
@@ -167,36 +199,3 @@ export const addCourseAction =
       }
     }
   };
-
-// export const checkUserAction = () => async (dispatch: Dispatch) => {
-//   try {
-//     const res = await axios({
-//       method: "GET",
-//       withCredentials: true,
-//       url: "/api/sessions",
-//     });
-//     dispatch({ type: SET_USER, payload: res.data });
-//   } catch (err: any) {
-//     if (err.response) {
-//       const error = err.response.data.message.message;
-//       dispatch({ type: ADD_ERROR, payload: error });
-//       setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
-//     } else {
-//       console.log(err);
-//     }
-//   }
-// };
-// export const logoutAction = () => async (dispatch: Dispatch) => {
-//   axios({
-//     method: "DELETE",
-//     withCredentials: true,
-//     url: "/api/sessions",
-//   })
-//     .then(() => dispatch({ type: CLEAR_USER }))
-//     .catch((error: any) =>
-//       dispatch({
-//         type: ADD_ERROR,
-//         message: error.response.data.message.message,
-//       })
-//     );
-// };

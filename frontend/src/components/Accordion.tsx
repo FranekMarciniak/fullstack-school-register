@@ -28,11 +28,11 @@ function Accordion({ children, open, setOpen }: Props): ReactElement {
 
       <div className="flex justify-center w-1/12 pr-4">
         {open ? (
-          <button className="cursor-pointer " onClick={setOpen}>
+          <button className="cursor-pointer px-3" onClick={setOpen}>
             <MdKeyboardArrowUp size="1.4em" />
           </button>
         ) : (
-          <button className="cursor-pointer " onClick={setOpen}>
+          <button className="cursor-pointer px-3" onClick={setOpen}>
             <MdKeyboardArrowDown size="1.4em" />
           </button>
         )}

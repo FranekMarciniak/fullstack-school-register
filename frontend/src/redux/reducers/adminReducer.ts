@@ -3,14 +3,14 @@ import {
   ADD_ERROR,
   RECIVE_TEACHERS,
   CLEAR_ERRORS,
-  // ADD_TEACHER,
   ADD_MESSAGE,
+  DELETE_USER,
   CLEAR_MESSAGE,
 } from "../actions/types";
 
 const initialState = {
   errors: null,
-  teachers: [],
+  teachers: [] as any,
   groups: [],
   courses: [],
   message: null,
@@ -21,6 +21,13 @@ const adminReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case RECIVE_TEACHERS:
       return { ...state, teachers: action.payload };
+    case DELETE_USER:
+      return {
+        ...state,
+        teachers: state.teachers.filter(
+          (teacher: any) => teacher.id !== action.payload
+        ),
+      };
     case ADD_GROUPS:
       return { ...state, groups: [...state.groups, action.payload] };
     case RECIVE_GROUPS:

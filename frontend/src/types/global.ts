@@ -16,13 +16,14 @@ export interface IGlobalState {
 }
 export interface IFetchedUser {
   username: string;
+  id?: number;
   email: string;
   firstName: string;
   lastName: string;
   role: string;
 }
 export interface IAdminState {
-  groups: {name: string; id: number}[];
+  groups: { name: string; id: number }[];
   errors?: string;
   message?: string;
   teachers: IFetchedUser[] | [];
