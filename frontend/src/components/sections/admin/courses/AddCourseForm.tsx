@@ -5,6 +5,7 @@ import {
   getTeachersAction,
   getCoursesAction,
   addCourseAction,
+  addErrorAction,
 } from "../../../../redux/actions/adminActions";
 import { IAdminState } from "../../../../types/global";
 import SelectSearch from "../../../SelectSearch";
@@ -17,6 +18,7 @@ interface Props {
   getGroupsAction: () => void;
   getTeachersAction: () => void;
   getCoursesAction: () => void;
+  addErrorAction: (name: string) => void;
   teachers: any[];
   groups: any[];
 }
@@ -26,6 +28,7 @@ function AddCourseForm({
   getGroupsAction,
   getTeachersAction,
   getCoursesAction,
+  addErrorAction,
   teachers,
   groups,
 }: Props): ReactElement {
@@ -42,7 +45,15 @@ function AddCourseForm({
 
   const handleSubmitCourses = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addCourseAction(courseForm);
+    if (
+      courseForm.name !== "" &&
+      courseForm.group_id !== 0 &&
+      courseForm.teacher_id !== 0
+    ) {
+      addCourseAction(courseForm);
+    } else {
+      addErrorAction("Please fill the form");
+    }
   };
   return (
     <>
@@ -106,4 +117,5 @@ export default connect(mapStateToProps, {
   getTeachersAction,
   getCoursesAction,
   addCourseAction,
+  addErrorAction,
 })(AddCourseForm);
