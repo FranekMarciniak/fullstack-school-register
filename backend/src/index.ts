@@ -9,6 +9,7 @@ import usersRoutes from './routes/users';
 import groupsRouter from './routes/groups';
 import coursesRouter from './routes/courses';
 import hoursRouter from './routes/hours';
+import lessonsRouter from './routes/lessons';
 import classroomsRouter from './routes/classrooms';
 import { Group } from './models/GroupModel';
 import { Course } from './models/CourseModel';
@@ -56,7 +57,7 @@ app.use('/api/groups', groupsRouter);
 app.use('/api/courses', coursesRouter);
 app.use('/api/hours', hoursRouter);
 app.use('/api/classrooms', classroomsRouter);
-app.use('/api/lessons', hoursRouter);
+app.use('/api/lessons', lessonsRouter);
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 
 app.listen(PORT, () => {

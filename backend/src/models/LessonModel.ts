@@ -14,16 +14,16 @@ export const Lesson = sequelize.define('lessons', {
     primaryKey: true,
   },
   day: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false,
   },
 });
 
 Course.hasMany(Lesson, { foreignKey: 'course_id' });
-Lesson.belongsTo(Course, { foreignKey: 'course_id' });
+Lesson.belongsTo(Course, { foreignKey: 'course_id', as: 'course' });
 
 Hour.hasMany(Lesson, { foreignKey: 'hour_id' });
-Lesson.belongsTo(Hour, { foreignKey: 'hour_id' });
+Lesson.belongsTo(Hour, { foreignKey: 'hour_id', as: 'hour' });
 
 Classroom.hasMany(Lesson, { foreignKey: 'classroom_id' });
-Lesson.belongsTo(Classroom, { foreignKey: 'classroom_id' });
+Lesson.belongsTo(Classroom, { foreignKey: 'classroom_id', as: 'classroom' });

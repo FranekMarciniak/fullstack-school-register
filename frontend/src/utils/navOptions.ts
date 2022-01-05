@@ -7,5 +7,6 @@ export const adminNavOptions = [
   { text: "Dashboard", href: "/admin" },
   { text: "Teachers", href: "/admin/teachers/" },
   { text: "Courses", href: "/admin/courses/" },
+  { text: "Lessons", href: "/admin/lessons/" },
 ];
 // { text: "Open", href: "/about/" },

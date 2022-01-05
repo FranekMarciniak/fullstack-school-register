@@ -1,9 +1,6 @@
-import React, { useEffect, useState, ReactElement } from "react";
+import React, { useState, ReactElement } from "react";
 import { connect } from "react-redux";
 import {
-  getGroupsAction,
-  getTeachersAction,
-  getCoursesAction,
   addCourseAction,
   addErrorAction,
 } from "../../../../redux/actions/adminActions";
@@ -15,9 +12,6 @@ import SubmitButton from "../../../buttons/SubmitButton";
 interface Props {
   admin: IAdminState;
   addCourseAction: ({ name, group_id, teacher_id }: any) => void;
-  getGroupsAction: () => void;
-  getTeachersAction: () => void;
-  getCoursesAction: () => void;
   addErrorAction: (name: string) => void;
   teachers: any[];
   groups: any[];
@@ -25,18 +19,11 @@ interface Props {
 
 function AddCourseForm({
   addCourseAction,
-  getGroupsAction,
-  getTeachersAction,
-  getCoursesAction,
+
   addErrorAction,
   teachers,
   groups,
 }: Props): ReactElement {
-  useEffect(() => {
-    getGroupsAction();
-    getTeachersAction();
-    getCoursesAction();
-  }, []);
   const [courseForm, setCourseForm] = useState({
     name: "",
     group_id: 0,
@@ -113,9 +100,6 @@ const mapStateToProps = ({ admin }: { admin: IAdminState }) => ({
   admin,
 });
 export default connect(mapStateToProps, {
-  getGroupsAction,
-  getTeachersAction,
-  getCoursesAction,
   addCourseAction,
   addErrorAction,
 })(AddCourseForm);
