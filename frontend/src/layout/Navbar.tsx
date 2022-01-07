@@ -42,6 +42,7 @@ const Navbar = ({ role }: { role?: string | null }) => {
             navState={navState.section}
             setState={() => setNavState({ section: ele.href, open: false })}
             key={i}
+            Icon={ele.icon}
           />
         ))}
 
@@ -55,6 +56,7 @@ const Navbar = ({ role }: { role?: string | null }) => {
             navState={navState.section}
             setState={() => setNavState({ section: ele.href, open: false })}
             key={i}
+            Icon={ele.icon}
           />
         ))}
         {role && <LogoutButton />}
