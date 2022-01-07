@@ -37,7 +37,6 @@ const CoursesPage = ({
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
         <main className="w-full h-full flex flex-col lg:flex-row flex-wrap items-center lg:items-baseline ">
           <section className="w-full  lg:w-1/2 mb-10 px-2 flex flex-col ">
-            <AddGroupFrom />
             <CoursesList />
           </section>
           <section className="w-full lg:w-1/2  px-2 ">
