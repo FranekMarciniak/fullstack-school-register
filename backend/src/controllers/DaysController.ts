@@ -7,11 +7,12 @@ import {
   notFound,
   succsess,
   succsesJson,
+  conflict,
 } from './BaseController';
 
 const getDays = async (req: express.Request, res: express.Response) => {
   try {
-    const allDays = await Day.findAll();
+    const allDays = await Day.findAll({ order: [['dayNumber', 'ASC']] });
     return res.status(200).json(allDays);
   } catch (err) {
     fail(res, err as Error);
@@ -24,6 +25,12 @@ const postDay = async (req: express.Request, res: express.Response) => {
     return clientError(res, errors.array()[0].msg);
   }
   const { name, dayNumber } = req.body;
+  const checkDay = await Day.findOne({
+    where: { dayNumber: dayNumber },
+  });
+  if (checkDay) {
+    return conflict(res, 'Day with this number is already assigned');
+  }
   try {
     const dayToSave = Day.build({ name, dayNumber });
     await dayToSave.save();

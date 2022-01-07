@@ -17,6 +17,9 @@ import {
   RECIVE_HOURS,
   RECIVE_DAYS,
   RECIVE_CLASSROOMS,
+  ADD_DAY,
+  ADD_CLASSROOM,
+  ADD_HOUR,
 } from "./types";
 
 interface IUserToCreate {
@@ -360,3 +363,100 @@ export const getClassroomsAction = () => async (dispatch: Dispatch) => {
     }
   }
 };
+
+export const addDayAction =
+  ({ dayNumber, name }: { dayNumber: number; name: string }) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const res = await axios({
+        method: "POST",
+        data: { name, dayNumber },
+        withCredentials: true,
+        url: "/api/days/",
+      });
+      dispatch({
+        type: ADD_DAY,
+        payload: {
+          name: res.data.data.name,
+          id: res.data.data.id,
+          dayNumber: res.data.data.dayNumber,
+        },
+      });
+      dispatch({ type: ADD_MESSAGE, payload: "Day created!" });
+      setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+    } catch (err: any) {
+      if (err.response) {
+        const error = err.response.data.message;
+        dispatch({ type: ADD_ERROR, payload: error });
+        setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+      } else {
+        console.log(err);
+      }
+    }
+  };
+
+export const addHourAction =
+  ({
+    periodNumber,
+    intervalName,
+  }: {
+    periodNumber: number;
+    intervalName: string;
+  }) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const res = await axios({
+        method: "POST",
+        data: { periodNumber, intervalName },
+        withCredentials: true,
+        url: "/api/hours/",
+      });
+      dispatch({
+        type: ADD_HOUR,
+        payload: {
+          intervalName: res.data.data.intervalName,
+          id: res.data.data.id,
+          periodNumber: res.data.data.periodNumber,
+        },
+      });
+      dispatch({ type: ADD_MESSAGE, payload: "Hour created!" });
+      setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+    } catch (err: any) {
+      if (err.response) {
+        const error = err.response.data.message;
+        dispatch({ type: ADD_ERROR, payload: error });
+        setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+      } else {
+        console.log(err);
+      }
+    }
+  };
+
+export const addClassroomAction =
+  (name: string) => async (dispatch: Dispatch) => {
+    try {
+      const res = await axios({
+        method: "POST",
+        data: { name },
+        withCredentials: true,
+        url: "/api/classrooms/",
+      });
+      dispatch({
+        type: ADD_CLASSROOM,
+        payload: {
+          id: res.data.data.id,
+          name: res.data.data.name,
+        },
+      });
+      dispatch({ type: ADD_MESSAGE, payload: "Classroom created!" });
+      setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+    } catch (err: any) {
+      if (err.response) {
+        const error = err.response.data.message;
+        dispatch({ type: ADD_ERROR, payload: error });
+        setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+      } else {
+        console.log(err);
+      }
+    }
+  };

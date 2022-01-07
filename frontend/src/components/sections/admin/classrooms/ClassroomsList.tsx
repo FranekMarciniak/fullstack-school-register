@@ -1,30 +1,28 @@
 import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
-import { deleteCourseAction } from "../../../../redux/actions/adminActions";
 import Input from "../../../Input";
-import CourseCard from "../../../cards/CourseCard";
 import { IAdminState } from "../../../../types/global";
+import ClassroomCard from "../../../cards/ClassroomCard";
 
 interface Props {
   admin: IAdminState;
-  deleteCourseAction: (id: number) => void;
 }
 
-function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
+function ClassroomsList({ admin }: Props): ReactElement {
   const [search, setSearch] = useState("");
-  const [courses, setCourses] = useState([] as any);
+  const [classrooms, setClassrooms] = useState([] as any);
   const [activeCard, setActiveCard] = useState(0);
 
-  useEffect(() => setCourses(admin.courses), []);
+  useEffect(() => setClassrooms(admin.classrooms), []);
 
   const handleSearch = (text: string) => {
     if (text === "") {
-      setCourses(admin.courses);
+      setClassrooms(admin.classrooms);
     } else {
-      setCourses(
-        courses.filter(
-          (course: any) =>
-            course.name.toLowerCase().indexOf(text.toLowerCase()) > -1
+      setClassrooms(
+        classrooms.filter(
+          (classroom: any) =>
+            classroom.name.toLowerCase().indexOf(text.toLowerCase()) > -1
         )
       );
     }
@@ -33,8 +31,8 @@ function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
     <>
       <form className="mt-5">
         <Input
-          name="Course name"
-          placeholder="Search for the courses"
+          name="Classroom name"
+          placeholder="Search for the classroom"
           onChange={(e) => {
             setSearch(e.target.value);
             handleSearch(e.target.value);
@@ -45,26 +43,26 @@ function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
       <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
         <ul className="list-none w-full">
           {search
-            ? courses.map((teacher: any, i: number) => (
-                <CourseCard
-                  course={teacher}
+            ? classrooms.map((classroom: any, i: number) => (
+                <ClassroomCard
+                  classroom={classroom}
                   open={i + 1 === activeCard ? true : false}
                   setOpen={() =>
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteTeacher={deleteCourseAction}
+                  deleteClassroom={() => console.log("object")}
                 />
               ))
-            : admin.courses.map((teacher: any, i: number) => (
-                <CourseCard
-                  course={teacher}
+            : admin.classrooms.map((classroom: any, i: number) => (
+                <ClassroomCard
+                  classroom={classroom}
                   open={i + 1 === activeCard ? true : false}
                   setOpen={() =>
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteTeacher={deleteCourseAction}
+                  deleteClassroom={() => console.log("object")}
                 />
               ))}
         </ul>
@@ -76,4 +74,4 @@ const mapStateToProps = ({ admin }: { admin: IAdminState }) => ({
   admin,
 });
 
-export default connect(mapStateToProps, { deleteCourseAction })(CoursesList);
+export default connect(mapStateToProps, {})(ClassroomsList);

@@ -1,30 +1,28 @@
 import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
-import { deleteCourseAction } from "../../../../redux/actions/adminActions";
 import Input from "../../../Input";
-import CourseCard from "../../../cards/CourseCard";
 import { IAdminState } from "../../../../types/global";
+import HourCard from "../../../cards/HourCard";
 
 interface Props {
   admin: IAdminState;
-  deleteCourseAction: (id: number) => void;
 }
 
-function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
+function CoursesList({ admin }: Props): ReactElement {
   const [search, setSearch] = useState("");
-  const [courses, setCourses] = useState([] as any);
+  const [hours, setHours] = useState([] as any);
   const [activeCard, setActiveCard] = useState(0);
 
-  useEffect(() => setCourses(admin.courses), []);
+  useEffect(() => setHours(admin.hours), []);
 
   const handleSearch = (text: string) => {
     if (text === "") {
-      setCourses(admin.courses);
+      setHours(admin.hours);
     } else {
-      setCourses(
-        courses.filter(
-          (course: any) =>
-            course.name.toLowerCase().indexOf(text.toLowerCase()) > -1
+      setHours(
+        hours.filter(
+          (hour: any) =>
+            hour.intervalName.toLowerCase().indexOf(text.toLowerCase()) > -1
         )
       );
     }
@@ -33,8 +31,8 @@ function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
     <>
       <form className="mt-5">
         <Input
-          name="Course name"
-          placeholder="Search for the courses"
+          name="hour name"
+          placeholder="Search for the hour"
           onChange={(e) => {
             setSearch(e.target.value);
             handleSearch(e.target.value);
@@ -45,26 +43,26 @@ function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
       <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
         <ul className="list-none w-full">
           {search
-            ? courses.map((teacher: any, i: number) => (
-                <CourseCard
-                  course={teacher}
+            ? hours.map((hour: any, i: number) => (
+                <HourCard
+                  hour={hour}
                   open={i + 1 === activeCard ? true : false}
                   setOpen={() =>
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteTeacher={deleteCourseAction}
+                  deleteHour={() => console.log("object")}
                 />
               ))
-            : admin.courses.map((teacher: any, i: number) => (
-                <CourseCard
-                  course={teacher}
+            : admin.hours.map((hour: any, i: number) => (
+                <HourCard
+                  hour={hour}
                   open={i + 1 === activeCard ? true : false}
                   setOpen={() =>
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteTeacher={deleteCourseAction}
+                  deleteHour={() => console.log("object")}
                 />
               ))}
         </ul>
@@ -76,4 +74,4 @@ const mapStateToProps = ({ admin }: { admin: IAdminState }) => ({
   admin,
 });
 
-export default connect(mapStateToProps, { deleteCourseAction })(CoursesList);
+export default connect(mapStateToProps, {})(CoursesList);

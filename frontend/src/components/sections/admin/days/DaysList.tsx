@@ -1,30 +1,27 @@
 import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
-import { deleteCourseAction } from "../../../../redux/actions/adminActions";
 import Input from "../../../Input";
-import CourseCard from "../../../cards/CourseCard";
 import { IAdminState } from "../../../../types/global";
+import DayCard from "../../../cards/DayCard";
 
 interface Props {
   admin: IAdminState;
-  deleteCourseAction: (id: number) => void;
 }
 
-function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
+function CoursesList({ admin }: Props): ReactElement {
   const [search, setSearch] = useState("");
-  const [courses, setCourses] = useState([] as any);
+  const [days, setDays] = useState([] as any);
   const [activeCard, setActiveCard] = useState(0);
 
-  useEffect(() => setCourses(admin.courses), []);
+  useEffect(() => setDays(admin.days), []);
 
   const handleSearch = (text: string) => {
     if (text === "") {
-      setCourses(admin.courses);
+      setDays(admin.days);
     } else {
-      setCourses(
-        courses.filter(
-          (course: any) =>
-            course.name.toLowerCase().indexOf(text.toLowerCase()) > -1
+      setDays(
+        days.filter(
+          (day: any) => day.name.toLowerCase().indexOf(text.toLowerCase()) > -1
         )
       );
     }
@@ -33,8 +30,8 @@ function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
     <>
       <form className="mt-5">
         <Input
-          name="Course name"
-          placeholder="Search for the courses"
+          name="Day name"
+          placeholder="Search for the day"
           onChange={(e) => {
             setSearch(e.target.value);
             handleSearch(e.target.value);
@@ -45,26 +42,26 @@ function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
       <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
         <ul className="list-none w-full">
           {search
-            ? courses.map((teacher: any, i: number) => (
-                <CourseCard
-                  course={teacher}
+            ? days.map((day: any, i: number) => (
+                <DayCard
+                  day={day}
                   open={i + 1 === activeCard ? true : false}
                   setOpen={() =>
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteTeacher={deleteCourseAction}
+                  deleteDay={() => console.log("object")}
                 />
               ))
-            : admin.courses.map((teacher: any, i: number) => (
-                <CourseCard
-                  course={teacher}
+            : admin.days.map((day: any, i: number) => (
+                <DayCard
+                  day={day}
                   open={i + 1 === activeCard ? true : false}
                   setOpen={() =>
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteTeacher={deleteCourseAction}
+                  deleteDay={() => console.log("object")}
                 />
               ))}
         </ul>
@@ -76,4 +73,4 @@ const mapStateToProps = ({ admin }: { admin: IAdminState }) => ({
   admin,
 });
 
-export default connect(mapStateToProps, { deleteCourseAction })(CoursesList);
+export default connect(mapStateToProps, {})(CoursesList);

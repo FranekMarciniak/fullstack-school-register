@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { deleteUserAction } from "../../../../redux/actions/adminActions";
 import Input from "../../../../components/Input";
-import TeachersCard from "../../../../components/TeachersCard";
+import TeachersCard from "../../../cards/TeachersCard";
 import { IAdminState, IFetchedUser } from "../../../../types/global";
 
 interface Props {

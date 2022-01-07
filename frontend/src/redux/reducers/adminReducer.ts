@@ -1,5 +1,8 @@
 import {
+  ADD_CLASSROOM,
+  ADD_DAY,
   ADD_GROUPS,
+  ADD_HOUR,
   DELETE_LESSON,
   RECIVE_COURSES,
   RECIVE_DAYS,
@@ -58,6 +61,12 @@ const adminReducer = (state = initialState, action: any) => {
       };
     case ADD_GROUPS:
       return { ...state, groups: [...state.groups, action.payload] };
+    case ADD_DAY:
+      return { ...state, days: [...state.days, action.payload] };
+    case ADD_CLASSROOM:
+      return { ...state, classrooms: [...state.classrooms, action.payload] };
+    case ADD_HOUR:
+      return { ...state, hours: [...state.hours, action.payload] };
     case ADD_LESSON:
       return { ...state };
     case RECIVE_LESSONS:

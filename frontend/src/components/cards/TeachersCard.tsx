@@ -1,6 +1,6 @@
 import React from "react";
-import Accordion from "./Accordion";
-import { IFetchedUser } from "../types/global";
+import Accordion from "../Accordion";
+import { IFetchedUser } from "../../types/global";
 
 interface Props {
   open: boolean;

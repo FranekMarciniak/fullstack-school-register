@@ -25,7 +25,7 @@ function Accordion({
 
   return (
     <div
-      className={`shadow bg-gray-300 w-full relative flex transition-all duration-200 ${
+      className={`rounded-lg shadow bg-gray-300 w-full relative flex transition-all px-3 duration-200 ${
         open ? "my-4" : "my-2"
       }`}
     >

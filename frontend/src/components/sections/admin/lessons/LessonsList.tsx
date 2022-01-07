@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { deleteLessonAction } from "../../../../redux/actions/adminActions";
 import Input from "../../../Input";
 import { IAdminState } from "../../../../types/global";
-import LessonCard from "../../../LessonCard";
+import LessonCard from "../../../cards/LessonCard";
 
 interface Props {
   admin: IAdminState;

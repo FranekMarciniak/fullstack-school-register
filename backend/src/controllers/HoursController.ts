@@ -7,11 +7,12 @@ import {
   notFound,
   succsess,
   succsesJson,
+  conflict,
 } from './BaseController';
 
 const getHours = async (req: express.Request, res: express.Response) => {
   try {
-    const allHours = await Hour.findAll();
+    const allHours = await Hour.findAll({ order: [['periodNumber', 'ASC']] });
     return res.status(200).json(allHours);
   } catch (err) {
     fail(res, err as Error);
@@ -24,6 +25,12 @@ const postHour = async (req: express.Request, res: express.Response) => {
     return clientError(res, errors.array()[0].msg);
   }
   const { periodNumber, intervalName } = req.body;
+  const checkHour = await Hour.findOne({
+    where: { periodNumber: periodNumber },
+  });
+  if (checkHour) {
+    return conflict(res, 'Hour with this period number is already assigned');
+  }
   try {
     const hourToSave = Hour.build({ periodNumber, intervalName });
     await hourToSave.save();

@@ -71,7 +71,7 @@ const SelectSearch = ({
         onFocus={() => setActive(true)}
       />
       <div
-        className={`flex-col items-center flex max-h-44 overflow-y-auto mt-2 border-2 border-gray-400`}
+        className={`flex-col items-center rounded-lg flex max-h-44 overflow-y-auto mt-2 border-2 border-gray-400`}
       >
         {filteredOptions.map((option) => (
           <button
