@@ -31,6 +31,9 @@ function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
   };
   return (
     <>
+      <h2 className="text-2xl text-center font-semibold text-font-200 ">
+        Courses list
+      </h2>
       <form className="mt-5">
         <Input
           name="Course name"
