@@ -11,7 +11,6 @@ import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import { IAdminState } from "../../types/global";
 import AddCourseForm from "../../components/sections/admin/courses/AddCourseForm";
-import AddGroupFrom from "../../components/sections/admin/groups/AddGroupForm";
 import CoursesList from "../../components/sections/admin/courses/CoursesList";
 interface Props {
   admin: IAdminState;
