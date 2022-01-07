@@ -9,7 +9,6 @@ interface Props {
 }
 
 const CourseCard = ({ open, course, setOpen, deleteTeacher }: Props) => {
-  console.log(course);
   return (
     <Accordion open={open} setOpen={setOpen}>
       <>

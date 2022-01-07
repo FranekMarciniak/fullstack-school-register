@@ -1,4 +1,10 @@
-import { ADD_GROUPS, RECIVE_COURSES, RECIVE_GROUPS } from "./../actions/types";
+import {
+  ADD_GROUPS,
+  DELETE_LESSON,
+  RECIVE_COURSES,
+  RECIVE_DAYS,
+  RECIVE_GROUPS,
+} from "./../actions/types";
 import {
   ADD_ERROR,
   RECIVE_TEACHERS,
@@ -7,15 +13,22 @@ import {
   DELETE_USER,
   CLEAR_MESSAGE,
   DELETE_COURSE,
+  ADD_LESSON,
+  RECIVE_LESSONS,
+  RECIVE_HOURS,
+  RECIVE_CLASSROOMS,
 } from "../actions/types";
 
 const initialState = {
   errors: null,
-  teachers: [] as any,
+  teachers: [],
+  lessons: [],
   groups: [],
   courses: [],
+  hours: [],
+  days: [],
+  classrooms: [],
   message: null,
-  // createdUser:},
 };
 
 const adminReducer = (state = initialState, action: any) => {
@@ -36,12 +49,29 @@ const adminReducer = (state = initialState, action: any) => {
           (course: any) => course.id !== action.payload
         ),
       };
+    case DELETE_LESSON:
+      return {
+        ...state,
+        lessons: state.lessons.filter(
+          (lesson: any) => lesson.id !== action.payload
+        ),
+      };
     case ADD_GROUPS:
       return { ...state, groups: [...state.groups, action.payload] };
+    case ADD_LESSON:
+      return { ...state };
+    case RECIVE_LESSONS:
+      return { ...state, lessons: [...action.payload] };
     case RECIVE_GROUPS:
       return { ...state, groups: action.payload };
     case RECIVE_COURSES:
       return { ...state, courses: action.payload };
+    case RECIVE_HOURS:
+      return { ...state, hours: action.payload };
+    case RECIVE_DAYS:
+      return { ...state, days: action.payload };
+    case RECIVE_CLASSROOMS:
+      return { ...state, classrooms: action.payload };
     case ADD_MESSAGE:
       return { ...state, message: action.payload };
     case CLEAR_MESSAGE:
@@ -54,7 +84,6 @@ const adminReducer = (state = initialState, action: any) => {
     case CLEAR_ERRORS: {
       return { ...state, errors: null };
     }
-
     default:
       return state;
   }

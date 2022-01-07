@@ -9,14 +9,14 @@ router.get('/', LessonsController.getLessons);
 
 router.post(
   '/',
-  body('day').exists().withMessage('Day is required'),
+  body('day_id').exists().withMessage('Day id is required'),
   body('course_id').exists().withMessage('Course id is required'),
   body('hour_id').exists().withMessage('Hour id is required'),
   body('classroom_id').exists().withMessage('Classroom id is required'),
   LessonsController.postLesson,
 );
 
-// router.delete('/:id', CoursesController.deleteCourse);
+router.delete('/:id', LessonsController.deleteLesson);
 
 // router.put(
 //   '/:id',

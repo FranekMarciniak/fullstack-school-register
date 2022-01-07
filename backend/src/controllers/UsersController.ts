@@ -87,7 +87,6 @@ const editUser = async (req: express.Request, res: express.Response) => {
     return clientError(res, errors.array()[0].msg);
   }
 
-  console.log(req.body);
   const { username, email, firstName, lastName, role } = req.body;
 
   try {

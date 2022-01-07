@@ -42,6 +42,7 @@ export const checkUserAction = () => async (dispatch: Dispatch) => {
     }
   }
 };
+
 export const logoutAction = () => async (dispatch: Dispatch) => {
   axios({
     method: "DELETE",

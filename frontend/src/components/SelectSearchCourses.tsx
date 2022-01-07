@@ -14,8 +14,8 @@ interface Props {
   placeholder: string;
   className?: string;
   keysToDisplay: string[];
+  nestedObjectKey: any;
 }
-
 const SelectSearch = ({
   options,
   value,
@@ -24,6 +24,7 @@ const SelectSearch = ({
   label,
   className = "",
   keysToDisplay,
+  nestedObjectKey,
 }: Props) => {
   const [filteredOptions, setFilteredOptions] = useState([] as any[]);
   const [search, setSearch] = useState("");
@@ -42,7 +43,15 @@ const SelectSearch = ({
         options.filter(
           (option) =>
             keysToDisplay
-              .reduce((prev, curr) => `${prev} ${option[curr as string]}`, "")
+              .reduce(
+                (prev, curr) =>
+                  `${prev} ${
+                    curr === nestedObjectKey.key
+                      ? option[curr][nestedObjectKey.name]
+                      : option[curr]
+                  }`,
+                ""
+              )
               .toLowerCase()
               .indexOf(e.target.value.toLowerCase()) > -1
         )
@@ -61,7 +70,11 @@ const SelectSearch = ({
             : keysToDisplay.reduce(
                 (prev, curr) =>
                   `${prev} ${
-                    options.find((option) => option.id === value)[curr]
+                    curr === nestedObjectKey.key
+                      ? options.find((option) => option.id === value)[curr][
+                          nestedObjectKey.name
+                        ]
+                      : options.find((option) => option.id === value)[curr]
                   }`,
                 ""
               )
@@ -87,7 +100,12 @@ const SelectSearch = ({
             }}
           >
             {keysToDisplay.reduce(
-              (prev, curr) => `${prev} ${option[curr]}`,
+              (prev, curr) =>
+                `${prev} ${
+                  curr === nestedObjectKey.key
+                    ? option[curr][nestedObjectKey.name]
+                    : option[curr]
+                }`,
               ""
             )}
           </button>

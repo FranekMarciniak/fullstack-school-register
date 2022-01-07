@@ -11,6 +11,7 @@ import coursesRouter from './routes/courses';
 import hoursRouter from './routes/hours';
 import lessonsRouter from './routes/lessons';
 import classroomsRouter from './routes/classrooms';
+import daysRouter from './routes/days';
 import { Group } from './models/GroupModel';
 import { Course } from './models/CourseModel';
 import { User } from './models/UserModel';
@@ -58,6 +59,7 @@ app.use('/api/courses', coursesRouter);
 app.use('/api/hours', hoursRouter);
 app.use('/api/classrooms', classroomsRouter);
 app.use('/api/lessons', lessonsRouter);
+app.use('/api/days', daysRouter);
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 
 app.listen(PORT, () => {

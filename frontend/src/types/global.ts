@@ -25,6 +25,10 @@ export interface IFetchedUser {
 export interface IAdminState {
   groups: { name: string; id: number }[];
   courses: any[];
+  lessons: any[];
+  hours: any[];
+  classrooms: any[];
+  days: any[];
   errors?: string;
   message?: string;
   teachers: IFetchedUser[] | [];

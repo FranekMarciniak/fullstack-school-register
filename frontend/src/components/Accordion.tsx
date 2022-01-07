@@ -8,21 +8,28 @@ import {
 interface Props {
   children: React.ReactElement;
   open: boolean;
+  closedStylesProps?: string;
   setOpen: () => void;
 }
 
-function Accordion({ children, open, setOpen }: Props): ReactElement {
-  const openStyles = "flex-col";
-  const closedStyles = "justify-around items-center";
+function Accordion({
+  children,
+  open,
+  setOpen,
+  closedStylesProps,
+}: Props): ReactElement {
+  const openStyles = "flex flex-col";
+  const closedStyles = closedStylesProps
+    ? closedStylesProps
+    : "flex justify-around items-center";
+
   return (
     <div
       className={`shadow bg-gray-300 w-full relative flex transition-all duration-200 ${
         open ? "my-4" : "my-2"
       }`}
     >
-      <div
-        className={`flex py-2 my-2 w-11/12 ${open ? openStyles : closedStyles}`}
-      >
+      <div className={` py-2 my-2 w-11/12 ${open ? openStyles : closedStyles}`}>
         {children}
       </div>
 

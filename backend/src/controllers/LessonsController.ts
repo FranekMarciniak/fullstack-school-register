@@ -15,13 +15,22 @@ import { Lesson } from '../models/LessonModel';
 import { Hour } from '../models/HoursModel';
 import { Classroom } from '../models/ClassroomModel';
 import { Op } from 'sequelize';
+import { Day } from '../models/DayModel';
 
 const getLessons = async (req: express.Request, res: express.Response) => {
   try {
     const allCourses = await Lesson.findAll({
       include: [
-        { model: Course, as: 'course' },
+        {
+          model: Course,
+          as: 'course',
+          include: [
+            { model: User, as: 'teacher' },
+            { model: Group, as: 'group' },
+          ],
+        },
         { model: Hour, as: 'hour' },
+        { model: Day, as: 'day' },
         { model: Classroom, as: 'classroom' },
       ],
     });
@@ -36,13 +45,14 @@ const postLesson = async (req: express.Request, res: express.Response) => {
   if (!errors.isEmpty()) {
     return clientError(res, errors.array()[0].msg);
   }
-  const { day, course_id, hour_id, classroom_id } = req.body;
+  const { day_id, course_id, hour_id, classroom_id } = req.body;
 
   try {
     const course = await Course.findByPk(course_id);
     const hour = await Hour.findByPk(hour_id);
     const clasroom = await Classroom.findByPk(classroom_id);
-    if (!course || !hour || !clasroom) {
+    const day = await Day.findByPk(day_id);
+    if (!day || !course || !hour || !clasroom) {
       return notFound(res, 'Please enter correct data');
     }
     const teacher_id = course.get('teacher_id');
@@ -56,7 +66,7 @@ const postLesson = async (req: express.Request, res: express.Response) => {
           where: { group_id: { [Op.eq]: group_id } },
         },
       ],
-      where: { [Op.and]: [{ hour_id: hour_id }, { day: day }] },
+      where: { [Op.and]: [{ hour_id: hour_id }, { day_id: day_id }] },
     });
     if (isGroupBusy) return conflict(res, 'This group is busy at this time');
     const isTeacherBusy = await Lesson.findOne({
@@ -68,7 +78,7 @@ const postLesson = async (req: express.Request, res: express.Response) => {
           where: { teacher_id: { [Op.eq]: teacher_id } },
         },
       ],
-      where: { [Op.and]: [{ hour_id: hour_id }, { day: day }] },
+      where: { [Op.and]: [{ hour_id: hour_id }, { day_id: day_id }] },
     });
     if (isTeacherBusy)
       return conflict(res, 'This teacher is busy at this time');
@@ -76,7 +86,7 @@ const postLesson = async (req: express.Request, res: express.Response) => {
       where: {
         [Op.and]: [
           { hour_id: hour_id },
-          { day: day },
+          { day_id: day_id },
           { classroom_id: classroom_id },
         ],
       },
@@ -84,7 +94,7 @@ const postLesson = async (req: express.Request, res: express.Response) => {
     if (isClassroomBusy)
       return conflict(res, 'This classroom is busy at this time');
     const lessonToCreate = await Lesson.build({
-      day,
+      day_id,
       classroom_id,
       course_id,
       hour_id,
@@ -96,17 +106,17 @@ const postLesson = async (req: express.Request, res: express.Response) => {
   }
 };
 
-const deleteCourse = async (req: express.Request, res: express.Response) => {
+const deleteLesson = async (req: express.Request, res: express.Response) => {
   try {
-    const courseToDelete = await Course.findByPk(req.params.id);
-    if (!courseToDelete) {
-      return notFound(res, 'Course not found');
+    const lessonToDelete = await Lesson.findByPk(req.params.id);
+    if (!lessonToDelete) {
+      return notFound(res, 'Lesson not found');
     }
-    await courseToDelete.destroy();
-    return succsess(res, 200, 'Course deleted');
+    await lessonToDelete.destroy();
+    return succsess(res, 200, 'Lesson deleted');
   } catch (err) {
     return fail(res, err as Error);
   }
 };
 
-export default { getLessons, postLesson, deleteCourse };
+export default { getLessons, postLesson, deleteLesson };
