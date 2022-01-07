@@ -3,7 +3,7 @@
   "extends": ["airbnb-base", "plugin:prettier/recommended"],
   "rules": {},
 
-  "project": "frontend/tsconfig.json",
+  // "project": "frontend/tsconfig.json",
   "overrides": [
     // Configuration for TypeScript files
 

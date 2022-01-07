@@ -1,9 +1,8 @@
-import React, { useState, ReactElement, useEffect } from "react";
+import React, { useState, ReactElement } from "react";
 import { connect } from "react-redux";
 import { IAdminState } from "../../../../types/global";
 import SelectSearch from "../../../SelectSearch";
 import Button from "../../../buttons/Button";
-import Input from "../../../Input";
 import SubmitButton from "../../../buttons/SubmitButton";
 import SelectSearchCourses from "../../../SelectSearchCourses";
 import {
