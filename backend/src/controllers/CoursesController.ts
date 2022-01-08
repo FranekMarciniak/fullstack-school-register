@@ -15,7 +15,7 @@ const getCourses = async (req: express.Request, res: express.Response) => {
   try {
     const allCourses = await Course.findAll({
       include: [
-        { model: User, as: 'teacher' },
+        { model: User, as: 'teacher', attributes: { exclude: ['password'] } },
         { model: Group, as: 'group' },
       ],
     });

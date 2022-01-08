@@ -16,25 +16,51 @@ import { Hour } from '../models/HoursModel';
 import { Classroom } from '../models/ClassroomModel';
 import { Op } from 'sequelize';
 import { Day } from '../models/DayModel';
+import { lessonsQuery } from './LessonQueries';
+import { IUser } from '../types/user';
+import _ from 'lodash';
 
 const getLessons = async (req: express.Request, res: express.Response) => {
   try {
-    const allCourses = await Lesson.findAll({
-      include: [
-        {
-          model: Course,
-          as: 'course',
-          include: [
-            { model: User, as: 'teacher' },
-            { model: Group, as: 'group' },
-          ],
-        },
-        { model: Hour, as: 'hour' },
-        { model: Day, as: 'day' },
-        { model: Classroom, as: 'classroom' },
-      ],
-    });
-    return res.status(200).json(allCourses);
+    return res
+      .status(200)
+      .json(await lessonsQuery(req, (req.user as IUser).role));
+  } catch (err) {
+    fail(res, err as Error);
+  }
+};
+
+const getLessonsForAllDays = async (
+  req: express.Request,
+  res: express.Response,
+) => {
+  try {
+    return res
+      .status(200)
+      .json(
+        _.groupBy(
+          await lessonsQuery(req, (req.user as IUser).role),
+          'day.name',
+        ),
+      );
+  } catch (err) {
+    fail(res, err as Error);
+  }
+};
+
+const getLessonsForDay = async (
+  req: express.Request,
+  res: express.Response,
+) => {
+  try {
+    return res
+      .status(200)
+      .json(
+        _.groupBy(
+          await lessonsQuery(req, (req.user as IUser).role, req.params.day),
+          'day.name',
+        ),
+      );
   } catch (err) {
     fail(res, err as Error);
   }
@@ -119,4 +145,10 @@ const deleteLesson = async (req: express.Request, res: express.Response) => {
   }
 };
 
-export default { getLessons, postLesson, deleteLesson };
+export default {
+  getLessons,
+  getLessonsForDay,
+  getLessonsForAllDays,
+  postLesson,
+  deleteLesson,
+};
