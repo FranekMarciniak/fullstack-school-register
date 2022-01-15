@@ -30,6 +30,7 @@ export interface IAdminState {
   classrooms: any[];
   days: any[];
   errors?: string;
+  timetable: any;
   message?: string;
   teachers: IFetchedUser[] | [];
 }

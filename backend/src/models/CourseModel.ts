@@ -16,7 +16,11 @@ export const Course = sequelize.define('courses', {
     allowNull: false,
   },
 });
-User.hasMany(Course, { foreignKey: 'teacher_id' });
+User.hasMany(Course, {
+  foreignKey: 'teacher_id',
+  onDelete: 'cascade',
+  hooks: true,
+});
 Course.belongsTo(User, { foreignKey: 'teacher_id', as: 'teacher' });
 
 Group.hasMany(Course, { foreignKey: 'group_id' });

@@ -3,10 +3,12 @@ import {
   ADD_DAY,
   ADD_GROUPS,
   ADD_HOUR,
+  CLEAR_TIMETABLE,
   DELETE_LESSON,
   RECIVE_COURSES,
   RECIVE_DAYS,
   RECIVE_GROUPS,
+  RECIVE_TIMETABLE,
 } from "./../actions/types";
 import {
   ADD_ERROR,
@@ -31,6 +33,7 @@ const initialState = {
   hours: [],
   days: [],
   classrooms: [],
+  timetable: {},
   message: null,
 };
 
@@ -81,8 +84,12 @@ const adminReducer = (state = initialState, action: any) => {
       return { ...state, days: action.payload };
     case RECIVE_CLASSROOMS:
       return { ...state, classrooms: action.payload };
+    case RECIVE_TIMETABLE:
+      return { ...state, timetable: action.payload };
     case ADD_MESSAGE:
       return { ...state, message: action.payload };
+    case CLEAR_TIMETABLE:
+      return { ...state, timetable: {} };
     case CLEAR_MESSAGE:
       return { ...state, message: null };
     case ADD_ERROR:

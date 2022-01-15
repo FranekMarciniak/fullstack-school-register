@@ -73,7 +73,7 @@ const SelectSearch = ({
       <div
         className={`flex-col items-center rounded-lg flex max-h-44 overflow-y-auto mt-2 border-2 border-gray-400`}
       >
-        {filteredOptions.map((option) => (
+        {filteredOptions.map((option, index) => (
           <button
             className={`w-full py-2 hover:bg-gray-200 transition-all duration-500 font-medium ${
               option.id === value ? "bg-gray-400 hover:bg-gray-500 " : ""
@@ -85,6 +85,7 @@ const SelectSearch = ({
               setActive(false);
               setSearch("");
             }}
+            key={index}
           >
             {keysToDisplay.reduce(
               (prev, curr) => `${prev} ${option[curr]}`,

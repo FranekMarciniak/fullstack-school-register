@@ -9,7 +9,11 @@ router.get('/', LogedInRoute, LessonsController.getLessons);
 
 router.get('/days/', LogedInRoute, LessonsController.getLessonsForAllDays);
 
-router.get('/days/:day', LogedInRoute, LessonsController.getLessonsForDay);
+router.get(
+  '/days/group/:group',
+  LogedInRoute,
+  LessonsController.getLessonsForGroup,
+);
 
 router.post(
   '/',

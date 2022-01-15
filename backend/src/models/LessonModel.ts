@@ -16,14 +16,26 @@ export const Lesson = sequelize.define('lessons', {
   },
 });
 
-Course.hasMany(Lesson, { foreignKey: 'course_id' });
+Course.hasMany(Lesson, {
+  foreignKey: 'course_id',
+  onDelete: 'cascade',
+  hooks: true,
+});
 Lesson.belongsTo(Course, { foreignKey: 'course_id', as: 'course' });
 
-Hour.hasMany(Lesson, { foreignKey: 'hour_id' });
+Hour.hasMany(Lesson, {
+  foreignKey: 'hour_id',
+  onDelete: 'cascade',
+  hooks: true,
+});
 Lesson.belongsTo(Hour, { foreignKey: 'hour_id', as: 'hour' });
 
-Classroom.hasMany(Lesson, { foreignKey: 'classroom_id' });
+Classroom.hasMany(Lesson, {
+  foreignKey: 'classroom_id',
+  onDelete: 'cascade',
+  hooks: true,
+});
 Lesson.belongsTo(Classroom, { foreignKey: 'classroom_id', as: 'classroom' });
 
-Day.hasMany(Lesson, { foreignKey: 'day_id' });
+Day.hasMany(Lesson, { foreignKey: 'day_id', onDelete: 'cascade', hooks: true });
 Lesson.belongsTo(Day, { foreignKey: 'day_id', as: 'day' });

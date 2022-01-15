@@ -13,10 +13,9 @@ import { Op } from 'sequelize';
 export const lessonsQuery = async (
   req: express.Request,
   role: string,
-  day?: string,
+  group?: string,
 ) => {
   const teacher = role === 'teacher' ? role : null;
-  const admin = role === 'admin' ? role : null;
   const student = role === 'student' ? role : null;
 
   return await Lesson.findAll({
@@ -37,7 +36,10 @@ export const lessonsQuery = async (
             model: Group,
             as: 'group',
             required: true,
-            where: { [Op.and]: [student && { id: (req.user as IUser).id }] },
+            where: {
+              [Op.and]: [student && { id: (req.user as IUser).id }],
+              [Op.and]: [group && { id: group }],
+            },
           },
         ],
       },
@@ -46,9 +48,6 @@ export const lessonsQuery = async (
         model: Day,
         as: 'day',
         required: true,
-        where: {
-          [Op.and]: [day && { name: day }],
-        },
       },
       { model: Classroom, as: 'classroom' },
     ],

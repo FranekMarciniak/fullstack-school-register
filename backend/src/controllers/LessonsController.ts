@@ -1,8 +1,6 @@
 import * as express from 'express';
 import { Course } from '../models/CourseModel';
 import { validationResult } from 'express-validator';
-import { User } from '../models/UserModel';
-import { Group } from '../models/GroupModel';
 import {
   clientError,
   fail,
@@ -40,7 +38,7 @@ const getLessonsForAllDays = async (
       .json(
         _.groupBy(
           await lessonsQuery(req, (req.user as IUser).role),
-          'day.name',
+          'day.dayNumber',
         ),
       );
   } catch (err) {
@@ -48,7 +46,7 @@ const getLessonsForAllDays = async (
   }
 };
 
-const getLessonsForDay = async (
+const getLessonsForGroup = async (
   req: express.Request,
   res: express.Response,
 ) => {
@@ -57,8 +55,8 @@ const getLessonsForDay = async (
       .status(200)
       .json(
         _.groupBy(
-          await lessonsQuery(req, (req.user as IUser).role, req.params.day),
-          'day.name',
+          await lessonsQuery(req, (req.user as IUser).role, req.params.group),
+          'day.dayNumber',
         ),
       );
   } catch (err) {
@@ -147,8 +145,8 @@ const deleteLesson = async (req: express.Request, res: express.Response) => {
 
 export default {
   getLessons,
-  getLessonsForDay,
   getLessonsForAllDays,
+  getLessonsForGroup,
   postLesson,
   deleteLesson,
 };
