@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { connect } from "react-redux";
-import { addGroupAction } from "../../../../redux/actions/adminActions";
+import { addGroupAction } from "../../../../redux/actions/admin/groupsActions";
 import Input from "../../../Input";
 import SubmitButton from "../../../buttons/SubmitButton";
 interface Props {

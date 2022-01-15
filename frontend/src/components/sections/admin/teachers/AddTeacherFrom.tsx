@@ -1,8 +1,6 @@
 import React, { ReactElement, useState } from "react";
-import {
-  createUserAction,
-  addErrorAction,
-} from "../../../../redux/actions/adminActions";
+import { addErrorAction } from "../../../../redux/actions/adminActions";
+import { createUserAction } from "../../../../redux/actions/admin/usersActions";
 import Input from "../../../../components/Input";
 import SubmitButton from "../../../../components/buttons/SubmitButton";
 import Button from "../../../../components/buttons/Button";

@@ -5,7 +5,7 @@ import { Meta } from "../../layout/Meta";
 import {
   getTeachersAction,
   deleteUserAction,
-} from "../../redux/actions/adminActions";
+} from "../../redux/actions/admin/usersActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import { IAdminState } from "../../types/global";

@@ -4,11 +4,11 @@ import Select from "../../components/Select";
 import { Meta } from "../../layout/Meta";
 import {
   getTimetableAction,
-  getGroupsAction,
   getHoursAction,
   clearTimetableAction,
   getDaysAction,
 } from "../../redux/actions/adminActions";
+import { getGroupsAction } from "../../redux/actions/admin/groupsActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import { IAdminState } from "../../types/global";
