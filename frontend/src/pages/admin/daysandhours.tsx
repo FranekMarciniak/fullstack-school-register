@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Meta } from "../../layout/Meta";
-import {
-  getClassroomsAction,
-  getDaysAction,
-  getHoursAction,
-} from "../../redux/actions/adminActions";
+import { getDaysAction } from "../../redux/actions/admin/daysActions";
+import { getHoursAction } from "../../redux/actions/admin/hoursActions";
+import { getClassroomsAction } from "../../redux/actions/admin/classroomsActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import { IAdminState } from "../../types/global";

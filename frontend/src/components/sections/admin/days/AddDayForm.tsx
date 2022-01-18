@@ -1,9 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { connect } from "react-redux";
-import {
-  addDayAction,
-  addErrorAction,
-} from "../../../../redux/actions/adminActions";
+import { addErrorAction } from "../../../../redux/actions/adminActions";
+import { addDayAction } from "../../../../redux/actions/admin/daysActions";
 import Input from "../../../Input";
 import SubmitButton from "../../../buttons/SubmitButton";
 interface Props {

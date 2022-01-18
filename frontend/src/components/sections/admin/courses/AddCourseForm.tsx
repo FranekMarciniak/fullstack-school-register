@@ -1,9 +1,7 @@
 import React, { useState, ReactElement } from "react";
 import { connect } from "react-redux";
-import {
-  addCourseAction,
-  addErrorAction,
-} from "../../../../redux/actions/adminActions";
+import { addErrorAction } from "../../../../redux/actions/adminActions";
+import { addCourseAction } from "../../../../redux/actions/admin/coursesActions";
 import { IAdminState } from "../../../../types/global";
 import SelectSearch from "../../../SelectSearch";
 import Button from "../../../buttons/Button";

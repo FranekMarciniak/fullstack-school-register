@@ -7,9 +7,9 @@ import SubmitButton from "../../../buttons/SubmitButton";
 import SelectSearchCourses from "../../../SelectSearchCourses";
 import {
   addErrorAction,
-  addLessonAction,
   ILessonToCreate,
 } from "../../../../redux/actions/adminActions";
+import { addLessonAction } from "../../../../redux/actions/admin/lessonsActions";
 interface Props {
   admin: IAdminState;
   addLessonAction: (arg0: ILessonToCreate) => void;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Meta } from "../../layout/Meta";
-import { getClassroomsAction } from "../../redux/actions/adminActions";
+import { getClassroomsAction } from "../../redux/actions/admin/classroomsActions";
 import { getGroupsAction } from "../../redux/actions/admin/groupsActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";

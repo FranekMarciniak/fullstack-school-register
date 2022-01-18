@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { connect } from "react-redux";
-import { addClassroomAction } from "../../../../redux/actions/adminActions";
+import { addClassroomAction } from "../../../../redux/actions/admin/classroomsActions";
 import Input from "../../../Input";
 import SubmitButton from "../../../buttons/SubmitButton";
 interface Props {

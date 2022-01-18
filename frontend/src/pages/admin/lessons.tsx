@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Meta } from "../../layout/Meta";
-import {
-  getClassroomsAction,
-  getDaysAction,
-  getLessonsAction,
-  getHoursAction,
-  getCoursesAction,
-} from "../../redux/actions/adminActions";
+import { getDaysAction } from "../../redux/actions/admin/daysActions";
+import { getHoursAction } from "../../redux/actions/admin/hoursActions";
+import { getClassroomsAction } from "../../redux/actions/admin/classroomsActions";
+import { getLessonsAction } from "../../redux/actions/admin/lessonsActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import { IAdminState } from "../../types/global";
 import LessonsList from "../../components/sections/admin/lessons/LessonsList";
 import AddLessonForm from "../../components/sections/admin/lessons/AddLessonForm";
+import { getCoursesAction } from "../../redux/actions/admin/coursesActions";
 interface Props {
   admin: IAdminState;
   getLessonsAction: () => void;

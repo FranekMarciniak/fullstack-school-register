@@ -4,10 +4,10 @@ import Select from "../../components/Select";
 import { Meta } from "../../layout/Meta";
 import {
   getTimetableAction,
-  getHoursAction,
   clearTimetableAction,
-  getDaysAction,
-} from "../../redux/actions/adminActions";
+} from "../../redux/actions/admin/timetableActions";
+import { getDaysAction } from "../../redux/actions/admin/daysActions";
+import { getHoursAction } from "../../redux/actions/admin/hoursActions";
 import { getGroupsAction } from "../../redux/actions/admin/groupsActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";

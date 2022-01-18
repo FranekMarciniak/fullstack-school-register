@@ -1,6 +1,6 @@
 import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
-import { deleteLessonAction } from "../../../../redux/actions/adminActions";
+import { deleteLessonAction } from "../../../../redux/actions/admin/lessonsActions";
 import Input from "../../../Input";
 import { IAdminState } from "../../../../types/global";
 import LessonCard from "../../../cards/LessonCard";
