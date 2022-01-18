@@ -21,7 +21,7 @@ function TimetableDay({ hours, lessons }: Props): ReactElement {
       });
     });
     setDay(tempDay);
-  }, []);
+  }, [lessons]);
   return (
     <>
       <div
@@ -37,7 +37,7 @@ function TimetableDay({ hours, lessons }: Props): ReactElement {
               <p className="block text-center bg-gray-400">
                 {lesson.hour.intervalName}
               </p>
-              {}{" "}
+              { }{" "}
               <p className="px-3 block">
                 {lesson.lesson
                   ? `${lesson.periodNumber}. ${lesson.lesson.course.name} `
