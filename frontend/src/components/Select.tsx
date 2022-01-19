@@ -4,14 +4,12 @@ interface Props {
   options: any[];
   defaultVal: string;
   setValue: (id: number) => void;
-  label?: string;
   keyToDisplay: string;
   value: number;
 }
 
 function Select({
   options,
-  label,
   value,
   setValue,
   defaultVal,

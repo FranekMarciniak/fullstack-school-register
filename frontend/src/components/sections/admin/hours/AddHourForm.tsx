@@ -1,9 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { connect } from "react-redux";
-import {
-  addHourAction,
-  addErrorAction,
-} from "../../../../redux/actions/adminActions";
+import { addErrorAction } from "../../../../redux/actions/adminActions";
+import { addHourAction } from "../../../../redux/actions/admin/hoursActions";
 import Input from "../../../Input";
 import SubmitButton from "../../../buttons/SubmitButton";
 interface Props {

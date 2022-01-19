@@ -1,6 +1,11 @@
 import { Dispatch } from "redux";
 import { ADD_ERROR, CLEAR_ERRORS } from "./types";
-
+export interface ILessonToCreate {
+  day_id: number;
+  course_id: number;
+  hour_id: number;
+  classroom_id: number;
+}
 export const addErrorAction =
   (message: string) => async (dispatch: Dispatch) => {
     dispatch({ type: ADD_ERROR, payload: message });
