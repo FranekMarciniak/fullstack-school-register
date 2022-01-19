@@ -1,14 +1,16 @@
 import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
+import { deleteClassroomAction } from "../../../../redux/actions/admin/classroomsActions";
 import Input from "../../../Input";
 import { IAdminState } from "../../../../types/global";
 import ClassroomCard from "../../../cards/ClassroomCard";
 
 interface Props {
   admin: IAdminState;
+  deleteClassroomAction: (id: number) => void;
 }
 
-function ClassroomsList({ admin }: Props): ReactElement {
+function ClassroomsList({ admin, deleteClassroomAction }: Props): ReactElement {
   const [search, setSearch] = useState("");
   const [classrooms, setClassrooms] = useState([] as any);
   const [activeCard, setActiveCard] = useState(0);
@@ -51,7 +53,7 @@ function ClassroomsList({ admin }: Props): ReactElement {
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteClassroom={() => console.log("object")}
+                  deleteClassroom={deleteClassroomAction}
                 />
               ))
             : admin.classrooms.map((classroom: any, i: number) => (
@@ -62,7 +64,7 @@ function ClassroomsList({ admin }: Props): ReactElement {
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteClassroom={() => console.log("object")}
+                  deleteClassroom={deleteClassroomAction}
                 />
               ))}
         </ul>
@@ -74,4 +76,6 @@ const mapStateToProps = ({ admin }: { admin: IAdminState }) => ({
   admin,
 });
 
-export default connect(mapStateToProps, {})(ClassroomsList);
+export default connect(mapStateToProps, { deleteClassroomAction })(
+  ClassroomsList
+);

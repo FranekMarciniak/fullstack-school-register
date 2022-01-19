@@ -25,3 +25,7 @@ export const CLEAR_TIMETABLE = "CLEAR_TIMETABLE";
 export const DELETE_USER = "DELETE_USER";
 export const DELETE_COURSE = "DELETE_COURSE";
 export const DELETE_LESSON = "DELETE_LESSON";
+export const DELETE_GROUP = "DELETE_GROUP";
+export const DELETE_CLASSROOM = "DELETE_CLASSROOM";
+export const DELETE_DAY = "DELETE_DAY";
+export const DELETE_HOUR = "DELETE_HOUR";

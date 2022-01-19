@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import Input from "../../../Input";
 import { IAdminState } from "../../../../types/global";
 import DayCard from "../../../cards/DayCard";
+import { deleteDayAction } from "../../../../redux/actions/admin/daysActions";
 
 interface Props {
   admin: IAdminState;
+  deleteDayAction: (id: number) => void;
 }
 
-function CoursesList({ admin }: Props): ReactElement {
+function CoursesList({ admin, deleteDayAction }: Props): ReactElement {
   const [search, setSearch] = useState("");
   const [days, setDays] = useState([] as any);
   const [activeCard, setActiveCard] = useState(0);
@@ -50,7 +52,7 @@ function CoursesList({ admin }: Props): ReactElement {
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteDay={() => console.log("object")}
+                  deleteDay={deleteDayAction}
                 />
               ))
             : admin.days.map((day: any, i: number) => (
@@ -61,7 +63,7 @@ function CoursesList({ admin }: Props): ReactElement {
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteDay={() => console.log("object")}
+                  deleteDay={deleteDayAction}
                 />
               ))}
         </ul>
@@ -73,4 +75,4 @@ const mapStateToProps = ({ admin }: { admin: IAdminState }) => ({
   admin,
 });
 
-export default connect(mapStateToProps, {})(CoursesList);
+export default connect(mapStateToProps, { deleteDayAction })(CoursesList);

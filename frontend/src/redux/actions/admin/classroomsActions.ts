@@ -7,6 +7,7 @@ import {
   CLEAR_MESSAGE,
   RECIVE_CLASSROOMS,
   ADD_CLASSROOM,
+  DELETE_CLASSROOM,
 } from "../types";
 
 export const getClassroomsAction = () => async (dispatch: Dispatch) => {
@@ -46,6 +47,27 @@ export const addClassroomAction =
       });
       dispatch({ type: ADD_MESSAGE, payload: "Classroom created!" });
       setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+    } catch (err: any) {
+      if (err.response) {
+        const error = err.response.data.message;
+        dispatch({ type: ADD_ERROR, payload: error });
+        setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+      } else {
+        console.log(err);
+      }
+    }
+  };
+export const deleteClassroomAction =
+  (id: number) => async (dispatch: Dispatch) => {
+    try {
+      const res = await axios({
+        method: "DELETE",
+        withCredentials: true,
+        url: `/api/classrooms/${id}`,
+      });
+      dispatch({ type: ADD_MESSAGE, payload: res.data.message });
+      setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+      dispatch({ type: DELETE_CLASSROOM, payload: id });
     } catch (err: any) {
       if (err.response) {
         const error = err.response.data.message;

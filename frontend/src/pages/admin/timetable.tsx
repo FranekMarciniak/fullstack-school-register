@@ -9,6 +9,7 @@ import {
 import { getDaysAction } from "../../redux/actions/admin/daysActions";
 import { getHoursAction } from "../../redux/actions/admin/hoursActions";
 import { getGroupsAction } from "../../redux/actions/admin/groupsActions";
+import { deleteLessonAction } from "../../redux/actions/admin/lessonsActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import { IAdminState } from "../../types/global";
@@ -20,6 +21,7 @@ interface Props {
   clearTimetableAction: () => void;
   getHoursAction: () => void;
   getDaysAction: () => void;
+  deleteLessonAction: (id: number) => void;
 }
 
 const Timetable = ({
@@ -29,6 +31,7 @@ const Timetable = ({
   clearTimetableAction,
   getDaysAction,
   getHoursAction,
+  deleteLessonAction,
 }: Props) => {
   const [group, setGroup] = useState(0);
   const [daysToDisplay, setDaysToDisplay] = useState([] as string[]);
@@ -75,6 +78,7 @@ const Timetable = ({
                   key={i}
                   hours={admin.hours}
                   lessons={admin.timetable[parseInt(value)]}
+                  deleteLesson={deleteLessonAction}
                 />
               </div>
             ))}
@@ -94,5 +98,6 @@ const ConnectedComponent = connect(mapStateToProps, {
   getHoursAction,
   getDaysAction,
   clearTimetableAction,
+  deleteLessonAction,
 })(Timetable as React.FC);
 export default Routes.withRole(ConnectedComponent, "admin");

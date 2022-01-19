@@ -1,14 +1,16 @@
 import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
+import { deleteGroupAction } from "../../../../redux/actions/admin/groupsActions";
 import Input from "../../../Input";
 import { IAdminState } from "../../../../types/global";
 import GroupCard from "../../../cards/GroupCard";
 
 interface Props {
   admin: IAdminState;
+  deleteGroupAction: (id: number) => void;
 }
 
-function GroupsList({ admin }: Props): ReactElement {
+function GroupsList({ admin, deleteGroupAction }: Props): ReactElement {
   const [search, setSearch] = useState("");
   const [groups, setGroups] = useState([] as any);
   const [activeCard, setActiveCard] = useState(0);
@@ -51,7 +53,7 @@ function GroupsList({ admin }: Props): ReactElement {
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteGroup={() => console.log("object")}
+                  deleteGroup={deleteGroupAction}
                 />
               ))
             : admin.groups.map((group: any, i: number) => (
@@ -62,7 +64,7 @@ function GroupsList({ admin }: Props): ReactElement {
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteGroup={() => console.log("object")}
+                  deleteGroup={deleteGroupAction}
                 />
               ))}
         </ul>
@@ -74,4 +76,4 @@ const mapStateToProps = ({ admin }: { admin: IAdminState }) => ({
   admin,
 });
 
-export default connect(mapStateToProps, {})(GroupsList);
+export default connect(mapStateToProps, { deleteGroupAction })(GroupsList);

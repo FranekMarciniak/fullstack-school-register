@@ -7,6 +7,7 @@ import {
   CLEAR_MESSAGE,
   RECIVE_HOURS,
   ADD_HOUR,
+  DELETE_HOUR,
 } from "../types";
 
 export const getHoursAction = () => async (dispatch: Dispatch) => {
@@ -63,3 +64,23 @@ export const addHourAction =
       }
     }
   };
+export const deleteHourAction = (id: number) => async (dispatch: Dispatch) => {
+  try {
+    const res = await axios({
+      method: "DELETE",
+      withCredentials: true,
+      url: `/api/hours/${id}`,
+    });
+    dispatch({ type: ADD_MESSAGE, payload: res.data.message });
+    setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+    dispatch({ type: DELETE_HOUR, payload: id });
+  } catch (err: any) {
+    if (err.response) {
+      const error = err.response.data.message;
+      dispatch({ type: ADD_ERROR, payload: error });
+      setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+    } else {
+      console.log(err);
+    }
+  }
+};

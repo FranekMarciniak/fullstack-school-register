@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import Input from "../../../Input";
 import { IAdminState } from "../../../../types/global";
 import HourCard from "../../../cards/HourCard";
+import { deleteHourAction } from "../../../../redux/actions/admin/hoursActions";
 
 interface Props {
   admin: IAdminState;
+  deleteHourAction: (id: number) => void;
 }
 
-function CoursesList({ admin }: Props): ReactElement {
+function CoursesList({ admin, deleteHourAction }: Props): ReactElement {
   const [search, setSearch] = useState("");
   const [hours, setHours] = useState([] as any);
   const [activeCard, setActiveCard] = useState(0);
@@ -51,7 +53,7 @@ function CoursesList({ admin }: Props): ReactElement {
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteHour={() => console.log("object")}
+                  deleteHour={deleteHourAction}
                 />
               ))
             : admin.hours.map((hour: any, i: number) => (
@@ -62,7 +64,7 @@ function CoursesList({ admin }: Props): ReactElement {
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
                   }
                   key={i + 1}
-                  deleteHour={() => console.log("object")}
+                  deleteHour={deleteHourAction}
                 />
               ))}
         </ul>
@@ -74,4 +76,4 @@ const mapStateToProps = ({ admin }: { admin: IAdminState }) => ({
   admin,
 });
 
-export default connect(mapStateToProps, {})(CoursesList);
+export default connect(mapStateToProps, { deleteHourAction })(CoursesList);

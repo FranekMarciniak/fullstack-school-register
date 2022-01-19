@@ -4,6 +4,10 @@ import {
   ADD_GROUPS,
   ADD_HOUR,
   CLEAR_TIMETABLE,
+  DELETE_CLASSROOM,
+  DELETE_DAY,
+  DELETE_GROUP,
+  DELETE_HOUR,
   DELETE_LESSON,
   RECIVE_COURSES,
   RECIVE_DAYS,
@@ -61,6 +65,30 @@ const adminReducer = (state = initialState, action: any) => {
         lessons: state.lessons.filter(
           (lesson: any) => lesson.id !== action.payload
         ),
+      };
+    case DELETE_GROUP:
+      return {
+        ...state,
+        groups: state.groups.filter(
+          (group: any) => group.id !== action.payload
+        ),
+      };
+    case DELETE_CLASSROOM:
+      return {
+        ...state,
+        classrooms: state.classrooms.filter(
+          (classroom: any) => classroom.id !== action.payload
+        ),
+      };
+    case DELETE_DAY:
+      return {
+        ...state,
+        days: state.days.filter((day: any) => day.id !== action.payload),
+      };
+    case DELETE_HOUR:
+      return {
+        ...state,
+        hours: state.hours.filter((hour: any) => hour.id !== action.payload),
       };
     case ADD_GROUPS:
       return { ...state, groups: [...state.groups, action.payload] };

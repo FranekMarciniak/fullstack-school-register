@@ -7,6 +7,7 @@ import {
   CLEAR_MESSAGE,
   RECIVE_DAYS,
   ADD_DAY,
+  DELETE_DAY,
 } from "../types";
 export const getDaysAction = () => async (dispatch: Dispatch) => {
   try {
@@ -56,3 +57,24 @@ export const addDayAction =
       }
     }
   };
+
+export const deleteDayAction = (id: number) => async (dispatch: Dispatch) => {
+  try {
+    const res = await axios({
+      method: "DELETE",
+      withCredentials: true,
+      url: `/api/days/${id}`,
+    });
+    dispatch({ type: ADD_MESSAGE, payload: res.data.message });
+    setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+    dispatch({ type: DELETE_DAY, payload: id });
+  } catch (err: any) {
+    if (err.response) {
+      const error = err.response.data.message;
+      dispatch({ type: ADD_ERROR, payload: error });
+      setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+    } else {
+      console.log(err);
+    }
+  }
+};

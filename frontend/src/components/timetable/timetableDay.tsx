@@ -1,11 +1,11 @@
 import React, { ReactElement, useEffect, useState } from "react";
-
 interface Props {
   hours: any[];
   lessons: any[];
+  deleteLesson: (id: number) => void;
 }
 
-function TimetableDay({ hours, lessons }: Props): ReactElement {
+function TimetableDay({ hours, lessons, deleteLesson }: Props): ReactElement {
   const [day, setDay] = useState([] as any);
   useEffect(() => {
     const tempDay = [] as any;
@@ -32,22 +32,32 @@ function TimetableDay({ hours, lessons }: Props): ReactElement {
           return (
             <div
               key={i}
-              className="flex flex-col h-16 justify-evenly font-mono"
+              className="flex flex-col justify-start font-mono"
+              style={{ minHeight: "4rem" }}
             >
-              <p className="block text-center bg-gray-400">
+              <p className="block text-center mt-0 bg-gray-400">
                 {lesson.hour.intervalName}
               </p>
-              { }{" "}
-              <p className="px-3 block">
-                {lesson.lesson
-                  ? `${lesson.periodNumber}. ${lesson.lesson.course.name} `
-                  : null}
-              </p>
-              <p className="px-3 block">
-                {lesson.lesson
-                  ? `-${lesson.lesson.course.teacher.firstName} ${lesson.lesson.course.teacher.lastName}`
-                  : null}
-              </p>
+              {lesson.lesson ? (
+                <>
+                  <p className="px-3 block">
+                    {lesson.periodNumber}. {lesson.lesson.course.name}
+                  </p>
+                  <p className="px-3 block">
+                    {lesson.lesson.course.teacher.firstName}{" "}
+                    {lesson.lesson.course.teacher.lastName}
+                  </p>
+                  <button
+                    onClick={() => deleteLesson(day.id ? day.id : 0)}
+                    className=" ml-2 mr-auto mt-3 px-2 py-1  rounded-md my-1 bg-red-300 hover:bg-red-500 transition-all duration-500 text-white"
+                  >
+                    Delete
+                  </button>
+                </>
+              ) : (
+                <p className="px-3 block">Free time</p>
+              )}
+              {}{" "}
             </div>
           );
         })}

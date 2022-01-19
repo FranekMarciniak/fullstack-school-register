@@ -6,6 +6,7 @@ import {
   ADD_MESSAGE,
   CLEAR_ERRORS,
   CLEAR_MESSAGE,
+  DELETE_GROUP,
   RECIVE_GROUPS,
 } from "../types";
 
@@ -45,6 +46,27 @@ export const getGroupsAction = () => async (dispatch: Dispatch) => {
   } catch (err: any) {
     if (err.response) {
       const error = err.response.data.message.message;
+      dispatch({ type: ADD_ERROR, payload: error });
+      setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
+    } else {
+      console.log(err);
+    }
+  }
+};
+
+export const deleteGroupAction = (id: number) => async (dispatch: Dispatch) => {
+  try {
+    const res = await axios({
+      method: "DELETE",
+      withCredentials: true,
+      url: `/api/groups/${id}`,
+    });
+    dispatch({ type: ADD_MESSAGE, payload: res.data.message });
+    setTimeout(() => dispatch({ type: CLEAR_MESSAGE }), 3000);
+    dispatch({ type: DELETE_GROUP, payload: id });
+  } catch (err: any) {
+    if (err.response) {
+      const error = err.response.data.message;
       dispatch({ type: ADD_ERROR, payload: error });
       setTimeout(() => dispatch({ type: CLEAR_ERRORS }), 3000);
     } else {
