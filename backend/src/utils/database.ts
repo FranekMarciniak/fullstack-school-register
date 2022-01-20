@@ -22,6 +22,11 @@ if (environment === 'development') {
       port: config.db_port,
       logging: false,
       omitNull: true,
+      define: {
+        defaultScope: {
+          attributes: { exclude: ['createdAt', 'updatedAt'] },
+        },
+      },
     },
   );
 } else if (environment === 'production') {
@@ -34,6 +39,11 @@ if (environment === 'development') {
       ssl: {
         require: true,
         rejectUnauthorized: false,
+      },
+    },
+    define: {
+      defaultScope: {
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
       },
     },
   });

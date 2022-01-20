@@ -23,5 +23,9 @@ User.hasMany(Course, {
 });
 Course.belongsTo(User, { foreignKey: 'teacher_id', as: 'teacher' });
 
-Group.hasMany(Course, { foreignKey: 'group_id' });
+Group.hasMany(Course, {
+  foreignKey: 'group_id',
+  onDelete: 'cascade',
+  hooks: true,
+});
 Course.belongsTo(Group, { foreignKey: 'group_id', as: 'group' });
