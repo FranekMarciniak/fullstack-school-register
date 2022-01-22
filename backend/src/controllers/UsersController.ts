@@ -28,7 +28,8 @@ const createUser = async (req: express.Request, res: express.Response) => {
     return clientError(res, errors.array()[0].msg);
   }
 
-  const { username, password, email, firstName, lastName, role } = req.body;
+  const { username, password, email, firstName, lastName, role, group_id } =
+    req.body;
   try {
     const user = await User.findOne({
       where: {
@@ -46,6 +47,7 @@ const createUser = async (req: express.Request, res: express.Response) => {
       firstName,
       lastName,
       role: role ? role : 'student',
+      group_id: group_id ? group_id : null,
     });
     await userToSave.save();
     return succsess(res, 201, 'User created!');
@@ -119,8 +121,22 @@ const getTeachers = async (req: express.Request, res: express.Response) => {
   }
 };
 
+const getUsersByGroup = async (req: express.Request, res: express.Response) => {
+  try {
+    const students = await User.findAll({
+      where: {
+        [Op.and]: [{ role: 'student' }, { group_id: req.params.group }],
+      },
+      attributes: ['id', 'username', 'email', 'firstName', 'lastName', 'role'],
+    });
+    return res.status(200).json(students);
+  } catch (err) {
+    fail(res, err as Error);
+  }
+};
 export default {
   getTeachers,
+  getUsersByGroup,
   getUsers,
   getUser,
   deleteUser,

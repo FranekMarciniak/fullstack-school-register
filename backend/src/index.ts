@@ -7,6 +7,7 @@ import passportConfig from './utils/passport-config';
 import authRouter from './routes/auth';
 import usersRoutes from './routes/users';
 import groupsRouter from './routes/groups';
+import gradesRouter from './routes/grades';
 import coursesRouter from './routes/courses';
 import hoursRouter from './routes/hours';
 import lessonsRouter from './routes/lessons';
@@ -60,6 +61,7 @@ app.use('/api/hours', hoursRouter);
 app.use('/api/classrooms', classroomsRouter);
 app.use('/api/lessons', lessonsRouter);
 app.use('/api/days', daysRouter);
+app.use('/api/grades', gradesRouter);
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 
 app.listen(PORT, () => {

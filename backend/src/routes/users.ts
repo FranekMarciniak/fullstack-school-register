@@ -9,6 +9,8 @@ router.get('/', AdminRoute, UsersController.getUsers);
 
 router.get('/teachers', AdminRoute, UsersController.getTeachers);
 
+router.get('/students/:group', AdminRoute, UsersController.getUsersByGroup);
+
 router.post(
   '/',
   AdminRoute,

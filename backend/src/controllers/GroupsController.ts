@@ -8,11 +8,38 @@ import {
   succsess,
   succsesJson,
 } from './BaseController';
+import { Course } from '../models/CourseModel';
+import { IUser } from '../types/user';
 
 const getGroups = async (req: express.Request, res: express.Response) => {
   try {
     const allGroups = await Group.findAll();
     return res.status(200).json(allGroups);
+  } catch (err) {
+    fail(res, err as Error);
+  }
+};
+
+const getGroupsForTeacher = async (
+  req: express.Request,
+  res: express.Response,
+) => {
+  try {
+    const allGroups = await Group.findAll({
+      include: [
+        {
+          model: Course,
+          where: { teacher_id: (req.user as IUser).id },
+          required: true,
+        },
+      ],
+      attributes: ['id', 'name'],
+    });
+    return res.status(200).json(
+      allGroups.map((group: any) => {
+        return { name: group.name, id: group.id };
+      }),
+    );
   } catch (err) {
     fail(res, err as Error);
   }
@@ -67,4 +94,10 @@ const editGroup = async (req: express.Request, res: express.Response) => {
   }
 };
 
-export default { getGroups, postGroup, deleteGroup, editGroup };
+export default {
+  getGroups,
+  postGroup,
+  deleteGroup,
+  editGroup,
+  getGroupsForTeacher,
+};
