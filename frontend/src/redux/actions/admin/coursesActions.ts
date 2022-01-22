@@ -7,7 +7,7 @@ import {
   CLEAR_MESSAGE,
   RECIVE_COURSES,
   DELETE_COURSE,
-} from "../types";
+} from "../adminTypes";
 
 export const getCoursesAction = () => async (dispatch: Dispatch) => {
   try {

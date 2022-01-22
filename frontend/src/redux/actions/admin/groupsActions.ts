@@ -8,7 +8,7 @@ import {
   CLEAR_MESSAGE,
   DELETE_GROUP,
   RECIVE_GROUPS,
-} from "../types";
+} from "../adminTypes";
 
 export const addGroupAction = (name: string) => async (dispatch: Dispatch) => {
   try {

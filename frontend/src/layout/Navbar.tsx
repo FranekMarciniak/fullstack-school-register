@@ -9,6 +9,7 @@ import {
   notLoggedInNavOptions,
   adminNavOptions,
   studentNavOptions,
+  teacherNavOptions,
 } from "../utils/navOptions";
 import { connect } from "react-redux";
 import { IGlobalState } from "../types/global";
@@ -25,6 +26,8 @@ const Navbar = ({ role }: { role?: string | null }) => {
         return notLoggedInNavOptions;
       case "admin":
         return adminNavOptions;
+      case "teacher":
+        return teacherNavOptions;
       case "student":
         return studentNavOptions;
       default:

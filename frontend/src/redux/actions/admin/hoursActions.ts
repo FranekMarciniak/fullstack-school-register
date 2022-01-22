@@ -8,7 +8,7 @@ import {
   RECIVE_HOURS,
   ADD_HOUR,
   DELETE_HOUR,
-} from "../types";
+} from "../adminTypes";
 
 export const getHoursAction = () => async (dispatch: Dispatch) => {
   try {

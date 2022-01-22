@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { ADD_ERROR, CLEAR_ERRORS } from "./types";
+import { ADD_ERROR, CLEAR_ERRORS } from "./adminTypes";
 export interface ILessonToCreate {
   day_id: number;
   course_id: number;

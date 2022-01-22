@@ -4,6 +4,7 @@ import {
   MdRoomPreferences,
   MdSpaceDashboard,
 } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
 import { GiTeacher, GiNotebook } from "react-icons/gi";
 import {
   BsClock,
@@ -17,9 +18,13 @@ export const notLoggedInNavOptions = [
 export const studentNavOptions = [
   { text: "Dashboard", href: "/student", icon: MdPermIdentity },
 ];
+export const teacherNavOptions = [
+  { text: "Dashboard", href: "/teacher", icon: MdSpaceDashboard },
+];
 export const adminNavOptions = [
   { text: "Dashboard", href: "/admin", icon: MdSpaceDashboard },
   { text: "Teachers", href: "/admin/teachers/", icon: GiTeacher },
+  { text: "Students", href: "/admin/students/", icon: FaUsers },
   {
     text: "Classrooms and Groups",
     href: "/admin/classroomsandgroups/",

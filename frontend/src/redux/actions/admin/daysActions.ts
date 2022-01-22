@@ -8,7 +8,7 @@ import {
   RECIVE_DAYS,
   ADD_DAY,
   DELETE_DAY,
-} from "../types";
+} from "../adminTypes";
 export const getDaysAction = () => async (dispatch: Dispatch) => {
   try {
     const res = await axios({

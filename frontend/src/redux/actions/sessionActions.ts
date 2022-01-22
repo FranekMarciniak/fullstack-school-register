@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ILoginForm } from "../../types/global";
-import { SET_USER, ADD_ERROR, CLEAR_ERRORS, CLEAR_USER } from "./types";
+import { SET_USER, ADD_ERROR, CLEAR_ERRORS, CLEAR_USER } from "./adminTypes";
 
 export const loginAction = (user: ILoginForm) => async (dispatch: Dispatch) => {
   try {

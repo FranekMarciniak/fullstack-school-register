@@ -28,6 +28,7 @@ export interface IAdminState {
   lessons: any[];
   hours: any[];
   classrooms: any[];
+  students: any[];
   days: any[];
   errors?: string;
   timetable: any;

@@ -8,7 +8,7 @@ import {
   RECIVE_CLASSROOMS,
   ADD_CLASSROOM,
   DELETE_CLASSROOM,
-} from "../types";
+} from "../adminTypes";
 
 export const getClassroomsAction = () => async (dispatch: Dispatch) => {
   try {

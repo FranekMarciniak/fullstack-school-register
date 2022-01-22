@@ -3,7 +3,7 @@ import {
   ADD_ERROR,
   CLEAR_ERRORS,
   CLEAR_USER,
-} from "../actions/types";
+} from "../actions/adminTypes";
 const emptyUser = {
   id: null,
   username: "",

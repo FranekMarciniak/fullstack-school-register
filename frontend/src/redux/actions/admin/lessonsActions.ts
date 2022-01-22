@@ -8,7 +8,7 @@ import {
   CLEAR_MESSAGE,
   RECIVE_LESSONS,
   DELETE_LESSON,
-} from "../types";
+} from "../adminTypes";
 
 export interface ILessonToCreate {
   day_id: number;

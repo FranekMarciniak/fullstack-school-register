@@ -1,33 +1,32 @@
 import {
   ADD_CLASSROOM,
   ADD_DAY,
+  ADD_ERROR,
   ADD_GROUPS,
   ADD_HOUR,
+  ADD_LESSON,
+  ADD_MESSAGE,
+  CLEAR_ERRORS,
+  CLEAR_MESSAGE,
+  CLEAR_STUDENTS,
   CLEAR_TIMETABLE,
   DELETE_CLASSROOM,
+  DELETE_COURSE,
   DELETE_DAY,
   DELETE_GROUP,
   DELETE_HOUR,
   DELETE_LESSON,
+  DELETE_USER,
+  RECIVE_CLASSROOMS,
   RECIVE_COURSES,
   RECIVE_DAYS,
   RECIVE_GROUPS,
-  RECIVE_TIMETABLE,
-} from "./../actions/types";
-import {
-  ADD_ERROR,
-  RECIVE_TEACHERS,
-  CLEAR_ERRORS,
-  ADD_MESSAGE,
-  DELETE_USER,
-  CLEAR_MESSAGE,
-  DELETE_COURSE,
-  ADD_LESSON,
-  RECIVE_LESSONS,
   RECIVE_HOURS,
-  RECIVE_CLASSROOMS,
-} from "../actions/types";
-
+  RECIVE_LESSONS,
+  RECIVE_STUDENTS,
+  RECIVE_TEACHERS,
+  RECIVE_TIMETABLE,
+} from "../actions/adminTypes";
 const initialState = {
   errors: null,
   teachers: [],
@@ -38,6 +37,7 @@ const initialState = {
   days: [],
   classrooms: [],
   timetable: {},
+  students: [],
   message: null,
 };
 
@@ -114,10 +114,14 @@ const adminReducer = (state = initialState, action: any) => {
       return { ...state, classrooms: action.payload };
     case RECIVE_TIMETABLE:
       return { ...state, timetable: action.payload };
+    case RECIVE_STUDENTS:
+      return { ...state, students: action.payload };
     case ADD_MESSAGE:
       return { ...state, message: action.payload };
     case CLEAR_TIMETABLE:
       return { ...state, timetable: {} };
+    case CLEAR_STUDENTS:
+      return { ...state, students: [] };
     case CLEAR_MESSAGE:
       return { ...state, message: null };
     case ADD_ERROR:

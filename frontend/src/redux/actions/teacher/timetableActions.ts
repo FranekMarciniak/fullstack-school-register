@@ -1,24 +1,16 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import {
-  ADD_ERROR,
-  CLEAR_ERRORS,
-  RECIVE_TIMETABLE,
-  CLEAR_TIMETABLE,
-} from "../adminTypes";
+import { ADD_ERROR, CLEAR_ERRORS } from "../adminTypes";
 
 export const getTimetableAction =
   (group?: number) => async (dispatch: Dispatch) => {
-    const url = group
-      ? `/api/lessons/days/group/${group}`
-      : "/api/lessons/days";
     try {
       const res = await axios({
         method: "GET",
         withCredentials: true,
-        url,
+        url: "/api/lessons/days",
       });
-      dispatch({ type: RECIVE_TIMETABLE, payload: res.data });
+      //   dispatch({ type: RECIVE_TIMETABLE, payload: res.data });
     } catch (err: any) {
       if (err.response) {
         const error = err.response.data.message.message;
@@ -31,5 +23,5 @@ export const getTimetableAction =
   };
 
 export const clearTimetableAction = () => (dispatch: Dispatch) => {
-  dispatch({ type: CLEAR_TIMETABLE });
+  //   dispatch({ type: CLEAR_TIMETABLE });
 };
