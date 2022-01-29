@@ -11,7 +11,7 @@ const HamburgerButton = ({ setState, open }: Props) => {
 
   return (
     <button
-      className="md:hidden absolute right-1 flex flex-col h-12 w-16 rounded justify-center items-center group"
+      className="md:hidden absolute right-1 flex flex-col h-12 w-16 rounded justify-center items-center group z-30"
       onClick={() => setState()}
     >
       <div

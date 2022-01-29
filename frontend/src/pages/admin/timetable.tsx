@@ -72,7 +72,9 @@ const Timetable = ({
             {daysToDisplay.map((value: string, i: number) => (
               <div className="flex flex-col items-center">
                 <h3 className="font-medium text-lg font-mono">
-                  {admin.days.find((day) => day.dayNumber == value).name}
+                  {admin.days[0].dayNumber
+                    ? admin.days.find((day) => day.dayNumber == value).name
+                    : null}
                 </h3>
                 <TimetableDay
                   key={i}

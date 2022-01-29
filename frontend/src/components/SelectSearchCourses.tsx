@@ -59,7 +59,7 @@ const SelectSearch = ({
     }
   };
   return (
-    <div className={"flex flex-col mt-6" + className}>
+    <div className={`flex flex-col mt-6 ${className}`}>
       <label className={labelStyles}>{label}</label>
       <input
         className={inputStyles}

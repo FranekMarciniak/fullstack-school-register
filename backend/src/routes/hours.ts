@@ -5,7 +5,7 @@ import HoursController from '../controllers/HoursController';
 
 const router = express.Router();
 
-router.get('/', AdminRoute, HoursController.getHours);
+router.get('/', HoursController.getHours);
 
 router.post(
   '/',

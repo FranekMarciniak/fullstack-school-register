@@ -1,11 +1,13 @@
 import express from 'express';
-import { AdminRoute } from '../middlewares/rolesMiddleware';
+import { AdminRoute, LogedInRoute } from '../middlewares/rolesMiddleware';
 import CoursesController from '../controllers/CoursesController';
 import { body } from 'express-validator';
 
 const router = express.Router();
 
 router.get('/', AdminRoute, CoursesController.getCourses);
+
+router.get('/teacher', LogedInRoute, CoursesController.getCoursesForTeacher);
 
 router.post(
   '/',

@@ -34,7 +34,7 @@ const Main = (props: IMainProps) => {
     <div className="antialiased w-full flex flex-wrap flex-row">
       {props.meta}
       <Navbar />
-      <div className="w-full md:w-9/12 h-full flex justify-center flex-wrap flex-col items-center">
+      <div className="w-full md:w-9/12 h-full flex justify-center flex-wrap flex-col items-center relative">
         {props.admin.message && <Alert text={props.admin.message} />}
         {props.admin.errors && (
           <Alert text={props.admin.errors} color="danger" />

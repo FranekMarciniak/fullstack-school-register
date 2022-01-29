@@ -10,13 +10,17 @@ export const IsMyCourse = async (
   next: express.NextFunction,
 ) => {
   if (!req.user) return clientError(res, 'Not logged in');
-  const { course_id } = req.params;
+  let course_id;
+  if (req.params.course_id) {
+    course_id = req.params.course_id;
+  } else if (req.body.course_id) {
+    course_id = req.body.course_id;
+  }
   const course = await Course.findOne({
     where: {
       [Op.and]: [{ id: course_id }, { teacher_id: (req.user as IUser).id }],
     },
   });
-  console.log(course);
   if (!course) {
     return unauthorized(res, 'You dont have permission to view this course');
   }

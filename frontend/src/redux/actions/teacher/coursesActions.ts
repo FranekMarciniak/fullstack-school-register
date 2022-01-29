@@ -1,15 +1,14 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ADD_ERROR, CLEAR_ERRORS, RECIVE_TIMETABLE } from "../teacherTypes";
-
-export const getTimetableAction = () => async (dispatch: Dispatch) => {
+import { ADD_ERROR, CLEAR_ERRORS, RECIVE_COURSES } from "../teacherTypes";
+export const getCoursesAction = () => async (dispatch: Dispatch) => {
   try {
     const res = await axios({
       method: "GET",
       withCredentials: true,
-      url: "/api/lessons/days",
+      url: "/api/courses/teacher",
     });
-    dispatch({ type: RECIVE_TIMETABLE, payload: res.data });
+    dispatch({ type: RECIVE_COURSES, payload: res.data });
   } catch (err: any) {
     if (err.response) {
       const error = err.response.data.message.message;
@@ -20,7 +19,3 @@ export const getTimetableAction = () => async (dispatch: Dispatch) => {
     }
   }
 };
-
-// export const clearTimetableAction = () => (dispatch: Dispatch) => {
-//   //   dispatch({ type: CLEAR_TIMETABLE });
-// };

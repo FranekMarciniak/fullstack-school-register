@@ -6,20 +6,42 @@ import {
 } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { GiTeacher, GiNotebook } from "react-icons/gi";
+import { RiNumber5 } from "react-icons/ri";
 import {
   BsClock,
   BsFillCalendar2RangeFill,
   BsFillCalendarEventFill,
 } from "react-icons/bs";
+
 export const notLoggedInNavOptions = [
   { text: "Home", href: "/", icon: MdHome },
   { text: "Login", href: "/login/", icon: MdPermIdentity },
 ];
 export const studentNavOptions = [
   { text: "Dashboard", href: "/student", icon: MdPermIdentity },
+  {
+    text: "Timetable",
+    href: "/student/timetable",
+    icon: BsFillCalendarEventFill,
+  },
+  {
+    text: "Grades",
+    href: "/student/grades",
+    icon: RiNumber5,
+  },
 ];
 export const teacherNavOptions = [
   { text: "Dashboard", href: "/teacher", icon: MdSpaceDashboard },
+  {
+    text: "Timetable",
+    href: "/teacher/timetable",
+    icon: BsFillCalendarEventFill,
+  },
+  {
+    text: "Grades",
+    href: "/teacher/grades",
+    icon: RiNumber5,
+  },
 ];
 export const adminNavOptions = [
   { text: "Dashboard", href: "/admin", icon: MdSpaceDashboard },

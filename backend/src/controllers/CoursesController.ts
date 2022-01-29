@@ -10,6 +10,7 @@ import {
   succsess,
   succsesJson,
 } from './BaseController';
+import { IUser } from '../types/user';
 
 const getCourses = async (req: express.Request, res: express.Response) => {
   try {
@@ -24,7 +25,21 @@ const getCourses = async (req: express.Request, res: express.Response) => {
     fail(res, err as Error);
   }
 };
-
+const getCoursesForTeacher = async (
+  req: express.Request,
+  res: express.Response,
+) => {
+  try {
+    const allCourses = await Course.findAll({
+      include: [{ model: Group, as: 'group' }],
+      where: { teacher_id: (req.user as IUser).id },
+      attributes: { exclude: ['teacher_id', 'group_id'] },
+    });
+    return res.status(200).json(allCourses);
+  } catch (err) {
+    fail(res, err as Error);
+  }
+};
 const postCourse = async (req: express.Request, res: express.Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -74,4 +89,10 @@ const editCourse = async (req: express.Request, res: express.Response) => {
     return fail(res, err as Error);
   }
 };
-export default { getCourses, postCourse, deleteCourse, editCourse };
+export default {
+  getCourses,
+  getCoursesForTeacher,
+  postCourse,
+  deleteCourse,
+  editCourse,
+};

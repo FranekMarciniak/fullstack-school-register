@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Meta } from "../../layout/Meta";
-import { getTimetableAction } from "../../redux/actions/teacher/timetableActions";
+import { getTimetableAction } from "../../redux/actions/student/timetableActions";
 import { getDaysAction } from "../../redux/actions/admin/daysActions";
 import { getHoursAction } from "../../redux/actions/admin/hoursActions";
 import { getGroupsAction } from "../../redux/actions/admin/groupsActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
-import { IAdminState } from "../../types/global";
+import { IAdminState, IGlobalState } from "../../types/global";
 import TimetableDay from "../../components/timetable/timetableDay";
 interface Props {
   admin: IAdminState;
-  teacher: any;
-  getTimetableAction: (group?: number) => void;
+  global: IGlobalState;
+  student: any;
+  getTimetableAction: (group_id: number) => void;
   getDaysAction: () => void;
   getHoursAction: () => void;
 }
 
 const Timetable = ({
   admin,
-  teacher,
+  student,
+  global,
   getTimetableAction,
   getDaysAction,
   getHoursAction,
@@ -28,11 +30,11 @@ const Timetable = ({
   useEffect(() => {
     getDaysAction();
     getHoursAction();
-    getTimetableAction();
+    getTimetableAction(global.user.group_id);
   }, []);
   useEffect(() => {
-    setDaysToDisplay(Object.keys(teacher.timetable));
-  }, [teacher.timetable]);
+    setDaysToDisplay(Object.keys(student.timetable));
+  }, [student.timetable]);
   return (
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
@@ -48,7 +50,7 @@ const Timetable = ({
                 <TimetableDay
                   key={i}
                   hours={admin.hours}
-                  lessons={teacher.timetable[parseInt(value)]}
+                  lessons={student.timetable[parseInt(value)]}
                 />
               </div>
             ))}
@@ -59,14 +61,17 @@ const Timetable = ({
   );
 };
 const mapStateToProps = ({
-  teacher,
   admin,
+  student,
+  global,
 }: {
-  teacher: any;
+  student: any;
   admin: IAdminState;
+  global: IGlobalState;
 }) => ({
-  teacher,
+  student,
   admin,
+  global,
 });
 
 const ConnectedComponent = connect(mapStateToProps, {
@@ -75,4 +80,4 @@ const ConnectedComponent = connect(mapStateToProps, {
   getDaysAction,
   getTimetableAction,
 })(Timetable as React.FC);
-export default Routes.withRole(ConnectedComponent, "teacher");
+export default Routes.withRole(ConnectedComponent, "student");

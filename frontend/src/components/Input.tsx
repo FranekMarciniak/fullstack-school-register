@@ -30,6 +30,7 @@ function Input({
         placeholder={placeholder}
         className={inputStyles + className}
         onChange={onChange}
+        min="0"
       />
     </label>
   );

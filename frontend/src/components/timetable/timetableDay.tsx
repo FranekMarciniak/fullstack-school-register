@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 interface Props {
   hours: any[];
   lessons: any[];
-  deleteLesson: (id: number) => void;
+  deleteLesson?: (id: number) => void;
 }
 
 function TimetableDay({ hours, lessons, deleteLesson }: Props): ReactElement {
@@ -43,21 +43,29 @@ function TimetableDay({ hours, lessons, deleteLesson }: Props): ReactElement {
                   <p className="px-3 block">
                     {lesson.periodNumber}. {lesson.lesson.course.name}
                   </p>
-                  <p className="px-3 block">
-                    {lesson.lesson.course.teacher.firstName}{" "}
-                    {lesson.lesson.course.teacher.lastName}
-                  </p>
-                  <button
-                    onClick={() => deleteLesson(day.id ? day.id : 0)}
-                    className=" ml-2 mr-auto mt-3 px-2 py-1  rounded-md my-1 bg-red-300 hover:bg-red-500 transition-all duration-500 text-white"
-                  >
-                    Delete
-                  </button>
+                  {deleteLesson ? (
+                    <p className="px-3 block">
+                      {lesson.lesson.course.teacher.firstName}{" "}
+                      {lesson.lesson.course.teacher.lastName}
+                    </p>
+                  ) : (
+                    <p className="px-3 block">
+                      {lesson.lesson.course.group.name}
+                    </p>
+                  )}
+                  {deleteLesson ? (
+                    <button
+                      onClick={() => deleteLesson(day.id ? day.id : 0)}
+                      className=" ml-2 mr-auto mt-3 px-2 py-1  rounded-md my-1 bg-red-300 hover:bg-red-500 transition-all duration-500 text-white"
+                    >
+                      Delete
+                    </button>
+                  ) : null}
                 </>
               ) : (
                 <p className="px-3 block">Free time</p>
               )}
-              {}{" "}
+              {console.log(lesson)}
             </div>
           );
         })}

@@ -5,7 +5,7 @@ import DaysController from '../controllers/DaysController';
 
 const router = express.Router();
 
-router.get('/', AdminRoute, DaysController.getDays);
+router.get('/', DaysController.getDays);
 
 router.post(
   '/',
