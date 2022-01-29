@@ -1,11 +1,12 @@
 import React from "react";
+import { IHour } from "../../types/global";
 import Accordion from "../Accordion";
 
 interface Props {
   open: boolean;
   setOpen: () => void;
   deleteHour: (id: number) => void;
-  hour: any;
+  hour: IHour;
 }
 
 const HourCard = ({ open, hour, setOpen, deleteHour }: Props) => {

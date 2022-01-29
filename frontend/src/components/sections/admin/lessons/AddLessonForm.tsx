@@ -21,12 +21,13 @@ function AddLessonForm({
   addLessonAction,
   addErrorAction,
 }: Props): ReactElement {
-  const [lessonForm, setLessonForm] = useState({
+  const initialFormState = {
     hour_id: 0,
     day_id: 0,
     classroom_id: 0,
     course_id: 0,
-  });
+  };
+  const [lessonForm, setLessonForm] = useState(initialFormState);
 
   const handleSubmitCourses = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,8 +93,9 @@ function AddLessonForm({
         </fieldset>
         <SubmitButton text="create course" />
         <Button
-          onClick={(e: any) => {
+          onClick={(e) => {
             e.preventDefault();
+            setLessonForm(initialFormState);
           }}
           text="Clear form"
           className="ml-3 opacity-70"

@@ -17,7 +17,7 @@ interface Props {
   getStudentsAction: (id: number) => void;
   getGroupsAction: () => void;
   clearStudents: () => void;
-  deleteUserAction: (id: any) => void;
+  deleteUserAction: (id: number) => void;
   admin: IAdminState;
 }
 

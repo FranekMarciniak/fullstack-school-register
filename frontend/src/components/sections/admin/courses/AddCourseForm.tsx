@@ -2,22 +2,26 @@ import React, { useState, ReactElement } from "react";
 import { connect } from "react-redux";
 import { addErrorAction } from "../../../../redux/actions/adminActions";
 import { addCourseAction } from "../../../../redux/actions/admin/coursesActions";
-import { IAdminState } from "../../../../types/global";
+import { IAdminState, IFetchedUser, IGroup } from "../../../../types/global";
 import SelectSearch from "../../../SelectSearch";
 import Button from "../../../buttons/Button";
 import Input from "../../../Input";
 import SubmitButton from "../../../buttons/SubmitButton";
+interface ICourseForm {
+  name: string;
+  group_id: number;
+  teacher_id: number;
+}
 interface Props {
   admin: IAdminState;
-  addCourseAction: ({ name, group_id, teacher_id }: any) => void;
+  addCourseAction: ({ name, group_id, teacher_id }: ICourseForm) => void;
   addErrorAction: (name: string) => void;
-  teachers: any[];
-  groups: any[];
+  teachers: IFetchedUser[];
+  groups: IGroup[];
 }
 
 function AddCourseForm({
   addCourseAction,
-
   addErrorAction,
   teachers,
   groups,
@@ -45,7 +49,7 @@ function AddCourseForm({
       <h2 className="text-2xl text-center font-semibold text-font-200 ">
         Add course
       </h2>
-      <form onSubmit={handleSubmitCourses} className="mt-">
+      <form onSubmit={handleSubmitCourses} className="">
         <fieldset>
           <Input
             name="courseName"
@@ -79,7 +83,7 @@ function AddCourseForm({
         </fieldset>
         <SubmitButton text="create course" />
         <Button
-          onClick={(e: any) => {
+          onClick={(e: React.MouseEvent) => {
             e.preventDefault();
             setCourseForm({
               name: "",

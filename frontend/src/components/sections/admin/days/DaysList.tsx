@@ -1,7 +1,7 @@
 import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
 import Input from "../../../Input";
-import { IAdminState } from "../../../../types/global";
+import { IAdminState, IDay } from "../../../../types/global";
 import DayCard from "../../../cards/DayCard";
 import { deleteDayAction } from "../../../../redux/actions/admin/daysActions";
 
@@ -12,7 +12,7 @@ interface Props {
 
 function CoursesList({ admin, deleteDayAction }: Props): ReactElement {
   const [search, setSearch] = useState("");
-  const [days, setDays] = useState([] as any);
+  const [days, setDays] = useState([] as IDay[]);
   const [activeCard, setActiveCard] = useState(0);
 
   useEffect(() => setDays(admin.days), []);
@@ -23,7 +23,7 @@ function CoursesList({ admin, deleteDayAction }: Props): ReactElement {
     } else {
       setDays(
         days.filter(
-          (day: any) => day.name.toLowerCase().indexOf(text.toLowerCase()) > -1
+          (day) => day.name.toLowerCase().indexOf(text.toLowerCase()) > -1
         )
       );
     }
@@ -44,7 +44,7 @@ function CoursesList({ admin, deleteDayAction }: Props): ReactElement {
       <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
         <ul className="list-none w-full">
           {search
-            ? days.map((day: any, i: number) => (
+            ? days.map((day, i: number) => (
                 <DayCard
                   day={day}
                   open={i + 1 === activeCard ? true : false}
@@ -55,7 +55,7 @@ function CoursesList({ admin, deleteDayAction }: Props): ReactElement {
                   deleteDay={deleteDayAction}
                 />
               ))
-            : admin.days.map((day: any, i: number) => (
+            : admin.days.map((day, i: number) => (
                 <DayCard
                   day={day}
                   open={i + 1 === activeCard ? true : false}

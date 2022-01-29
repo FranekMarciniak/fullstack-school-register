@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { deleteCourseAction } from "../../../../redux/actions/admin/coursesActions";
 import Input from "../../../Input";
 import CourseCard from "../../../cards/CourseCard";
-import { IAdminState } from "../../../../types/global";
+import { IAdminState, ICourse } from "../../../../types/global";
 
 interface Props {
   admin: IAdminState;
@@ -12,7 +12,7 @@ interface Props {
 
 function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
   const [search, setSearch] = useState("");
-  const [courses, setCourses] = useState([] as any);
+  const [courses, setCourses] = useState([] as ICourse[]);
   const [activeCard, setActiveCard] = useState(0);
 
   useEffect(() => setCourses(admin.courses), []);
@@ -23,8 +23,7 @@ function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
     } else {
       setCourses(
         courses.filter(
-          (course: any) =>
-            course.name.toLowerCase().indexOf(text.toLowerCase()) > -1
+          (course) => course.name.toLowerCase().indexOf(text.toLowerCase()) > -1
         )
       );
     }
@@ -48,9 +47,9 @@ function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
       <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
         <ul className="list-none w-full">
           {search
-            ? courses.map((teacher: any, i: number) => (
+            ? courses.map((course, i: number) => (
                 <CourseCard
-                  course={teacher}
+                  course={course}
                   open={i + 1 === activeCard ? true : false}
                   setOpen={() =>
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)
@@ -59,9 +58,9 @@ function CoursesList({ admin, deleteCourseAction }: Props): ReactElement {
                   deleteTeacher={deleteCourseAction}
                 />
               ))
-            : admin.courses.map((teacher: any, i: number) => (
+            : admin.courses.map((course, i: number) => (
                 <CourseCard
-                  course={teacher}
+                  course={course}
                   open={i + 1 === activeCard ? true : false}
                   setOpen={() =>
                     setActiveCard(activeCard === i + 1 ? 0 : i + 1)

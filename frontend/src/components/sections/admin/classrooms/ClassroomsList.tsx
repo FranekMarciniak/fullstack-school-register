@@ -2,7 +2,7 @@ import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
 import { deleteClassroomAction } from "../../../../redux/actions/admin/classroomsActions";
 import Input from "../../../Input";
-import { IAdminState } from "../../../../types/global";
+import { IAdminState, IClassroom } from "../../../../types/global";
 import ClassroomCard from "../../../cards/ClassroomCard";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 function ClassroomsList({ admin, deleteClassroomAction }: Props): ReactElement {
   const [search, setSearch] = useState("");
-  const [classrooms, setClassrooms] = useState([] as any);
+  const [classrooms, setClassrooms] = useState([] as IClassroom[]);
   const [activeCard, setActiveCard] = useState(0);
 
   useEffect(() => setClassrooms(admin.classrooms), []);
@@ -23,7 +23,7 @@ function ClassroomsList({ admin, deleteClassroomAction }: Props): ReactElement {
     } else {
       setClassrooms(
         classrooms.filter(
-          (classroom: any) =>
+          (classroom) =>
             classroom.name.toLowerCase().indexOf(text.toLowerCase()) > -1
         )
       );
@@ -45,7 +45,7 @@ function ClassroomsList({ admin, deleteClassroomAction }: Props): ReactElement {
       <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
         <ul className="list-none w-full">
           {search
-            ? classrooms.map((classroom: any, i: number) => (
+            ? classrooms.map((classroom, i: number) => (
                 <ClassroomCard
                   classroom={classroom}
                   open={i + 1 === activeCard ? true : false}
@@ -56,7 +56,7 @@ function ClassroomsList({ admin, deleteClassroomAction }: Props): ReactElement {
                   deleteClassroom={deleteClassroomAction}
                 />
               ))
-            : admin.classrooms.map((classroom: any, i: number) => (
+            : admin.classrooms.map((classroom, i: number) => (
                 <ClassroomCard
                   classroom={classroom}
                   open={i + 1 === activeCard ? true : false}

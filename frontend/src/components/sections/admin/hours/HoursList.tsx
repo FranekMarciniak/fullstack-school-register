@@ -1,7 +1,7 @@
 import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
 import Input from "../../../Input";
-import { IAdminState } from "../../../../types/global";
+import { IAdminState, IHour } from "../../../../types/global";
 import HourCard from "../../../cards/HourCard";
 import { deleteHourAction } from "../../../../redux/actions/admin/hoursActions";
 
@@ -12,7 +12,7 @@ interface Props {
 
 function CoursesList({ admin, deleteHourAction }: Props): ReactElement {
   const [search, setSearch] = useState("");
-  const [hours, setHours] = useState([] as any);
+  const [hours, setHours] = useState([] as IHour[]);
   const [activeCard, setActiveCard] = useState(0);
 
   useEffect(() => setHours(admin.hours), []);
@@ -23,7 +23,7 @@ function CoursesList({ admin, deleteHourAction }: Props): ReactElement {
     } else {
       setHours(
         hours.filter(
-          (hour: any) =>
+          (hour) =>
             hour.intervalName.toLowerCase().indexOf(text.toLowerCase()) > -1
         )
       );
@@ -45,7 +45,7 @@ function CoursesList({ admin, deleteHourAction }: Props): ReactElement {
       <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
         <ul className="list-none w-full">
           {search
-            ? hours.map((hour: any, i: number) => (
+            ? hours.map((hour, i: number) => (
                 <HourCard
                   hour={hour}
                   open={i + 1 === activeCard ? true : false}
@@ -56,7 +56,7 @@ function CoursesList({ admin, deleteHourAction }: Props): ReactElement {
                   deleteHour={deleteHourAction}
                 />
               ))
-            : admin.hours.map((hour: any, i: number) => (
+            : admin.hours.map((hour, i: number) => (
                 <HourCard
                   hour={hour}
                   open={i + 1 === activeCard ? true : false}

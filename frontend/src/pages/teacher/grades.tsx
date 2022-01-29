@@ -16,13 +16,23 @@ import SubmitButton from "../../components/buttons/SubmitButton";
 import { addErrorAction } from "../../redux/actions/adminActions";
 import Button from "../../components/buttons/Button";
 import GradesTable from "../../components/sections/teacher/GradesTable";
+import { ITeacherState } from "../../types/teacher";
+
+interface formData {
+  course_id: number;
+  description?: string | null;
+  student_id: number;
+  value: number;
+  weight: number;
+  grade_id: number;
+}
 interface Props {
-  teacher: any;
+  teacher: ITeacherState;
   getCoursesAction: () => void;
   getGradesAction: (id: number) => void;
-  addGradeAction: (form: any) => void;
+  addGradeAction: (form: formData) => void;
   addErrorAction: (message: string) => void;
-  editGradeAction: (form: any) => void;
+  editGradeAction: (form: formData) => void;
   deleteGradeAction: (id: number, student_id: number) => void;
 }
 
@@ -179,9 +189,9 @@ const Grades = ({
             {course !== 0 && (
               <GradesTable
                 teacherState={teacher}
-                setGradeForm={setGradeForm}
+                setGradeForm={setGradeForm as any}
                 setGradeFormModal={setGradeFormModal}
-                handleAddGrade={handleAddGradeClick}
+                handleAddGrade={handleAddGradeClick as any}
               />
             )}
           </section>
@@ -190,7 +200,7 @@ const Grades = ({
     </Main>
   );
 };
-const mapStateToProps = ({ teacher }: { teacher: any }) => ({
+const mapStateToProps = ({ teacher }: { teacher: ITeacherState }) => ({
   teacher,
 });
 

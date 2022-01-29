@@ -2,7 +2,7 @@ import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
 import { deleteLessonAction } from "../../../../redux/actions/admin/lessonsActions";
 import Input from "../../../Input";
-import { IAdminState } from "../../../../types/global";
+import { IAdminState, ILesson } from "../../../../types/global";
 import LessonCard from "../../../cards/LessonCard";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 function LessonsList({ admin, deleteLessonAction }: Props): ReactElement {
   const [search, setSearch] = useState("");
-  const [lessons, setLessons] = useState([] as any);
+  const [lessons, setLessons] = useState([] as ILesson[]);
   const [activeCard, setActiveCard] = useState(0);
 
   useEffect(() => setLessons(admin.lessons), []);
@@ -23,7 +23,7 @@ function LessonsList({ admin, deleteLessonAction }: Props): ReactElement {
     } else {
       setLessons(
         lessons.filter(
-          (lesson: any) =>
+          (lesson) =>
             lesson.course.name.toLowerCase().indexOf(text.toLowerCase()) > -1
         )
       );
@@ -48,7 +48,7 @@ function LessonsList({ admin, deleteLessonAction }: Props): ReactElement {
       <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
         <ul className="list-none w-full">
           {search
-            ? lessons.map((lesson: any, i: number) => (
+            ? lessons.map((lesson, i: number) => (
                 <LessonCard
                   lesson={lesson}
                   open={i + 1 === activeCard ? true : false}
@@ -59,7 +59,7 @@ function LessonsList({ admin, deleteLessonAction }: Props): ReactElement {
                   deleteLesson={deleteLessonAction}
                 />
               ))
-            : admin.lessons.map((lesson: any, i: number) => (
+            : admin.lessons.map((lesson, i: number) => (
                 <LessonCard
                   lesson={lesson}
                   open={i + 1 === activeCard ? true : false}

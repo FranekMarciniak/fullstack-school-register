@@ -23,17 +23,59 @@ export interface IFetchedUser {
   role: string;
 }
 export interface IAdminState {
-  groups: { name: string; id: number }[];
-  courses: any[];
-  lessons: any[];
-  hours: any[];
-  classrooms: any[];
-  students: any[];
-  days: any[];
+  teachers: IFetchedUser[];
+  groups: IGroup[];
+  courses: ICourse[];
+  lessons: ILesson[];
+  hours: IHour[];
+  classrooms: IClassroom[];
+  students: IFetchedUser[];
+  days: IDay[];
   errors?: string;
-  timetable: any;
+  timetable: ITimetable;
   message?: string;
-  teachers: IFetchedUser[] | [];
+}
+export interface ITimetable {
+  [key: string]: ILesson[];
+}
+
+export interface IGroup {
+  id: number;
+  name: string;
+}
+export interface IHour {
+  id: number;
+  intervalName: string;
+  periodNumber: number;
+}
+export interface IDay {
+  id: number;
+  name: string;
+  dayNumber: number;
+}
+export interface IClassroom {
+  id: number;
+  name: string;
+}
+export interface ICourse {
+  id: number;
+  name: string;
+  teacher_id: number;
+  group_id: number;
+}
+export interface ILesson {
+  id: number;
+  hour_id: number;
+  day_id: number;
+  course_id: number;
+  course: ICourseInLesson;
+  hour: IHour;
+  day: IDay;
+  classroom: IClassroom;
+}
+export interface ICourseInLesson extends ICourse {
+  group: IGroup;
+  teacher: IFetchedUser;
 }
 export interface ILoginForm {
   username: string;

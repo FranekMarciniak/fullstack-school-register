@@ -1,10 +1,23 @@
 import React from "react";
+import { ITeacherState } from "../../../types/teacher";
 
+interface formData {
+  course_id: number;
+  description?: string | null;
+  student_id: number;
+  value: number;
+  weight: number;
+  grade_id: number;
+}
+interface modalForm {
+  open: boolean;
+  edit: boolean;
+}
 type Props = {
-  teacherState: any;
-  setGradeForm: (formData: any) => void;
-  setGradeFormModal: (modalForm: any) => void;
-  handleAddGrade: (grade_id: number) => void;
+  teacherState: ITeacherState;
+  setGradeForm: (formData: formData) => void;
+  setGradeFormModal: (modalForm: modalForm) => void;
+  handleAddGrade: (grade_id?: number) => void;
 };
 
 function GradesTable({
@@ -40,7 +53,7 @@ function GradesTable({
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {teacherState.grades.map((grade: any, i: number) => (
+                {teacherState.grades.map((grade, i: number) => (
                   <tr key={i}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -52,7 +65,7 @@ function GradesTable({
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap flex flex-wrap ">
-                      {grade.grades.map((grade: any) => {
+                      {grade.grades.map((grade) => {
                         return (
                           <>
                             <p
@@ -69,7 +82,7 @@ function GradesTable({
                                 } = grade;
                                 setGradeForm({
                                   course_id,
-                                  description,
+                                  description: description ? description : null,
                                   student_id,
                                   value,
                                   weight,

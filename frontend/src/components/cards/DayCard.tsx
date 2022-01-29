@@ -1,11 +1,12 @@
 import React from "react";
+import { IDay } from "../../types/global";
 import Accordion from "../Accordion";
 
 interface Props {
   open: boolean;
   setOpen: () => void;
   deleteDay: (id: number) => void;
-  day: any;
+  day: IDay;
 }
 
 const TeachersCard = ({ open, day, setOpen, deleteDay }: Props) => {

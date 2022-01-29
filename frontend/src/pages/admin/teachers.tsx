@@ -13,7 +13,7 @@ import AddTeacherFrom from "../../components/sections/admin/teachers/AddTeacherF
 import TeachersList from "../../components/sections/admin/teachers/TeachersList";
 interface Props {
   getTeachersAction: () => void;
-  deleteUserAction: (id: any) => void;
+  deleteUserAction: (id: number) => void;
   admin: IAdminState;
 }
 

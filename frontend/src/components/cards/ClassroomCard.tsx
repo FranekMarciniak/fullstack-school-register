@@ -1,11 +1,12 @@
 import React from "react";
+import { IClassroom } from "../../types/global";
 import Accordion from "../Accordion";
 
 interface Props {
   open: boolean;
   setOpen: () => void;
   deleteClassroom: (id: number) => void;
-  classroom: any;
+  classroom: IClassroom;
 }
 
 const ClassroomCard = ({

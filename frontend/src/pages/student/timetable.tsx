@@ -7,12 +7,13 @@ import { getHoursAction } from "../../redux/actions/admin/hoursActions";
 import { getGroupsAction } from "../../redux/actions/admin/groupsActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
-import { IAdminState, IGlobalState } from "../../types/global";
+import { IAdminState, IDay, IGlobalState } from "../../types/global";
 import TimetableDay from "../../components/timetable/timetableDay";
+import { IStudentState } from "../../types/student";
 interface Props {
   admin: IAdminState;
   global: IGlobalState;
-  student: any;
+  student: IStudentState;
   getTimetableAction: (group_id: number) => void;
   getDaysAction: () => void;
   getHoursAction: () => void;
@@ -44,13 +45,15 @@ const Timetable = ({
               <div className="flex flex-col items-center" key={i}>
                 <h3 className="font-medium text-lg font-mono">
                   {admin.days[0]
-                    ? admin.days.find((day) => day.dayNumber == value).name
+                    ? (admin.days as any).find(
+                        (day: IDay) => day.dayNumber == parseInt(value)
+                      ).name
                     : null}
                 </h3>
                 <TimetableDay
                   key={i}
                   hours={admin.hours}
-                  lessons={student.timetable[parseInt(value)]}
+                  lessons={student.timetable[parseInt(value)] as any}
                 />
               </div>
             ))}
@@ -65,7 +68,7 @@ const mapStateToProps = ({
   student,
   global,
 }: {
-  student: any;
+  student: IStudentState;
   admin: IAdminState;
   global: IGlobalState;
 }) => ({

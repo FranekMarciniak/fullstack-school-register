@@ -2,7 +2,7 @@ import React, { useEffect, useState, ReactElement } from "react";
 import { connect } from "react-redux";
 import { deleteGroupAction } from "../../../../redux/actions/admin/groupsActions";
 import Input from "../../../Input";
-import { IAdminState } from "../../../../types/global";
+import { IAdminState, IGroup } from "../../../../types/global";
 import GroupCard from "../../../cards/GroupCard";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 function GroupsList({ admin, deleteGroupAction }: Props): ReactElement {
   const [search, setSearch] = useState("");
-  const [groups, setGroups] = useState([] as any);
+  const [groups, setGroups] = useState([] as IGroup[]);
   const [activeCard, setActiveCard] = useState(0);
 
   useEffect(() => setGroups(admin.groups), []);
@@ -23,8 +23,7 @@ function GroupsList({ admin, deleteGroupAction }: Props): ReactElement {
     } else {
       setGroups(
         groups.filter(
-          (group: any) =>
-            group.name.toLowerCase().indexOf(text.toLowerCase()) > -1
+          (group) => group.name.toLowerCase().indexOf(text.toLowerCase()) > -1
         )
       );
     }
@@ -45,7 +44,7 @@ function GroupsList({ admin, deleteGroupAction }: Props): ReactElement {
       <div className=" lg:flex-grow flex overflow-y-auto overflow-x-hidden w-full">
         <ul className="list-none w-full">
           {search
-            ? groups.map((group: any, i: number) => (
+            ? groups.map((group, i: number) => (
                 <GroupCard
                   group={group}
                   open={i + 1 === activeCard ? true : false}
@@ -56,7 +55,7 @@ function GroupsList({ admin, deleteGroupAction }: Props): ReactElement {
                   deleteGroup={deleteGroupAction}
                 />
               ))
-            : admin.groups.map((group: any, i: number) => (
+            : admin.groups.map((group, i: number) => (
                 <GroupCard
                   group={group}
                   open={i + 1 === activeCard ? true : false}

@@ -1,7 +1,8 @@
 import React from "react";
+import { IStudentState } from "../../../types/student";
 
 type Props = {
-  studentState: any;
+  studentState: IStudentState;
 };
 
 function GradesTable({ studentState }: Props) {
@@ -32,7 +33,7 @@ function GradesTable({ studentState }: Props) {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {studentState.grades.map((grade: any, i: number) => (
+                {studentState.grades.map((grade, i: number) => (
                   <tr key={i}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -44,7 +45,7 @@ function GradesTable({ studentState }: Props) {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap flex flex-wrap ">
-                      {grade.grades.map((grade: any) => {
+                      {grade.grades.map((grade) => {
                         return (
                           <>
                             <p

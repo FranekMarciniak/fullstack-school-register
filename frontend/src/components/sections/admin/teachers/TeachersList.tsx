@@ -6,7 +6,7 @@ import TeachersCard from "../../../cards/TeachersCard";
 import { IAdminState, IFetchedUser } from "../../../../types/global";
 
 interface Props {
-  deleteUserAction: (id: any) => void;
+  deleteUserAction: (id: number) => void;
   admin: IAdminState;
 }
 function TeachersList({ admin, deleteUserAction }: Props): ReactElement {
@@ -15,14 +15,14 @@ function TeachersList({ admin, deleteUserAction }: Props): ReactElement {
   }, []);
 
   const [search, setSearch] = useState("");
-  const [teachers, setTeachers] = useState([] as any);
+  const [teachers, setTeachers] = useState([] as IFetchedUser[]);
   const [activeCard, setActiveCard] = useState(0);
   const handleSearch = (text: string) => {
     if (text === "") {
       setTeachers(admin.teachers);
     } else {
       setTeachers(
-        teachers.filter((teacher: IFetchedUser) => {
+        teachers.filter((teacher) => {
           const { firstName, lastName, email, username } = teacher;
           const isFirstName = firstName ? firstName.indexOf(text) > -1 : false;
           const isLastName = lastName ? lastName.indexOf(text) > -1 : false;

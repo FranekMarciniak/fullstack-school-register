@@ -1,3 +1,4 @@
+import { IGrade, ITeacherGrade } from "../../types/teacher";
 import {
   ADD_GRADE,
   DELETE_GRADE,
@@ -24,38 +25,41 @@ const globalReducer = (state = initialState, action: any) => {
     case ADD_GRADE:
       return {
         ...state,
-        grades: state.grades.map((grade: any) =>
-          grade.id === action.id
-            ? { ...grade, grades: [...grade.grades, action.payload] }
-            : grade
+        grades: state.grades.map((teacherGradeObj: ITeacherGrade) =>
+          teacherGradeObj.id === action.id
+            ? {
+                ...teacherGradeObj,
+                grades: [...teacherGradeObj.grades, action.payload],
+              }
+            : teacherGradeObj
         ),
       };
     case EDIT_GRADE:
       return {
         ...state,
-        grades: state.grades.map((grade: any) =>
-          grade.id === action.id
+        grades: state.grades.map((teacherGradeObj: ITeacherGrade) =>
+          teacherGradeObj.id === action.id
             ? {
-                ...grade,
-                grades: grade.grades.map((grade: any) =>
+                ...teacherGradeObj,
+                grades: teacherGradeObj.grades.map((grade: IGrade) =>
                   grade.id === action.payload.id ? action.payload : grade
                 ),
               }
-            : grade
+            : teacherGradeObj
         ),
       };
     case DELETE_GRADE:
       return {
         ...state,
-        grades: state.grades.map((grade: any) =>
-          grade.id === action.id
+        grades: state.grades.map((teacherGradeObj: ITeacherGrade) =>
+          teacherGradeObj.id === action.id
             ? {
-                ...grade,
-                grades: grade.grades.filter(
-                  (grade: any) => grade.id !== action.payload
+                ...teacherGradeObj,
+                grades: teacherGradeObj.grades.filter(
+                  (grade: IGrade) => grade.id !== action.payload
                 ),
               }
-            : grade
+            : teacherGradeObj
         ),
       };
     case RECIVE_GRADES:

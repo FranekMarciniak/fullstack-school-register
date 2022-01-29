@@ -1,4 +1,13 @@
 import {
+  IClassroom,
+  ICourse,
+  IDay,
+  IFetchedUser,
+  IGroup,
+  IHour,
+  ILesson,
+} from "../../types/global";
+import {
   ADD_CLASSROOM,
   ADD_DAY,
   ADD_ERROR,
@@ -49,46 +58,46 @@ const adminReducer = (state = initialState, action: any) => {
       return {
         ...state,
         teachers: state.teachers.filter(
-          (teacher: any) => teacher.id !== action.payload
+          (teacher: IFetchedUser) => teacher.id !== action.payload
         ),
       };
     case DELETE_COURSE:
       return {
         ...state,
         courses: state.courses.filter(
-          (course: any) => course.id !== action.payload
+          (course: ICourse) => course.id !== action.payload
         ),
       };
     case DELETE_LESSON:
       return {
         ...state,
         lessons: state.lessons.filter(
-          (lesson: any) => lesson.id !== action.payload
+          (lesson: ILesson) => lesson.id !== action.payload
         ),
       };
     case DELETE_GROUP:
       return {
         ...state,
         groups: state.groups.filter(
-          (group: any) => group.id !== action.payload
+          (group: IGroup) => group.id !== action.payload
         ),
       };
     case DELETE_CLASSROOM:
       return {
         ...state,
         classrooms: state.classrooms.filter(
-          (classroom: any) => classroom.id !== action.payload
+          (classroom: IClassroom) => classroom.id !== action.payload
         ),
       };
     case DELETE_DAY:
       return {
         ...state,
-        days: state.days.filter((day: any) => day.id !== action.payload),
+        days: state.days.filter((day: IDay) => day.id !== action.payload),
       };
     case DELETE_HOUR:
       return {
         ...state,
-        hours: state.hours.filter((hour: any) => hour.id !== action.payload),
+        hours: state.hours.filter((hour: IHour) => hour.id !== action.payload),
       };
     case ADD_GROUPS:
       return { ...state, groups: [...state.groups, action.payload] };

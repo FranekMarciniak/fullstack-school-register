@@ -1,14 +1,22 @@
 import React, { ReactElement, useEffect, useState } from "react";
+import { IHour, ILesson } from "../../types/global";
 interface Props {
-  hours: any[];
-  lessons: any[];
+  hours: IHour[];
+  lessons: ILesson[];
   deleteLesson?: (id: number) => void;
 }
 
+interface ITimetableLesson {
+  id: number | null;
+  hour: IHour;
+  lesson: ILesson | null;
+  periodNumber: number;
+}
+
 function TimetableDay({ hours, lessons, deleteLesson }: Props): ReactElement {
-  const [day, setDay] = useState([] as any);
+  const [day, setDay] = useState([] as ITimetableLesson[]);
   useEffect(() => {
-    const tempDay = [] as any;
+    const tempDay = [] as Array<ITimetableLesson>;
     hours.forEach((hour) => {
       if (!lessons) return;
       const lesson = lessons.find(
@@ -18,6 +26,7 @@ function TimetableDay({ hours, lessons, deleteLesson }: Props): ReactElement {
         periodNumber: hour.periodNumber,
         hour,
         lesson: lesson ? lesson : null,
+        id: lesson ? lesson.id : null,
       });
     });
     setDay(tempDay);
@@ -28,7 +37,7 @@ function TimetableDay({ hours, lessons, deleteLesson }: Props): ReactElement {
         className="flex flex-col gap-2  mt-5 border-2 "
         style={{ minWidth: "14rem" }}
       >
-        {day.map((lesson: any, i: number) => {
+        {day.map((lesson, i: number) => {
           return (
             <div
               key={i}
@@ -55,7 +64,7 @@ function TimetableDay({ hours, lessons, deleteLesson }: Props): ReactElement {
                   )}
                   {deleteLesson ? (
                     <button
-                      onClick={() => deleteLesson(day.id ? day.id : 0)}
+                      onClick={() => deleteLesson(lesson.id ? lesson.id : 0)}
                       className=" ml-2 mr-auto mt-3 px-2 py-1  rounded-md my-1 bg-red-300 hover:bg-red-500 transition-all duration-500 text-white"
                     >
                       Delete
@@ -65,7 +74,6 @@ function TimetableDay({ hours, lessons, deleteLesson }: Props): ReactElement {
               ) : (
                 <p className="px-3 block">Free time</p>
               )}
-              {console.log(lesson)}
             </div>
           );
         })}

@@ -6,8 +6,9 @@ import { getCoursesAction } from "../../redux/actions/teacher/coursesActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
 import GradesTable from "../../components/sections/student/GradesTable";
+import { IStudentState } from "../../types/student";
 interface Props {
-  student: any;
+  student: IStudentState;
   getGradesAction: () => void;
 }
 
@@ -28,7 +29,7 @@ const Grades = ({ getGradesAction, student }: Props) => {
     </Main>
   );
 };
-const mapStateToProps = ({ student }: { student: any }) => ({
+const mapStateToProps = ({ student }: { student: IStudentState }) => ({
   student,
 });
 
