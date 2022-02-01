@@ -34,7 +34,7 @@ function TimetableDay({ hours, lessons, deleteLesson }: Props): ReactElement {
   return (
     <>
       <div
-        className="flex flex-col gap-2  mt-5 border-2 "
+        className="flex flex-col gap-2  my-7 border-2 "
         style={{ minWidth: "14rem" }}
       >
         {day.map((lesson, i: number) => {
@@ -42,7 +42,7 @@ function TimetableDay({ hours, lessons, deleteLesson }: Props): ReactElement {
             <div
               key={i}
               className="flex flex-col justify-start font-mono"
-              style={{ minHeight: "4rem" }}
+              style={{ minHeight: "7rem" }}
             >
               <p className="block text-center mt-0 bg-gray-400">
                 {lesson.hour.intervalName}
