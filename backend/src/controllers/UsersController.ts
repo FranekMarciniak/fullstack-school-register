@@ -6,7 +6,7 @@ import {
   clientError,
   fail,
   notFound,
-  succsess,
+  success,
   conflict,
 } from './BaseController';
 import { User } from '../models/UserModel';
@@ -50,7 +50,7 @@ const createUser = async (req: express.Request, res: express.Response) => {
       group_id: group_id ? group_id : null,
     });
     await userToSave.save();
-    return succsess(res, 201, 'User created!');
+    return success(res, 201, 'User created!');
   } catch (error) {
     return fail(res, error as Error);
   }
@@ -77,7 +77,7 @@ const deleteUser = async (req: express.Request, res: express.Response) => {
       return notFound(res, 'User not found');
     }
     await userToDelete.destroy();
-    return succsess(res, 200, 'User deleted');
+    return success(res, 200, 'User deleted');
   } catch (err) {
     fail(res, err as Error);
   }
@@ -103,7 +103,7 @@ const editUser = async (req: express.Request, res: express.Response) => {
       lastName: lastName ? lastName : userToUpdate.get('lastName'),
       role: role ? role : userToUpdate.get('role'),
     });
-    return succsess(res, 200, 'Updated succsessfully');
+    return success(res, 200, 'Updated successfully');
   } catch (err) {
     fail(res, err as Error);
   }

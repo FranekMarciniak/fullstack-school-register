@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { passport } from '../index';
-import { notFound, succsess } from './BaseController';
+import { notFound, success } from './BaseController';
 
 const loginUser = (
   req: express.Request,
@@ -33,7 +33,7 @@ const logout = (req: express.Request, res: express.Response) => {
     path: '/',
   });
   req.session.destroy(function (err) {
-    return succsess(res, 200, 'Deleted session');
+    return success(res, 200, 'Deleted session');
   });
 };
 export default { loginUser, getUser, logout };

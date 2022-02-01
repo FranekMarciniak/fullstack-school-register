@@ -54,6 +54,20 @@ const LoginPage = ({
             <Submit text="Login" />
           </fieldset>
         </form>
+        <div className="mt-10 text-lg ">
+          <p>
+            Login for admin is: <strong>admin</strong>
+          </p>
+          <p>
+            Login for exapmple teacher is: <strong>lj000</strong>
+          </p>
+          <p>
+            Login for example student is: <strong>student7</strong>
+          </p>
+          <p className="mt-2">
+            Password for all is: <strong>qwerty!@#</strong>
+          </p>
+        </div>
       </div>
     </Main>
   );

@@ -16,7 +16,7 @@ const Alert = (props: Props) => {
       role="alert"
     >
       <strong className="font-bold">
-        {props.color === "danger" ? "Error!" : "Succsess!"}
+        {props.color === "danger" ? "Error!" : "Success!"}
       </strong>
       <span className="block sm:inline ml-4">{props.text}</span>
     </div>

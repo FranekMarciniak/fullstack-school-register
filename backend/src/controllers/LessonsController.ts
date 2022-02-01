@@ -5,7 +5,7 @@ import {
   clientError,
   fail,
   notFound,
-  succsess,
+  success,
   succsesJson,
   conflict,
 } from './BaseController';
@@ -137,7 +137,7 @@ const deleteLesson = async (req: express.Request, res: express.Response) => {
       return notFound(res, 'Lesson not found');
     }
     await lessonToDelete.destroy();
-    return succsess(res, 200, 'Lesson deleted');
+    return success(res, 200, 'Lesson deleted');
   } catch (err) {
     return fail(res, err as Error);
   }

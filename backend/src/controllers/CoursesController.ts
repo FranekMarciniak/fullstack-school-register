@@ -7,7 +7,7 @@ import {
   clientError,
   fail,
   notFound,
-  succsess,
+  success,
   succsesJson,
 } from './BaseController';
 import { IUser } from '../types/user';
@@ -66,7 +66,7 @@ const deleteCourse = async (req: express.Request, res: express.Response) => {
       return notFound(res, 'Course not found');
     }
     await courseToDelete.destroy();
-    return succsess(res, 200, 'Course deleted');
+    return success(res, 200, 'Course deleted');
   } catch (err) {
     return fail(res, err as Error);
   }
@@ -84,7 +84,7 @@ const editCourse = async (req: express.Request, res: express.Response) => {
       return notFound(res, 'Course not found');
     }
     await courseToUpdate.update({ name, teacher_id, group_id });
-    return succsess(res, 200, 'Updated succsessfully');
+    return success(res, 200, 'Updated successfully');
   } catch (err) {
     return fail(res, err as Error);
   }

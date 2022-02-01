@@ -35,7 +35,7 @@ export const fail = (res: express.Response, error: Error | string) => {
     message: error.toString(),
   });
 };
-export const succsess = (
+export const success = (
   res: express.Response,
   code: number,
   message: string,

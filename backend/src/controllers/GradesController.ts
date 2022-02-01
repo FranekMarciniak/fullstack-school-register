@@ -6,7 +6,7 @@ import {
   fail,
   notFound,
   succsesJson,
-  succsess,
+  success,
 } from './BaseController';
 import { User } from '../models/UserModel';
 import { Course } from '../models/CourseModel';
@@ -100,7 +100,7 @@ const deleteGrade = async (req: express.Request, res: express.Response) => {
       return notFound(res, 'Grade not found');
     }
     await gradeToDelete.destroy();
-    return succsess(res, 200, 'Grade deleted');
+    return success(res, 200, 'Grade deleted');
   } catch (err) {
     fail(res, err as Error);
   }
@@ -129,7 +129,7 @@ const editGrade = async (req: express.Request, res: express.Response) => {
     return succsesJson(
       res,
       200,
-      'Updated succsessfully',
+      'Updated successfully',
       gradeToUpdate.dataValues,
     );
   } catch (err) {

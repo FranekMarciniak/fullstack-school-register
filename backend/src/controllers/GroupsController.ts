@@ -5,7 +5,7 @@ import {
   clientError,
   fail,
   notFound,
-  succsess,
+  success,
   succsesJson,
 } from './BaseController';
 import { Course } from '../models/CourseModel';
@@ -67,7 +67,7 @@ const deleteGroup = async (req: express.Request, res: express.Response) => {
       return notFound(res, 'Group not found');
     }
     await groupToDelete.destroy();
-    return succsess(res, 200, 'Group deleted');
+    return success(res, 200, 'Group deleted');
   } catch (err) {
     fail(res, err as Error);
   }
@@ -88,7 +88,7 @@ const editGroup = async (req: express.Request, res: express.Response) => {
     await groupToUpdate.update({
       name,
     });
-    return succsess(res, 200, 'Updated succsessfully');
+    return success(res, 200, 'Updated successfully');
   } catch (err) {
     fail(res, err as Error);
   }

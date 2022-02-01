@@ -5,7 +5,7 @@ import {
   clientError,
   fail,
   notFound,
-  succsess,
+  success,
   succsesJson,
   conflict,
 } from './BaseController';
@@ -47,7 +47,7 @@ const deleteHour = async (req: express.Request, res: express.Response) => {
       return notFound(res, 'Hour not found');
     }
     await hourToDelete.destroy();
-    return succsess(res, 200, 'Hour deleted');
+    return success(res, 200, 'Hour deleted');
   } catch (err) {
     fail(res, err as Error);
   }
@@ -69,7 +69,7 @@ const editHour = async (req: express.Request, res: express.Response) => {
       periodNumber,
       intervalName,
     });
-    return succsess(res, 200, 'Updated succsessfully');
+    return success(res, 200, 'Updated successfully');
   } catch (err) {
     fail(res, err as Error);
   }

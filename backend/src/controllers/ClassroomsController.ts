@@ -5,7 +5,7 @@ import {
   clientError,
   fail,
   notFound,
-  succsess,
+  success,
   succsesJson,
 } from './BaseController';
 
@@ -40,7 +40,7 @@ const deleteClassroom = async (req: express.Request, res: express.Response) => {
       return notFound(res, 'Classroom not found');
     }
     await classroomToDelete.destroy();
-    return succsess(res, 200, 'Classroom deleted');
+    return success(res, 200, 'Classroom deleted');
   } catch (err) {
     fail(res, err as Error);
   }
@@ -61,7 +61,7 @@ const editClassroom = async (req: express.Request, res: express.Response) => {
     await classroomToUpdate.update({
       name,
     });
-    return succsess(res, 200, 'Updated succsessfully');
+    return success(res, 200, 'Updated successfully');
   } catch (err) {
     fail(res, err as Error);
   }
