@@ -68,7 +68,7 @@ const Timetable = ({
               keyToDisplay="name"
             />
           </section>
-          <section className="flex flex-wrap items-start gap-4 ">
+          <section className="flex flex-wrap items-center justify-center  md:justify-start gap-4 ">
             {daysToDisplay.map((value: string, i: number) => (
               <div className="flex flex-col items-center">
                 <h3 className="font-medium text-lg font-mono">

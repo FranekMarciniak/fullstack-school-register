@@ -40,7 +40,7 @@ const Timetable = ({
     <Main meta={<Meta title="Mars" description="" />}>
       <div className="w-full flex flex-col items-center justify-content  py-6 px-4 ">
         <main className="w-full h-full flex flex-col flex-wrap ">
-          <section className="flex flex-wrap items-start gap-4 ">
+          <section className="flex flex-wrap items-start  gap-4 ">
             {daysToDisplay.map((value: string, i: number) => (
               <div className="flex flex-col items-center" key={i}>
                 <h3 className="font-medium text-lg font-mono">
