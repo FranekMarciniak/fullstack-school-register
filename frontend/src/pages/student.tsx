@@ -4,7 +4,9 @@ import Routes from "../utils/Routes";
 
 const Student = () => (
   <Main meta={<Meta title="Mars" description="" />}>
-    <h1>Student dashboard</h1>
+    <h1 className="text-2xl mt-4 font-medium">
+      Student dashboard, build in progress
+    </h1>
   </Main>
 );
 

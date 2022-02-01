@@ -38,7 +38,7 @@ const Timetable = ({
   }, [student.timetable]);
   return (
     <Main meta={<Meta title="Mars" description="" />}>
-      <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
+      <div className="w-full flex flex-col items-center justify-content  py-6 px-4 ">
         <main className="w-full h-full flex flex-col flex-wrap ">
           <section className="flex flex-wrap items-start gap-4 ">
             {daysToDisplay.map((value: string, i: number) => (

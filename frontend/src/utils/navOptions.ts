@@ -46,12 +46,12 @@ export const teacherNavOptions = [
 export const adminNavOptions = [
   { text: "Dashboard", href: "/admin", icon: MdSpaceDashboard },
   { text: "Teachers", href: "/admin/teachers/", icon: GiTeacher },
-  { text: "Students", href: "/admin/students/", icon: FaUsers },
   {
     text: "Classrooms and Groups",
     href: "/admin/classroomsandgroups/",
     icon: MdRoomPreferences,
   },
+  { text: "Students", href: "/admin/students/", icon: FaUsers },
   { text: "Courses", href: "/admin/courses/", icon: GiNotebook },
   {
     text: "Hours and Days",

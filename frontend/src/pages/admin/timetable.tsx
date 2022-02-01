@@ -12,7 +12,7 @@ import { getGroupsAction } from "../../redux/actions/admin/groupsActions";
 import { deleteLessonAction } from "../../redux/actions/admin/lessonsActions";
 import Main from "../../templates/Main";
 import Routes from "../../utils/Routes";
-import { IAdminState } from "../../types/global";
+import { IAdminState, IDay } from "../../types/global";
 import TimetableDay from "../../components/timetable/timetableDay";
 interface Props {
   admin: IAdminState;
@@ -57,7 +57,7 @@ const Timetable = ({
   }, [admin.timetable]);
   return (
     <Main meta={<Meta title="Mars" description="" />}>
-      <div className="w-full flex flex-col items-center justify-content  py-6 px-4 lg:h-screen">
+      <div className="w-full flex flex-col items-center justify-content  py-6 px-4 ">
         <main className="w-full h-full flex flex-col flex-wrap ">
           <section className="w-full mb-10 px-2 flex ">
             <Select
@@ -72,14 +72,16 @@ const Timetable = ({
             {daysToDisplay.map((value: string, i: number) => (
               <div className="flex flex-col items-center">
                 <h3 className="font-medium text-lg font-mono">
-                  {admin.days[0].dayNumber
-                    ? admin.days.find((day) => day.dayNumber == value).name
+                  {admin.days[0]
+                    ? (admin.days as any).find(
+                        (day: IDay) => day.dayNumber == parseInt(value)
+                      ).name
                     : null}
                 </h3>
                 <TimetableDay
                   key={i}
                   hours={admin.hours}
-                  lessons={admin.timetable[parseInt(value)]}
+                  lessons={admin.timetable[parseInt(value)] as any}
                   deleteLesson={deleteLessonAction}
                 />
               </div>
