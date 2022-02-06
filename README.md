@@ -4,6 +4,14 @@ Mars is a fully-featured school register including planning, timetables,
 and grades. The project is mostly done as my
 portfolio project showcasing my skills.
 
+## Achievements
+
+- Developed fully featured school register including creating schedules for teachers and students,adding grades for students, and role management.
+
+- Implemented MVC architecture on the backend and utilized redux on the frontend for state managment.
+
+- Created custom administrator control panel to manage lessons, users and schedules.
+
 ## Roadmap
 
 - Add attendance
